@@ -1,0 +1,24 @@
+# Vindex directories (large binary model data)
+*.vindex/
+
+# Experiment outputs
+outputs/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+*.so
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Rust build artifacts
+larql/target/
+
+# OS
+.DS_Store
