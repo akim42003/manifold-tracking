@@ -317,6 +317,11 @@ def main():
                    "params": vars(args)}, f, indent=2)
     print(f"\nSaved: {out_path}")
 
+    # Cache filtered offsets so visualize_manifold.py can skip the 77-second gate search
+    cache_path = os.path.join(out_dir, "offsets_cached.npz")
+    np.savez(cache_path, dirs=dirs, out_ids=out_ids, in_ids=in_ids, assignments=assignments)
+    print(f"Cached: {cache_path}")
+
 
 if __name__ == "__main__":
     main()
