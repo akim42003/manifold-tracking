@@ -68,7 +68,8 @@ def read_gate_vectors(p, idx):
     return raw.reshape(raw.size // hidden, hidden).astype(np.float32)
 
 
-def compute_directions(vindex_path, gate_cos_threshold, same_concept_threshold):
+def compute_directions(vindex_path, gate_cos_threshold, same_concept_threshold,
+                       gate_cos_percentile=None):
     idx = read_index(vindex_path)
     bands = idx.get("layer_bands", {})
     kl_min = bands["knowledge"][0] if "knowledge" in bands else min(14, idx["num_layers"])
@@ -115,6 +116,23 @@ def compute_directions(vindex_path, gate_cos_threshold, same_concept_threshold):
                   end="\r", flush=True)
     print()
 
+    # Always print percentile table — needed for threshold calibration across models
+    print(f"  Gate cosine distribution (all {n_kl:,} features):")
+    for p in [50, 75, 85, 90, 95, 99]:
+        print(f"    p{p:2d}: {np.percentile(gate_cos, p):.4f}")
+
+    # Resolve threshold: percentile-based overrides fixed value
+    if gate_cos_percentile is not None:
+        gate_cos_threshold = float(np.percentile(gate_cos, gate_cos_percentile))
+        keep_pct = 100 - gate_cos_percentile
+        print(f"  Percentile p{gate_cos_percentile} → threshold {gate_cos_threshold:.4f} "
+              f"(keeping top {keep_pct}% of features)")
+    else:
+        keep_n = (gate_cos >= gate_cos_threshold).sum()
+        keep_pct = keep_n / n_kl * 100
+        print(f"  Fixed threshold {gate_cos_threshold} → keeping {keep_n:,} / {n_kl:,} "
+              f"features ({keep_pct:.1f}%)")
+
     valid = ((kl_out_ids > 0) & (~np.isin(kl_out_ids, list(special_ids))) &
              (kl_out_ids < embed.shape[0]) & (gate_cos >= gate_cos_threshold) &
              (in_ids != kl_out_ids))
@@ -131,7 +149,7 @@ def compute_directions(vindex_path, gate_cos_threshold, same_concept_threshold):
     dirs = normalize((out_vecs - in_vecs).astype(np.float32), norm="l2")
     keep = np.linalg.norm(dirs, axis=1) > 0.1
     print(f"  Directions after all filters: {keep.sum():,}  "
-          f"(gate≥{gate_cos_threshold}: {valid.sum():,}  "
+          f"(gate≥{gate_cos_threshold:.4f}: {valid.sum():,}  "
           f"cosine≤{same_concept_threshold}: {diff_mask.sum():,})")
 
     return dirs[keep], kl_out_ids[valid_idx][keep], in_ids[valid_idx][keep], embed
@@ -252,7 +270,12 @@ def main():
     parser.add_argument("--min-cluster-size", type=int, default=30,
                         help="Skip clusters smaller than this (default 30)")
     parser.add_argument("--gate-cos-threshold", type=float, default=0.15,
-                        help="Gate cosine threshold (default 0.15, lower = more offsets)")
+                        help="Fixed gate cosine threshold (default 0.15). Ignored if "
+                             "--gate-cos-percentile is set.")
+    parser.add_argument("--gate-cos-percentile", type=float, default=None,
+                        help="Keep features above this percentile of the gate cosine "
+                             "distribution (e.g. 85 keeps top 15%%). Overrides "
+                             "--gate-cos-threshold. Recommended for cross-model comparisons.")
     parser.add_argument("--same-concept-threshold", type=float, default=0.9)
     args = parser.parse_args()
 
@@ -261,7 +284,8 @@ def main():
 
     print(f"Computing offset directions from {args.vindex} ...")
     dirs, out_ids, in_ids, embed = compute_directions(
-        args.vindex, args.gate_cos_threshold, args.same_concept_threshold)
+        args.vindex, args.gate_cos_threshold, args.same_concept_threshold,
+        gate_cos_percentile=args.gate_cos_percentile)
 
     if len(dirs) < args.k * args.min_cluster_size:
         print(f"\nWarning: {len(dirs):,} directions / k={args.k} = "
