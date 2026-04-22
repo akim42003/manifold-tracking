@@ -9,7 +9,7 @@ reading the others.
 ## Prerequisites
 
 ```bash
-pip install numpy scikit-learn matplotlib pandas umap-learn
+pip install numpy scikit-learn matplotlib pandas umap-learn nltk
 ```
 
 LARQL binary (already built):
@@ -310,17 +310,23 @@ offset vectors assigned to one relation cluster, run SVD on those, and the
 relation subspaces, which is naturally much higher-dimensional and is the wrong
 object.
 
+Unlike the old `analyze_raw_directions.py`, this script recomputes the full
+offset direction pipeline from the raw vindex binary files without needing
+`relation_clusters.json`.
+
 ```bash
-python per_cluster_svd.py --vindex gemma3-4b.vindex
+# Recommended invocation for Gemma 3 4B
+python per_cluster_svd.py --vindex gemma3-4b.vindex \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100
 
 # Key options
-#   --k INT                  number of k-means clusters (default 64 — lower than
-#                            generate_clusters.py to ensure ≥30 points per cluster)
-#   --min-cluster-size INT   skip clusters smaller than this (default 30)
-#   --gate-cos-threshold F   gate cosine confidence cutoff (default 0.15;
-#                            use 0.3 for TinyLlama, 0.15 for Gemma which has
-#                            lower gate cosines in 2560D space)
-#   --same-concept-threshold F  drop pairs with cosine(E[out],E[in]) > this (default 0.9)
+#   --k INT                      number of clusters (default 64)
+#   --min-cluster-size INT        skip clusters below this size (default 30)
+#   --gate-cos-percentile FLOAT  keep top N% by gate cosine (e.g. 85 → top 15%)
+#   --gate-cos-threshold F        fixed threshold fallback (default 0.15)
+#   --same-concept-threshold F   drop pairs with cos(E[out],E[in]) > this (0.9)
+#   --n-bootstrap INT             bootstrap resamples for d50 CI (default 200)
+#   --clustering {euclidean,spherical}  algorithm (default euclidean)
 ```
 
 **Pass/fail criterion**: ≥50% of clusters have d50 in 5–22D.
@@ -332,45 +338,91 @@ python per_cluster_svd.py --vindex gemma3-4b.vindex
   Stat          d50    d90  gap_ratio
   ──────────────────────────────────────
   median       54.0  212.0       1.48
-  mean         71.2  234.1       1.62
-  p5            7.0   28.0       1.02
-  p95         368.0  ...         ...
-
-  Range: d50 = 7–368D  (target 5-22D)
+  ...
   Clusters with d50 in 5–22D: 20/60 (33%)
 
   ✗ REPLICATION FAILS
-  Criterion: ≥50% of clusters have d50 in 5–22D (got 33%)
 
 ── Passing clusters (20) — sorted by d50 ──
-  c  n    d50  d90  top pairs
-  ...
-
-── Failing clusters (40) — top-10 by size ──
-  c  n    d50  d90  top pairs
+  c  n    d50  ci90   d90  top pairs
   ...
 ```
 
 The passing clusters section is the interpretive core: if they contain
 recognisable semantic relations (e.g. `France→Paris`, `sing→sang`,
-`dog→dogs`), you have literally replicated the Hernandez finding — a set of
-human-readable linear relations each of which lives in a low-dimensional
-subspace.
+`dog→dogs`), you have replicated the Hernandez finding.
 
 **Choosing k**: lower k means more points per cluster, more reliable SVD.
-Start at k=64.  If ~20 clusters pass at k=64, try k=32 and k=16 — if the
-clean-cluster count stays roughly constant (~20), that number is the real
-count of linearly-decodable relation types in the FFN proxy data, and the
-noise concentrates into fewer, larger buckets as k decreases.
+Start at k=64.  If ~20 clusters pass at k=64, try k=32 and k=16.
 
-**Why the gate threshold matters**: in 2560D (Gemma), even meaningful
-gate-to-word alignments produce lower absolute cosine scores than in 2048D
-(TinyLlama).  At threshold 0.3, only 2,844 directions survive for Gemma (too
-few for per-cluster SVD).  At 0.15, ~23,000 directions survive — enough for
-reliable per-cluster analysis with k=64.
+**Gate threshold**: use `--gate-cos-percentile 85` for cross-model comparisons
+(model-agnostic, always keeps top 15% of features).  Use `--gate-cos-threshold
+0.15` for Gemma, `0.3` for TinyLlama-class models if you prefer a fixed value.
 
-Saves `outputs/<vindex_name>/per_cluster_svd.json` with per-cluster results
-and top token pairs per cluster.
+**Output files**:
+- `outputs/<vindex>/per_cluster_svd.json` — Euclidean run results
+- `outputs/<vindex>/per_cluster_svd_spherical.json` — spherical run results
+- `outputs/<vindex>/offsets_cached.npz` — cached vectors + assignments (Euclidean)
+- `outputs/<vindex>/offsets_cached_spherical.npz` — cached vectors (spherical)
+
+---
+
+## Experiment 3c — Spherical k-means comparison
+
+**Scripts**: `per_cluster_svd.py --clustering spherical` + `compare_clustering_methods.py`
+
+**Motivation**: offset directions are L2-normalised unit vectors living on the
+unit sphere.  MiniBatchKMeans minimises squared Euclidean distance and lets
+centroids drift off the sphere.  Spherical k-means renormalises centroids after
+each update, respecting the geometry.  The question is whether this algorithmic
+difference produces meaningfully different partitions on Gemma's offset data.
+
+```bash
+# 1. Run Euclidean (may already be done from 3b)
+python per_cluster_svd.py --vindex gemma3-4b.vindex \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100 \
+    --clustering euclidean
+
+# 2. Run spherical
+python per_cluster_svd.py --vindex gemma3-4b.vindex \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100 \
+    --clustering spherical
+
+# 3. Compare
+python compare_clustering_methods.py --vindex gemma3-4b.vindex
+```
+
+**What the comparison produces**:
+
+```
+── Summary statistics ──────────────────────────────────────────────
+  Metric                       Euclidean     Spherical
+  Pass rate (% d50 in 5-22D)      XX.X%         XX.X%
+  d50 median                        XX.X          XX.X
+  ...
+
+── Cluster size distributions ──────────────────────────────────────
+  Bin             Euclidean     Spherical
+  n<10                  ...           ...
+  ...
+
+── Jaccard overlap (euclidean→spherical) ───────────────────────────
+  Jaccard ≥ 0.8: N/256 (XX%)
+  Jaccard ≥ 0.5: N/256 (XX%)
+  Median Jaccard: 0.XXX
+
+── Content comparison (known probe pairs) ──────────────────────────
+  yourself→you:  eu=c42(yourself→you)  sph=c71(yourself→you)  jaccard=0.XXX
+  ...
+```
+
+**Interpreting results**:
+- Median Jaccard > 0.7 + pass rates within a few percent → methods agree;
+  MiniBatchKMeans is faster, keep it as default.
+- Meaningful pass-rate improvement or much higher Jaccard on known tight
+  clusters → adopt spherical as default.
+- Spherical worse → investigate before concluding; verify implementation on
+  synthetic data first (ARI should be > 0.9 on 3-cluster toy data).
 
 ---
 
@@ -423,34 +475,30 @@ git -C ~/manifold-tracking/larql rev-parse --short HEAD
 larql extract-index "$MODEL" -o "${NAME}.vindex" --level browse --f16
 
 # 2. Verify
-ls "${NAME}.vindex/"   # must include index.json, embeddings.bin, gate_vectors.bin, down_meta.bin
+ls "${NAME}.vindex/"
+# Required: index.json  embeddings.bin  gate_vectors.bin  down_meta.bin  tokenizer.json
 
 # 3. Inspect model size to choose starting k
 jq '{layers: .num_layers, hidden: .hidden_size, intermediate: .intermediate_size}' \
     "${NAME}.vindex/index.json"
-# k=256 for ≤2B, k=512 for 4–8B, k=1024 for larger (validate with cluster quality check)
+# k=256 for ≤2B, k=512 for 4–8B, k=1024 for larger
 
-# 4. Generate clusters
-python generate_clusters.py "${NAME}.vindex" --k 256
-
-# 5. Random baseline
+# 4. Random baseline (establishes what "no structure" looks like)
 python baseline_random.py --vindex "${NAME}.vindex"
 
-# 6. Primary replication (raw SVD + cluster quality)
+# 5. Per-cluster SVD — primary 5-22D replication test
 mkdir -p "outputs/${NAME}"
-python analyze_raw_directions.py --vindex "${NAME}.vindex" \
-    | tee "outputs/${NAME}/raw_analysis.txt"
-
-# 7. Per-cluster SVD (correct 5-22D replication)
 python per_cluster_svd.py --vindex "${NAME}.vindex" \
-    --k 64 --gate-cos-threshold 0.15
-# Use --gate-cos-threshold 0.3 for smaller models (TinyLlama-class)
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100
+# For smaller models use --gate-cos-threshold 0.3 instead of percentile
 
-# 8. Visualization (centroid SVD + UMAP)
-python replicate_relation_offsets.py \
-    --vindex "${NAME}.vindex" \
-    --out "outputs/${NAME}" \
-    --bootstrap 200
+# 6. Visualization
+python visualize_manifold.py --vindex "${NAME}.vindex" --k 256
+
+# 7. Spherical k-means comparison (optional, adds ~30 min)
+python per_cluster_svd.py --vindex "${NAME}.vindex" \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100 --clustering spherical
+python compare_clustering_methods.py --vindex "${NAME}.vindex"
 ```
 
 ---
@@ -510,11 +558,10 @@ effect on relation manifold dimensionality.
 **`gate_vectors.bin` present but very small**
 → Extraction failed partway through.  Delete and re-extract.
 
-**SVD takes > 5 min for raw directions**
-→ `analyze_raw_directions.py` uses randomized SVD (80 components) and should
-finish in ~1 min for 44k × 2048.  Memory pressure is more likely than compute
-— the gate vector matmul (`n_kl × ww_vocab_size`) needs ~6 GB for Gemma.
-Reduce `batch` in the script from 2048 to 512 if the machine is memory-constrained.
+**Gate NN search hangs or runs out of memory**
+→ `per_cluster_svd.py` runs a batched matmul of shape `(n_kl × ww_vocab_size)`
+— for Gemma this is ~20k × 16k = ~6 GB in f32.  The batch size is set to 2048
+rows; reduce it in `compute_directions()` if memory-constrained.
 
 **Silhouette score computation hangs**
 → Capped at 5000 sample points internally.  If still slow, the issue is the
@@ -530,5 +577,19 @@ relation manifolds compress cleanly (Platonic Representation Hypothesis scaling
 effect).  See "What to do if Gemma also fails" above.
 
 **`umap-learn` not installed**
-→ `pip install umap-learn`.  Only `replicate_relation_offsets.py` needs it —
-`analyze_raw_directions.py` and `baseline_random.py` do not.
+→ `pip install umap-learn`.  Only `visualize_manifold.py` needs it;
+`per_cluster_svd.py` and `baseline_random.py` do not.
+
+**Spherical k-means is slow at K=256**
+→ `NLTKSphericalKMeans` runs `n_init=10` restarts sequentially; each restart
+is O(n × K × iter).  For Gemma with ~20k directions and K=256 this takes
+roughly 20–40 min.  Lower `n_init` to 3 for quick iteration:
+```python
+km = SphericalKMeans(n_clusters=256, n_init=3, random_state=42)
+```
+
+**Spherical k-means ARI < 0.8 on synthetic data**
+→ Run the sanity check in ARCHITECTURE.md §4 to verify the NLTK backend is
+working.  ARI should be > 0.9 on 3-cluster toy data in 100D.  If it's not,
+NLTK may have changed its `cosine_distance` convention — check
+`nltk.cluster.util.cosine_distance` returns 0 for identical vectors.

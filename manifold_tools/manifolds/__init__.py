@@ -89,13 +89,18 @@ def svd_with_bootstrap(
     rng = np.random.default_rng(random_state)
     alpha = (1.0 - bootstrap_ci) / 2.0
     bootstrap_S = np.zeros((n_bootstrap, k), dtype=np.float64)
+    bootstrap_d50 = np.zeros(n_bootstrap, dtype=np.int32)
 
     for i in range(n_bootstrap):
         row_idx = rng.integers(0, n, size=n)
         X_boot = X[row_idx]
         if center:
             X_boot = X_boot - X_boot.mean(axis=0)
-        bootstrap_S[i] = _run_svd(X_boot, k)
+        S_boot = _run_svd(X_boot, k)
+        bootstrap_S[i] = S_boot
+        var_boot = S_boot ** 2
+        cum_boot = np.cumsum(var_boot) / max(var_boot.sum(), 1e-12)
+        bootstrap_d50[i] = min(int(np.searchsorted(cum_boot, 0.50)) + 1, k)
 
     lower = np.percentile(bootstrap_S, alpha * 100, axis=0)
     upper = np.percentile(bootstrap_S, (1 - alpha) * 100, axis=0)
@@ -105,6 +110,7 @@ def svd_with_bootstrap(
         cumulative_variance=cum_var,
         bootstrap_lower=lower.astype(np.float32),
         bootstrap_upper=upper.astype(np.float32),
+        d50_distribution=bootstrap_d50,
         spectral_gap_idx=gap_idx,
         spectral_gap_ratio=gap_ratio,
         n_vectors=n,

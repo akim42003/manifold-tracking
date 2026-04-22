@@ -1,8 +1,26 @@
 # Vindex directories (large binary model data)
 *.vindex/
 
+# Checkpoint directories
+*-checkpoints/
+*checkpoints/
+
 # Experiment outputs
 outputs/
+
+# Logs
+*.log
+
+# Large binary / data files
+*.npz
+*.npy
+*.pkl
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.h5
+*.hdf5
 
 # Python
 __pycache__/

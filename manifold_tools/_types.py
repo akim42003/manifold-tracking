@@ -51,6 +51,7 @@ class SVDResult:
     cumulative_variance: np.ndarray   # [k] — fraction of total variance
     bootstrap_lower: np.ndarray       # [k] — 5th percentile over resamples
     bootstrap_upper: np.ndarray       # [k] — 95th percentile over resamples
+    d50_distribution: np.ndarray      # [n_bootstrap] — d50 per resample
     spectral_gap_idx: int             # index i where S[i]/S[i+1] is largest
     spectral_gap_ratio: float
     n_vectors: int

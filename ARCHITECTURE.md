@@ -191,14 +191,15 @@ Three dataclasses that flow through the whole pipeline:
   and `.filter(mask)` convenience properties.
 - **`SVDResult`**: output of `svd_with_bootstrap`.  Contains `singular_values`,
   `cumulative_variance`, `bootstrap_lower`/`upper` CI bands, `spectral_gap_idx`
-  and `spectral_gap_ratio`, plus `provenance` recording all hyperparameters.
+  and `spectral_gap_ratio`, `d50_distribution [n_bootstrap]` (per-resample d50
+  used for CI), plus `provenance` recording all hyperparameters.
 - **`ProjectionResult`**: output of `umap_project` and `isomap_project`.
   Contains `coords [n, n_components]`, the original `metadata`, `metric`, and
   `provenance`.
 
 #### `directions/__init__.py`
 
-Three loaders, each returning a `DirectionBundle`:
+Loaders, each returning a `DirectionBundle`:
 
 - **`load_relation_offsets(vindex_path)`**: reads `relation_clusters.json`
   directly.  No LARQL Python bindings needed — the JSON serialises the full
@@ -208,6 +209,9 @@ Three loaders, each returning a `DirectionBundle`:
   vectors for selected layers.  Needs LARQL Python bindings installed.
 - **`load_embeddings(vindex_path, sample)`**: calls
   `vindex.embedding_matrix()`.  Returns the token embedding matrix.
+- **`bundle_from_vectors(vectors, metadata, vindex_hash, config)`**: wraps a
+  pre-computed float32 array in a `DirectionBundle` for downstream analysis.
+  Used by `per_cluster_svd.py` after computing offsets manually.
 
 Metric guidance in the docstrings: use cosine for offsets and residuals
 (direction only), euclidean or dot for gates (magnitude encodes selectivity).
@@ -232,16 +236,154 @@ Metric guidance in the docstrings: use cosine for offsets and residuals
   additional geometric primitives for comparing manifolds across checkpoints
   (finetuning tracking use case).
 
+#### `clustering/__init__.py`
+
+Spherical k-means implementations for unit-normalized direction vectors.
+Euclidean k-means (the sklearn default) minimises squared Euclidean distance
+and lets centroids drift off the unit sphere; spherical k-means renormalises
+centroids after each update step, respecting the geometry of the data.
+
+- **`SphericalKMeans(n_clusters, ...)`**: factory that returns the best
+  available backend.  Prefers `NLTKSphericalKMeans` (wraps
+  `nltk.cluster.KMeansClusterer` with cosine_distance; battle-tested, handles
+  `n_init` restarts natively) and falls back to `_FallbackSphericalKMeans`
+  (hand-rolled k-means++ init adapted for cosine distance) if NLTK is absent.
+  Both expose the same sklearn-like API: `fit_predict(X)` returns integer
+  assignments; `cluster_centers_`, `inertia_` (sum of 1−cosine_sim), and
+  `n_iter_` are set as attributes.
+
+Used by `per_cluster_svd.py --clustering spherical`; compared against
+MiniBatchKMeans via `compare_clustering_methods.py`.
+
 #### `visualize/__init__.py`
 
 - **`spectrum_plot`**: two-panel figure.  Left: log-scale singular values +
   bootstrap ribbon.  Right: cumulative variance with labelled threshold lines
   at 50/90/95/99% and a vertical line marking the spectral gap.
 - **`projection_plot`**: UMAP or Isomap scatter.  `color_by` can be a metadata
-  column name; handles both categorical (tab20 palette) and continuous
-  (viridis) coloring automatically.
-- **`trajectory_plot`**, **`procrustes_heatmap`**: planned for finetuning
-  trajectory visualization (not yet exercised).
+  column name; handles both categorical (colorblind-friendly 20-color palette)
+  and continuous (viridis) coloring automatically.
+- **`trajectory_plot`**, **`procrustes_heatmap`**: finetuning trajectory
+  visualization — residual stream norms across layers and pairwise Procrustes
+  alignment heatmaps.
+
+### `per_cluster_svd.py`
+
+**Purpose**: the correct replication of the 5–22D claim.
+
+The claim is about *within-relation* dimensionality: for each relation cluster,
+take all its offset vectors, run SVD, and the 50%-variance dimension is 5–22D.
+Pooled SVD across all clusters measures the union of subspaces and is the wrong
+object.
+
+Unlike `analyze_raw_directions.py` (which is not in this repo), this script
+recomputes the full offset direction pipeline from scratch — it does not require
+`relation_clusters.json` and does not depend on LARQL's internal clustering.
+
+Pipeline:
+1. Reads `embeddings.bin`, `gate_vectors.bin`, `down_meta.bin`, `tokenizer.json`
+   from the vindex directly.
+2. Builds the whole-word vocabulary (SentencePiece `▁` + alphabetic-only) and
+   applies gate cosine thresholding to keep only high-confidence features.
+3. Computes offset directions `normalize(E[output] − E[input])`.
+4. Clusters directions with k-means (`--clustering euclidean` or `spherical`).
+5. For each cluster with ≥ `--min-cluster-size` points, runs `svd_with_bootstrap`
+   and reports d50, d90, and the spectral gap.
+6. Saves results to `outputs/<vindex>/per_cluster_svd{suffix}.json` and
+   caches the filtered offset vectors and cluster assignments to
+   `offsets_cached{suffix}.npz` for use by `visualize_manifold.py`.
+
+**Clustering suffix**: Euclidean runs produce `per_cluster_svd.json` (no
+suffix, backward-compatible); spherical runs produce
+`per_cluster_svd_spherical.json` and `offsets_cached_spherical.npz`.
+
+Key CLI options:
+```
+--vindex PATH               path to .vindex directory
+--k INT                     number of clusters (default 64)
+--gate-cos-percentile FLOAT keep features above this percentile of gate cosine
+                            distribution (e.g. 85 keeps top 15%)
+--gate-cos-threshold FLOAT  fixed threshold fallback (default 0.15)
+--same-concept-threshold F  drop pairs with cos(E[out],E[in]) > this (default 0.9)
+--min-cluster-size INT      skip clusters smaller than this (default 30)
+--n-bootstrap INT           bootstrap resamples for d50 CI (default 200)
+--clustering {euclidean,spherical}  clustering algorithm (default euclidean)
+```
+
+### `compare_clustering_methods.py`
+
+**Purpose**: compare Euclidean vs. spherical k-means outputs side-by-side.
+
+Loads `per_cluster_svd.json` and `per_cluster_svd_spherical.json` from the
+same vindex output directory.  Requires `offsets_cached*.npz` files for the
+Jaccard and size-distribution analyses.
+
+Reports:
+1. Pass rate, d50 median, cluster counts, skip rate — both methods.
+2. Cluster size distribution histograms (5 bins: <10, 10–29, 30–99, 100–499, ≥500).
+3. Jaccard overlap: for each Euclidean cluster, best Jaccard against any
+   spherical cluster.  Distribution of scores at thresholds 0.8 / 0.5 / 0.3.
+4. Content comparison: 5 probe pairs (yourself→you, Japanese→Japan, etc.)
+   — which cluster each method assigns them to, and their pairwise Jaccard.
+
+Saves `outputs/<vindex>/clustering_comparison.json`.
+
+### `visualize_manifold.py`
+
+**Purpose**: visualize `per_cluster_svd.py` output — spectrum, token-pair
+heatmap, and UMAP.
+
+Loads the `offsets_cached.npz` cache produced by `per_cluster_svd.py`
+(rerunning the full gate search if the cache is absent).  Feeds cluster-filtered
+vectors through `svd_with_bootstrap`, `umap_project`, and the visualize module.
+
+Outputs per-cluster spectrum plots, a heatmap of top input→output token pairs,
+and a UMAP of all offset directions colored by cluster assignment.
+
+### `aggregate_olmo2_trajectory.py`
+
+**Purpose**: aggregate `per_cluster_svd.json` results across OLMo-2 training
+checkpoints to track how relation manifold structure emerges during training.
+
+Reads results from 7 hard-coded checkpoint stages (stage1-step150 through
+stage1-step928646), extracts pass_rate, d50_median, d50_range, and sample
+passing pairs, and writes `outputs/olmo2_trajectory.json` for downstream
+plotting.
+
+### `visualize_olmo2_trajectory.py`
+
+**Purpose**: plot the OLMo-2 training trajectory from
+`aggregate_olmo2_trajectory.py` output.
+
+Four figures: pass rate vs tokens (log scale), d50 boxplots per checkpoint,
+median d50 + IQR band, and n_analyzed / n_passing counts.  Each saved as
+`.png` and `.svg`.
+
+### `baseline_random.py`
+
+**Purpose**: null baseline — generate random unit vectors in the same ambient
+space as a vindex and run the identical SVD + MiniBatch k-means pipeline.
+
+Establishes what "no structure" looks like numerically.  For isotropic unit
+vectors in d-dimensional space, the singular value spectrum is flat and 50%
+variance requires ~d/2 components, far above the 5–22D target.
+
+### `compare_models.py`
+
+**Purpose**: cross-model comparison table from multiple `results.json` outputs.
+
+Reads `results.json` files (produced by `replicate_relation_offsets.py`) from
+multiple vindex output directories and prints a comparison table with columns
+for d50/90/95, spectral gap location and ratio, and pass/fail verdict.
+Auto-discovers results with `--auto outputs/`.
+
+### `vocab_diagnostic.py`
+
+**Purpose**: tokenizer composition analysis for filter calibration.
+
+Reports how many tokens survive progressively relaxed whole-word filters
+(SentencePiece, GPT-2 BPE, Latin-extended, capitalized).  Use this to choose
+the right `--gate-cos-threshold` for a new model family.
 
 ### `larql/scripts/`
 
@@ -425,28 +567,38 @@ calibrated for GPT-2–class models.
 HuggingFace weights
         │
         ▼
-larql extract-index                  (Rust; ~5 min for 4B)
+larql extract-index                  (Rust; ~5–10 min for 4B)
         │
         ├─ embeddings.bin
         ├─ gate_vectors.bin
         ├─ down_meta.bin
-        └─ relation_clusters.json  ← if non-streaming extraction
+        ├─ tokenizer.json
+        └─ relation_clusters.json  ← non-streaming path only
+                                      (not required for per_cluster_svd.py)
                 │
-                │  if missing:
                 ▼
-        generate_clusters.py         (Python; ~3 min for 1B)
+        per_cluster_svd.py           (recomputes offsets from raw vindex files)
+        --clustering euclidean│spherical
                 │
-                └─ relation_clusters.json
+                ├─ outputs/<vindex>/per_cluster_svd[_spherical].json
+                └─ outputs/<vindex>/offsets_cached[_spherical].npz
                         │
-        ┌───────────────┴──────────────┐
-        ▼                              ▼
-replicate_relation_offsets.py    analyze_raw_directions.py
-  (centroid SVD + UMAP)            (raw SVD + cluster QA)
-        │                              │
-        └─── outputs/relation_offsets/ outputs to stdout
-               spectrum.png
-               umap_by_cluster.png
-               results.json
+        ┌───────────────┴──────────────────┐
+        ▼                                  ▼
+compare_clustering_methods.py      visualize_manifold.py
+  (Jaccard overlap, size dist,       (spectrum + heatmap + UMAP)
+   pass rate comparison)
+        │
+        └─ outputs/<vindex>/clustering_comparison.json
+```
+
+OLMo-2 training trajectory (separate pipeline):
+```
+per_cluster_svd.py (run on each checkpoint)
+        ▼
+aggregate_olmo2_trajectory.py  → outputs/olmo2_trajectory.json
+        ▼
+visualize_olmo2_trajectory.py  → 4 figures (.png + .svg)
 ```
 
 ---
@@ -455,21 +607,29 @@ replicate_relation_offsets.py    analyze_raw_directions.py
 
 ```bash
 # 0. Extract (one-time, ~5–10 min)
-/path/to/larql extract-index <model_path> -o model.vindex --level browse --f16
+larql extract-index <model_path> -o model.vindex --level browse --f16
 
-# 1. Generate clusters (if relation_clusters.json is missing)
-python generate_clusters.py model.vindex --k 256
+# 1. Per-cluster SVD — primary 5-22D replication test
+python per_cluster_svd.py --vindex model.vindex \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100
 
-# 2. Replication check
-python replicate_relation_offsets.py --vindex model.vindex --bootstrap 200
+# 2. Spherical k-means comparison (experimental)
+python per_cluster_svd.py --vindex model.vindex \
+    --gate-cos-percentile 85 --k 256 --n-bootstrap 100 \
+    --clustering spherical
+python compare_clustering_methods.py --vindex model.vindex
 
-# 3. Deep diagnostics on raw directions
-python analyze_raw_directions.py --vindex model.vindex
+# 3. Visualize
+python visualize_manifold.py --vindex model.vindex --k 256
 
-# 4. Run tests
-cd tests && python -m pytest -v
+# 4. Random baseline
+python baseline_random.py --vindex model.vindex
+
+# 5. Run tests
+python -m pytest tests/ -v
 ```
 
-Dependencies: `numpy`, `scikit-learn`, `umap-learn`, `matplotlib`, `pandas`.
-LARQL Python bindings (`larql`) are only needed for `load_gates` and
-`load_embeddings`; the relation offset analysis path is LARQL-free.
+Dependencies: `numpy`, `scikit-learn`, `umap-learn`, `matplotlib`, `pandas`,
+`nltk` (for SphericalKMeans).  LARQL Python bindings (`larql`) are only
+needed for `load_gates` and `load_embeddings`; the main offset analysis path
+reads binary files directly and is LARQL-free.

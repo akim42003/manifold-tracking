@@ -1,12 +1,17 @@
-"""Direction loaders — thin wrappers over LARQL Python bindings.
+"""Direction loaders — produce DirectionBundles from vindex data.
 
 Each loader returns a DirectionBundle pairing a float32 numpy matrix with a
 pandas DataFrame of per-vector metadata.  All reads are lazy where possible:
 embeddings and gate vectors are already mmap'd inside the larql Vindex object.
 
-Loaders that require only browse-level data (load_gates, load_embeddings,
-load_relation_offsets) work on any vindex.  load_down_rows and
-load_unembeddings need an all-level vindex and are not implemented for MVP.
+browse-level loaders (work on any vindex):
+    load_relation_offsets  — reads relation_clusters.json; no LARQL bindings
+    load_gates             — reads gate_vectors.bin via larql Python bindings
+    load_embeddings        — reads embeddings.bin via larql Python bindings
+    bundle_from_vectors    — wraps pre-computed vectors for downstream analysis
+
+all-level loaders (not implemented):
+    load_down_rows, load_unembeddings — need an all-level vindex
 """
 
 from __future__ import annotations
@@ -171,6 +176,44 @@ def load_gates(
             "layers": list(layers),
             "sample_per_layer": sample_per_layer,
         },
+    )
+
+
+def bundle_from_vectors(
+    vectors: np.ndarray,
+    metadata: "pd.DataFrame",
+    vindex_hash: str = "",
+    config: Optional[dict] = None,
+) -> DirectionBundle:
+    """Wrap pre-computed vectors in a DirectionBundle for analyzer/visualizer use.
+
+    Use this when offset vectors have already been computed and filtered externally
+    (e.g., by per_cluster_svd.py) and you want to feed them into svd_with_bootstrap,
+    umap_project, or spectrum_plot.
+
+    Parameters
+    ----------
+    vectors:
+        Float32 array of shape [n, d_model].
+    metadata:
+        DataFrame with n rows.
+    vindex_hash:
+        Optional checksum for provenance.
+    config:
+        Optional dict describing how the vectors were produced.
+    """
+    if vectors.dtype != np.float32:
+        vectors = vectors.astype(np.float32)
+    if len(vectors) != len(metadata):
+        raise ValueError(
+            f"vectors and metadata must have same length, "
+            f"got {len(vectors)} vs {len(metadata)}"
+        )
+    return DirectionBundle(
+        vectors=vectors,
+        metadata=metadata.reset_index(drop=True),
+        vindex_hash=vindex_hash,
+        config=config or {"loader": "bundle_from_vectors"},
     )
 
 
