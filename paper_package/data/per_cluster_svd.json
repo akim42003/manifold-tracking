@@ -1,0 +1,6280 @@
+{
+  "summary": {
+    "n_clusters_analyzed": 111,
+    "n_skipped": 145,
+    "d50_median": 14.0,
+    "d50_range": [
+      5,
+      32
+    ],
+    "pct_in_target": 64.86486486486487,
+    "passes": true,
+    "n_passing": 72,
+    "n_failing": 39
+  },
+  "clusters": [
+    {
+      "cluster": 1,
+      "n": 51,
+      "d50": 15,
+      "d50_ci": [
+        7,
+        9
+      ],
+      "d90": 40,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1556582487672482,
+      "label": "Funding\u2192funding",
+      "top_pairs": [
+        {
+          "in": "Funding",
+          "out": "funding",
+          "count": 1
+        },
+        {
+          "in": "Example",
+          "out": "example",
+          "count": 1
+        },
+        {
+          "in": "Reward",
+          "out": "reward",
+          "count": 1
+        },
+        {
+          "in": "Rating",
+          "out": "rating",
+          "count": 1
+        },
+        {
+          "in": "Identification",
+          "out": "identification",
+          "count": 1
+        },
+        {
+          "in": "Conversation",
+          "out": "conversation",
+          "count": 1
+        },
+        {
+          "in": "Discussion",
+          "out": "discussion",
+          "count": 1
+        },
+        {
+          "in": "Conference",
+          "out": "conference",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 2,
+      "n": 37,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        6
+      ],
+      "d90": 29,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2999732496815624,
+      "label": "required\u2192McKinney",
+      "top_pairs": [
+        {
+          "in": "required",
+          "out": "McKinney",
+          "count": 1
+        },
+        {
+          "in": "needed",
+          "out": "nicki",
+          "count": 1
+        },
+        {
+          "in": "required",
+          "out": "prat",
+          "count": 1
+        },
+        {
+          "in": "desired",
+          "out": "profond",
+          "count": 1
+        },
+        {
+          "in": "Required",
+          "out": "\u0265",
+          "count": 1
+        },
+        {
+          "in": "necessary",
+          "out": "if",
+          "count": 1
+        },
+        {
+          "in": "desired",
+          "out": "wanted",
+          "count": 1
+        },
+        {
+          "in": "requested",
+          "out": "orro",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 4,
+      "n": 39,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 31,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.85254554375125,
+      "label": "bernama\u2192ylab",
+      "top_pairs": [
+        {
+          "in": "bernama",
+          "out": "ylab",
+          "count": 1
+        },
+        {
+          "in": "name",
+          "out": "Cubic",
+          "count": 1
+        },
+        {
+          "in": "nickname",
+          "out": "\u062f\u0686\u0627\u0631",
+          "count": 1
+        },
+        {
+          "in": "called",
+          "out": "\u0d8d",
+          "count": 1
+        },
+        {
+          "in": "named",
+          "out": "\u0938\u0930\u093e\u0939",
+          "count": 1
+        },
+        {
+          "in": "bernama",
+          "out": "fatter",
+          "count": 1
+        },
+        {
+          "in": "name",
+          "out": "enlist",
+          "count": 1
+        },
+        {
+          "in": "called",
+          "out": "\uff62",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 7,
+      "n": 86,
+      "d50": 19,
+      "d50_ci": [
+        10,
+        13
+      ],
+      "d90": 63,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1468089215023656,
+      "label": "funds\u2192wouldn",
+      "top_pairs": [
+        {
+          "in": "funds",
+          "out": "wouldn",
+          "count": 1
+        },
+        {
+          "in": "political",
+          "out": "electoral",
+          "count": 1
+        },
+        {
+          "in": "financially",
+          "out": "\u0441\u043e\u0432\u043e",
+          "count": 1
+        },
+        {
+          "in": "tax",
+          "out": "\u00e7i",
+          "count": 1
+        },
+        {
+          "in": "budgets",
+          "out": "\u03bb\u03b1\u03c3",
+          "count": 1
+        },
+        {
+          "in": "Debt",
+          "out": "\u0c2a\u0c02\u0c1a",
+          "count": 1
+        },
+        {
+          "in": "income",
+          "out": "consens",
+          "count": 1
+        },
+        {
+          "in": "donations",
+          "out": "selecciona",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 9,
+      "n": 41,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 31,
+      "spectral_gap_idx": 38,
+      "spectral_gap_ratio": 849617.1016093047,
+      "label": "etc\u2192usw",
+      "top_pairs": [
+        {
+          "in": "etc",
+          "out": "usw",
+          "count": 2
+        },
+        {
+          "in": "respectively",
+          "out": "\u0930\u0947\u091f\u0930",
+          "count": 1
+        },
+        {
+          "in": "respectively",
+          "out": "terdiri",
+          "count": 1
+        },
+        {
+          "in": "respectively",
+          "out": "akar",
+          "count": 1
+        },
+        {
+          "in": "respectively",
+          "out": "\u305d\u308c\u305e\u308c",
+          "count": 1
+        },
+        {
+          "in": "respectively",
+          "out": "fourth",
+          "count": 1
+        },
+        {
+          "in": "etc",
+          "out": "\u7b49\u7b49",
+          "count": 1
+        },
+        {
+          "in": "etc",
+          "out": "esimerkiksi",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 10,
+      "n": 153,
+      "d50": 26,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.170957554175678,
+      "label": "waiting\u2192wait",
+      "top_pairs": [
+        {
+          "in": "waiting",
+          "out": "wait",
+          "count": 2
+        },
+        {
+          "in": "seeing",
+          "out": "see",
+          "count": 2
+        },
+        {
+          "in": "ranging",
+          "out": "range",
+          "count": 2
+        },
+        {
+          "in": "promising",
+          "out": "promise",
+          "count": 2
+        },
+        {
+          "in": "guiding",
+          "out": "guide",
+          "count": 2
+        },
+        {
+          "in": "combining",
+          "out": "combined",
+          "count": 1
+        },
+        {
+          "in": "unlocking",
+          "out": "unlock",
+          "count": 1
+        },
+        {
+          "in": "inquiring",
+          "out": "requests",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 11,
+      "n": 337,
+      "d50": 28,
+      "d50_ci": [
+        25,
+        28
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.0785490911546876,
+      "label": "via\u2192through",
+      "top_pairs": [
+        {
+          "in": "via",
+          "out": "through",
+          "count": 3
+        },
+        {
+          "in": "XNUMX",
+          "out": "\u200b\u200b",
+          "count": 2
+        },
+        {
+          "in": "nor",
+          "out": "not",
+          "count": 2
+        },
+        {
+          "in": "akin",
+          "out": "like",
+          "count": 2
+        },
+        {
+          "in": "fewer",
+          "out": "more",
+          "count": 2
+        },
+        {
+          "in": "last",
+          "out": "the",
+          "count": 2
+        },
+        {
+          "in": "cannot",
+          "out": "can",
+          "count": 2
+        },
+        {
+          "in": "trio",
+          "out": "m",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 16,
+      "n": 101,
+      "d50": 12,
+      "d50_ci": [
+        9,
+        11
+      ],
+      "d90": 62,
+      "spectral_gap_idx": 4,
+      "spectral_gap_ratio": 1.280665166438099,
+      "label": "but\u2192but",
+      "top_pairs": [
+        {
+          "in": "but",
+          "out": "but",
+          "count": 1
+        },
+        {
+          "in": "but",
+          "out": "onnements",
+          "count": 1
+        },
+        {
+          "in": "but",
+          "out": "Tsuk",
+          "count": 1
+        },
+        {
+          "in": "until",
+          "out": "\u0bbe\u0bb2\u0bcd",
+          "count": 1
+        },
+        {
+          "in": "but",
+          "out": "\u0c26\u0c28",
+          "count": 1
+        },
+        {
+          "in": "through",
+          "out": "through",
+          "count": 1
+        },
+        {
+          "in": "into",
+          "out": "trouve",
+          "count": 1
+        },
+        {
+          "in": "when",
+          "out": "quando",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 17,
+      "n": 57,
+      "d50": 13,
+      "d50_ci": [
+        7,
+        9
+      ],
+      "d90": 44,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2599081812650452,
+      "label": "motherhood\u2192\u043f\u043e\u043d\u044f\u043b",
+      "top_pairs": [
+        {
+          "in": "motherhood",
+          "out": "\u043f\u043e\u043d\u044f\u043b",
+          "count": 1
+        },
+        {
+          "in": "parenting",
+          "out": "hostel",
+          "count": 1
+        },
+        {
+          "in": "childhood",
+          "out": "\u09cd\u09af\u09be\u0995",
+          "count": 1
+        },
+        {
+          "in": "children",
+          "out": "\u0dab\u0dca\u0da9",
+          "count": 1
+        },
+        {
+          "in": "children",
+          "out": "\u0632\u0648\u062c",
+          "count": 1
+        },
+        {
+          "in": "children",
+          "out": "\u0939\u094b\u092e\u0935\u0930\u094d\u0915",
+          "count": 1
+        },
+        {
+          "in": "toddler",
+          "out": "perk",
+          "count": 1
+        },
+        {
+          "in": "children",
+          "out": "hijos",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 18,
+      "n": 51,
+      "d50": 14,
+      "d50_ci": [
+        7,
+        9
+      ],
+      "d90": 40,
+      "spectral_gap_idx": 48,
+      "spectral_gap_ratio": 1.4896148393639224,
+      "label": "athletics\u2192aceut",
+      "top_pairs": [
+        {
+          "in": "athletics",
+          "out": "aceut",
+          "count": 1
+        },
+        {
+          "in": "sport",
+          "out": "ivar",
+          "count": 1
+        },
+        {
+          "in": "soccer",
+          "out": "\u7403\u5458",
+          "count": 1
+        },
+        {
+          "in": "Football",
+          "out": "\u043d\u043a\u04af",
+          "count": 1
+        },
+        {
+          "in": "Basketball",
+          "out": "neurolog",
+          "count": 1
+        },
+        {
+          "in": "athlete",
+          "out": "\u0915\u0941\u0930",
+          "count": 1
+        },
+        {
+          "in": "athletics",
+          "out": "elektrische",
+          "count": 1
+        },
+        {
+          "in": "Soccer",
+          "out": "Dubna",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 21,
+      "n": 35,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 25,
+      "spectral_gap_idx": 32,
+      "spectral_gap_ratio": 923677.7490014987,
+      "label": "you\u2192pihaknya",
+      "top_pairs": [
+        {
+          "in": "you",
+          "out": "pihaknya",
+          "count": 2
+        },
+        {
+          "in": "they",
+          "out": "Filling",
+          "count": 1
+        },
+        {
+          "in": "they",
+          "out": "\u0430\u0440\u043e",
+          "count": 1
+        },
+        {
+          "in": "you",
+          "out": "i\u00e9n",
+          "count": 1
+        },
+        {
+          "in": "you",
+          "out": "\u6211\u4eec\u7684",
+          "count": 1
+        },
+        {
+          "in": "you",
+          "out": "svog",
+          "count": 1
+        },
+        {
+          "in": "you",
+          "out": "\u4e3a\u4f60",
+          "count": 1
+        },
+        {
+          "in": "your",
+          "out": "swoim",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 22,
+      "n": 36,
+      "d50": 11,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 28,
+      "spectral_gap_idx": 33,
+      "spectral_gap_ratio": 2212123.4650437557,
+      "label": "fires\u2192fire",
+      "top_pairs": [
+        {
+          "in": "fires",
+          "out": "fire",
+          "count": 2
+        },
+        {
+          "in": "coinc",
+          "out": "coincidence",
+          "count": 1
+        },
+        {
+          "in": "visits",
+          "out": "\u0932\u0940\u092e",
+          "count": 1
+        },
+        {
+          "in": "triggers",
+          "out": "triggered",
+          "count": 1
+        },
+        {
+          "in": "influences",
+          "out": "influence",
+          "count": 1
+        },
+        {
+          "in": "substitutes",
+          "out": "replace",
+          "count": 1
+        },
+        {
+          "in": "resets",
+          "out": "reset",
+          "count": 1
+        },
+        {
+          "in": "visits",
+          "out": "presence",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 24,
+      "n": 77,
+      "d50": 24,
+      "d50_ci": [
+        11,
+        15
+      ],
+      "d90": 61,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.089278536127997,
+      "label": "Australia\u2192NSW",
+      "top_pairs": [
+        {
+          "in": "Australia",
+          "out": "NSW",
+          "count": 1
+        },
+        {
+          "in": "Nigeria",
+          "out": "Lagos",
+          "count": 1
+        },
+        {
+          "in": "Europe",
+          "out": "\u5404\u56fd",
+          "count": 1
+        },
+        {
+          "in": "Venezuela",
+          "out": "\u0baf\u0bc1",
+          "count": 1
+        },
+        {
+          "in": "France",
+          "out": "l\u00f6",
+          "count": 1
+        },
+        {
+          "in": "Hungary",
+          "out": "Sz",
+          "count": 1
+        },
+        {
+          "in": "Italy",
+          "out": "\u09a6\u09c2\u09a4\u09be\u09ac\u09be\u09b8\u09c7\u09b0",
+          "count": 1
+        },
+        {
+          "in": "Germany",
+          "out": "\u0917\u0941\u091c\u0930",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 25,
+      "n": 166,
+      "d50": 26,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.077229094350447,
+      "label": "resides\u2192living",
+      "top_pairs": [
+        {
+          "in": "resides",
+          "out": "living",
+          "count": 2
+        },
+        {
+          "in": "depends",
+          "out": "\u0926\u0941\u0938\u0930\u0940",
+          "count": 1
+        },
+        {
+          "in": "consists",
+          "out": "composta",
+          "count": 1
+        },
+        {
+          "in": "simulates",
+          "out": "unused",
+          "count": 1
+        },
+        {
+          "in": "begins",
+          "out": "trial",
+          "count": 1
+        },
+        {
+          "in": "blames",
+          "out": "\u0916\u0930\u0940\u0926",
+          "count": 1
+        },
+        {
+          "in": "Requires",
+          "out": "\u0993\u09b8\u09bf",
+          "count": 1
+        },
+        {
+          "in": "contains",
+          "out": "Mo\u017c",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 27,
+      "n": 1814,
+      "d50": 31,
+      "d50_ci": [
+        32,
+        33
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.1224250638149285,
+      "label": "name\u2192\u540d\u79f0",
+      "top_pairs": [
+        {
+          "in": "name",
+          "out": "\u540d\u79f0",
+          "count": 2
+        },
+        {
+          "in": "gratis",
+          "out": "\u514d\u8d39",
+          "count": 2
+        },
+        {
+          "in": "similar",
+          "out": "similarly",
+          "count": 2
+        },
+        {
+          "in": "please",
+          "out": "h\u00e3y",
+          "count": 2
+        },
+        {
+          "in": "further",
+          "out": "\u3067\u3042\u308b",
+          "count": 2
+        },
+        {
+          "in": "permanent",
+          "out": "\u064a\u062a\u062d",
+          "count": 1
+        },
+        {
+          "in": "gratis",
+          "out": "gratuite",
+          "count": 1
+        },
+        {
+          "in": "than",
+          "out": "igue",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 28,
+      "n": 65,
+      "d50": 9,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 38,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.167270811084256,
+      "label": "yourself\u2192you",
+      "top_pairs": [
+        {
+          "in": "yourself",
+          "out": "you",
+          "count": 3
+        },
+        {
+          "in": "themselves",
+          "out": "Their",
+          "count": 2
+        },
+        {
+          "in": "ourselves",
+          "out": "\u79c1\u306f",
+          "count": 2
+        },
+        {
+          "in": "yourself",
+          "out": "your",
+          "count": 2
+        },
+        {
+          "in": "herself",
+          "out": "\u043a\u043e\u0458\u0430",
+          "count": 2
+        },
+        {
+          "in": "itself",
+          "out": "its",
+          "count": 2
+        },
+        {
+          "in": "herself",
+          "out": "\u5979\u4eec",
+          "count": 1
+        },
+        {
+          "in": "yourself",
+          "out": "\u0688\u0627\u06a9\u0679\u0631",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 29,
+      "n": 30,
+      "d50": 9,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 23,
+      "spectral_gap_idx": 27,
+      "spectral_gap_ratio": 1.357423440409044,
+      "label": "calculations\u2192Calcular",
+      "top_pairs": [
+        {
+          "in": "calculations",
+          "out": "Calcular",
+          "count": 1
+        },
+        {
+          "in": "calculations",
+          "out": "\u0bae\u0bcd\u0baa\u0bb0",
+          "count": 1
+        },
+        {
+          "in": "numerical",
+          "out": "\u3061",
+          "count": 1
+        },
+        {
+          "in": "Measurement",
+          "out": "\u178a\u17c6\u178e",
+          "count": 1
+        },
+        {
+          "in": "calcula",
+          "out": "Tender",
+          "count": 1
+        },
+        {
+          "in": "metrics",
+          "out": "outcomes",
+          "count": 1
+        },
+        {
+          "in": "evaluation",
+          "out": "PLUGIN",
+          "count": 1
+        },
+        {
+          "in": "totals",
+          "out": "\u0bae\u0bcd\u0baa\u0bb0",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 31,
+      "n": 272,
+      "d50": 30,
+      "d50_ci": [
+        26,
+        28
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1208193161886648,
+      "label": "canine\u2192tingham",
+      "top_pairs": [
+        {
+          "in": "canine",
+          "out": "tingham",
+          "count": 1
+        },
+        {
+          "in": "circadian",
+          "out": "datetime",
+          "count": 1
+        },
+        {
+          "in": "toddler",
+          "out": "Children",
+          "count": 1
+        },
+        {
+          "in": "altru",
+          "out": "\u8d21\u732e",
+          "count": 1
+        },
+        {
+          "in": "Vegan",
+          "out": "Sni",
+          "count": 1
+        },
+        {
+          "in": "disability",
+          "out": "\u00fdv",
+          "count": 1
+        },
+        {
+          "in": "allergy",
+          "out": "snippets",
+          "count": 1
+        },
+        {
+          "in": "dementia",
+          "out": "\u8836",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 32,
+      "n": 41,
+      "d50": 14,
+      "d50_ci": [
+        6,
+        9
+      ],
+      "d90": 33,
+      "spectral_gap_idx": 38,
+      "spectral_gap_ratio": 1.2308734225338371,
+      "label": "Twitter\u2192bis",
+      "top_pairs": [
+        {
+          "in": "Twitter",
+          "out": "bis",
+          "count": 1
+        },
+        {
+          "in": "Xcode",
+          "out": "Indiana",
+          "count": 1
+        },
+        {
+          "in": "Reddit",
+          "out": "Telephone",
+          "count": 1
+        },
+        {
+          "in": "ChatGPT",
+          "out": "\u092c\u0902\u0927\u0928\u093e\u091a\u094d\u092f\u093e",
+          "count": 1
+        },
+        {
+          "in": "subreddit",
+          "out": "\u540e",
+          "count": 1
+        },
+        {
+          "in": "Discord",
+          "out": "bot",
+          "count": 1
+        },
+        {
+          "in": "Laravel",
+          "out": "array",
+          "count": 1
+        },
+        {
+          "in": "infographic",
+          "out": "memb",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 33,
+      "n": 45,
+      "d50": 13,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 36,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1618130049389483,
+      "label": "Instagram\u2192lights",
+      "top_pairs": [
+        {
+          "in": "Instagram",
+          "out": "lights",
+          "count": 1
+        },
+        {
+          "in": "TikTok",
+          "out": "mu\u00df",
+          "count": 1
+        },
+        {
+          "in": "Netflix",
+          "out": "Prices",
+          "count": 1
+        },
+        {
+          "in": "Gmail",
+          "out": "mailer",
+          "count": 1
+        },
+        {
+          "in": "Gmail",
+          "out": "odometer",
+          "count": 1
+        },
+        {
+          "in": "Android",
+          "out": "Brooklyn",
+          "count": 1
+        },
+        {
+          "in": "Whatsapp",
+          "out": "SSD",
+          "count": 1
+        },
+        {
+          "in": "TikTok",
+          "out": "Blockchain",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 34,
+      "n": 186,
+      "d50": 30,
+      "d50_ci": [
+        24,
+        26
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.080189940367559,
+      "label": "ephemeral\u2192\u09a6\u09c7\u09b0\u09bf",
+      "top_pairs": [
+        {
+          "in": "ephemeral",
+          "out": "\u09a6\u09c7\u09b0\u09bf",
+          "count": 1
+        },
+        {
+          "in": "discriminatory",
+          "out": "ethnicity",
+          "count": 1
+        },
+        {
+          "in": "sentimental",
+          "out": "inequalities",
+          "count": 1
+        },
+        {
+          "in": "affordable",
+          "out": "price",
+          "count": 1
+        },
+        {
+          "in": "fraudulent",
+          "out": "manipulation",
+          "count": 1
+        },
+        {
+          "in": "informative",
+          "out": "informational",
+          "count": 1
+        },
+        {
+          "in": "courteous",
+          "out": "nonequilibrium",
+          "count": 1
+        },
+        {
+          "in": "hopeless",
+          "out": "Exclude",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 35,
+      "n": 31,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 24,
+      "spectral_gap_idx": 28,
+      "spectral_gap_ratio": 2.3745248361370788,
+      "label": "centuries\u2192\u0d25\u0d3f",
+      "top_pairs": [
+        {
+          "in": "centuries",
+          "out": "\u0d25\u0d3f",
+          "count": 1
+        },
+        {
+          "in": "years",
+          "out": "\u0c1c\u0c4d\u0c1e",
+          "count": 1
+        },
+        {
+          "in": "years",
+          "out": "yearly",
+          "count": 1
+        },
+        {
+          "in": "centuries",
+          "out": "historical",
+          "count": 1
+        },
+        {
+          "in": "years",
+          "out": "\u0907\u0902\u0917\u094d\u0932\u0902\u0921",
+          "count": 1
+        },
+        {
+          "in": "decades",
+          "out": "\u06f2\u06f0\u06f1",
+          "count": 1
+        },
+        {
+          "in": "decade",
+          "out": "planejamento",
+          "count": 1
+        },
+        {
+          "in": "decade",
+          "out": "vuonna",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 37,
+      "n": 1643,
+      "d50": 32,
+      "d50_ci": [
+        33,
+        33
+      ],
+      "d90": 70,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.069371922460908,
+      "label": "morning\u2192tonight",
+      "top_pairs": [
+        {
+          "in": "morning",
+          "out": "tonight",
+          "count": 2
+        },
+        {
+          "in": "replacement",
+          "out": "\u8d2f",
+          "count": 2
+        },
+        {
+          "in": "marriage",
+          "out": "married",
+          "count": 2
+        },
+        {
+          "in": "agua",
+          "out": "rakk",
+          "count": 1
+        },
+        {
+          "in": "Preparation",
+          "out": "Preparing",
+          "count": 1
+        },
+        {
+          "in": "wartime",
+          "out": "tino",
+          "count": 1
+        },
+        {
+          "in": "dual",
+          "out": "kull",
+          "count": 1
+        },
+        {
+          "in": "emotional",
+          "out": "\u0930\u094d\u0926\u0947\u0936",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 38,
+      "n": 156,
+      "d50": 30,
+      "d50_ci": [
+        22,
+        25
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2321948783637304,
+      "label": "Future\u2192future",
+      "top_pairs": [
+        {
+          "in": "Future",
+          "out": "future",
+          "count": 2
+        },
+        {
+          "in": "Individual",
+          "out": "individual",
+          "count": 2
+        },
+        {
+          "in": "Families",
+          "out": "family",
+          "count": 1
+        },
+        {
+          "in": "Safety",
+          "out": "protection",
+          "count": 1
+        },
+        {
+          "in": "Pledge",
+          "out": "pledge",
+          "count": 1
+        },
+        {
+          "in": "Fundraising",
+          "out": "donor",
+          "count": 1
+        },
+        {
+          "in": "Emails",
+          "out": "email",
+          "count": 1
+        },
+        {
+          "in": "LOCAL",
+          "out": "locale",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 39,
+      "n": 34,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 25,
+      "spectral_gap_idx": 29,
+      "spectral_gap_ratio": 2738168.7626937027,
+      "label": "costs\u2192cost",
+      "top_pairs": [
+        {
+          "in": "costs",
+          "out": "cost",
+          "count": 2
+        },
+        {
+          "in": "languages",
+          "out": "language",
+          "count": 2
+        },
+        {
+          "in": "fonts",
+          "out": "font",
+          "count": 2
+        },
+        {
+          "in": "durations",
+          "out": "duration",
+          "count": 1
+        },
+        {
+          "in": "passwords",
+          "out": "password",
+          "count": 1
+        },
+        {
+          "in": "religions",
+          "out": "religious",
+          "count": 1
+        },
+        {
+          "in": "prices",
+          "out": "pricing",
+          "count": 1
+        },
+        {
+          "in": "altitudes",
+          "out": "height",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 41,
+      "n": 242,
+      "d50": 27,
+      "d50_ci": [
+        23,
+        26
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1662482786253718,
+      "label": "deaths\u2192death",
+      "top_pairs": [
+        {
+          "in": "deaths",
+          "out": "death",
+          "count": 3
+        },
+        {
+          "in": "limitations",
+          "out": "limits",
+          "count": 2
+        },
+        {
+          "in": "cases",
+          "out": "pozi",
+          "count": 1
+        },
+        {
+          "in": "motivations",
+          "out": "\u0434\u043e\u0440\u043e\u0433\u0438\u0435",
+          "count": 1
+        },
+        {
+          "in": "questions",
+          "out": "\u0442\u0435\u043a\u0441\u0442\u0443",
+          "count": 1
+        },
+        {
+          "in": "protests",
+          "out": "revolutionary",
+          "count": 1
+        },
+        {
+          "in": "defects",
+          "out": "ERE",
+          "count": 1
+        },
+        {
+          "in": "debates",
+          "out": "\u0d36\u0d41",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 42,
+      "n": 130,
+      "d50": 13,
+      "d50_ci": [
+        11,
+        14
+      ],
+      "d90": 61,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2136031814977257,
+      "label": "did\u2192Did",
+      "top_pairs": [
+        {
+          "in": "did",
+          "out": "Did",
+          "count": 2
+        },
+        {
+          "in": "seems",
+          "out": "ContainsKey",
+          "count": 1
+        },
+        {
+          "in": "been",
+          "out": "\u5f53\u524d",
+          "count": 1
+        },
+        {
+          "in": "was",
+          "out": "previously",
+          "count": 1
+        },
+        {
+          "in": "also",
+          "out": "gies",
+          "count": 1
+        },
+        {
+          "in": "will",
+          "out": "\u0935\u094d\u092f\u0935\u0939\u093e\u0930",
+          "count": 1
+        },
+        {
+          "in": "will",
+          "out": "tomorrow",
+          "count": 1
+        },
+        {
+          "in": "also",
+          "out": "\u82e7",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 43,
+      "n": 38,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        6
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 3,
+      "spectral_gap_ratio": 1.1896663531036653,
+      "label": "typically\u2192Typical",
+      "top_pairs": [
+        {
+          "in": "typically",
+          "out": "Typical",
+          "count": 1
+        },
+        {
+          "in": "frequent",
+          "out": "\u0447\u0435\u043d\u043d\u044b\u0439",
+          "count": 1
+        },
+        {
+          "in": "regularly",
+          "out": "\u66f4\u65b0",
+          "count": 1
+        },
+        {
+          "in": "sometimes",
+          "out": "foi",
+          "count": 1
+        },
+        {
+          "in": "occasional",
+          "out": "briefly",
+          "count": 1
+        },
+        {
+          "in": "usually",
+          "out": "\u3068\u306a\u308a\u307e\u3057\u305f",
+          "count": 1
+        },
+        {
+          "in": "regularly",
+          "out": "bud\u00fa",
+          "count": 1
+        },
+        {
+          "in": "usually",
+          "out": "nemidophorus",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 44,
+      "n": 86,
+      "d50": 27,
+      "d50_ci": [
+        13,
+        16
+      ],
+      "d90": 66,
+      "spectral_gap_idx": 6,
+      "spectral_gap_ratio": 1.0650800444796558,
+      "label": "estimated\u2192estimates",
+      "top_pairs": [
+        {
+          "in": "estimated",
+          "out": "estimates",
+          "count": 2
+        },
+        {
+          "in": "Wedding",
+          "out": "weddings",
+          "count": 1
+        },
+        {
+          "in": "confidentiality",
+          "out": "deficiencies",
+          "count": 1
+        },
+        {
+          "in": "altitude",
+          "out": "altitudes",
+          "count": 1
+        },
+        {
+          "in": "fusion",
+          "out": "combinations",
+          "count": 1
+        },
+        {
+          "in": "price",
+          "out": "prices",
+          "count": 1
+        },
+        {
+          "in": "story",
+          "out": "stories",
+          "count": 1
+        },
+        {
+          "in": "smell",
+          "out": "scents",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 46,
+      "n": 49,
+      "d50": 15,
+      "d50_ci": [
+        7,
+        10
+      ],
+      "d90": 38,
+      "spectral_gap_idx": 46,
+      "spectral_gap_ratio": 2397322.8714509197,
+      "label": "java\u2192EventArgs",
+      "top_pairs": [
+        {
+          "in": "java",
+          "out": "EventArgs",
+          "count": 2
+        },
+        {
+          "in": "COVID",
+          "out": "coronavirus",
+          "count": 1
+        },
+        {
+          "in": "SQL",
+          "out": "\u092e\u0939\u093e\u0930\u093e\u0937\u094d\u091f\u094d\u0930\u093e",
+          "count": 1
+        },
+        {
+          "in": "CSV",
+          "out": "eyesight",
+          "count": 1
+        },
+        {
+          "in": "PHP",
+          "out": "php",
+          "count": 1
+        },
+        {
+          "in": "SEO",
+          "out": "inconvenience",
+          "count": 1
+        },
+        {
+          "in": "PHP",
+          "out": "($",
+          "count": 1
+        },
+        {
+          "in": "Covid",
+          "out": "pandemic",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 48,
+      "n": 1907,
+      "d50": 32,
+      "d50_ci": [
+        33,
+        33
+      ],
+      "d90": 70,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1251746971393284,
+      "label": "pesticide\u2192chemical",
+      "top_pairs": [
+        {
+          "in": "pesticide",
+          "out": "chemical",
+          "count": 2
+        },
+        {
+          "in": "photographs",
+          "out": "photos",
+          "count": 2
+        },
+        {
+          "in": "either",
+          "out": "both",
+          "count": 2
+        },
+        {
+          "in": "alone",
+          "out": "only",
+          "count": 2
+        },
+        {
+          "in": "these",
+          "out": "such",
+          "count": 2
+        },
+        {
+          "in": "before",
+          "out": "after",
+          "count": 2
+        },
+        {
+          "in": "into",
+          "out": "back",
+          "count": 2
+        },
+        {
+          "in": "here",
+          "out": "there",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "cluster": 50,
+      "n": 39,
+      "d50": 10,
+      "d50_ci": [
+        4,
+        7
+      ],
+      "d90": 32,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.5201463478220814,
+      "label": "because\u2192\uae30\uc900\uc73c\ub85c",
+      "top_pairs": [
+        {
+          "in": "because",
+          "out": "\uae30\uc900\uc73c\ub85c",
+          "count": 1
+        },
+        {
+          "in": "because",
+          "out": "\uad88",
+          "count": 1
+        },
+        {
+          "in": "because",
+          "out": "\u0645\u06cc\u200c",
+          "count": 1
+        },
+        {
+          "in": "porque",
+          "out": "\u30de\u30fc\u30bf\u30a4\u30e4",
+          "count": 1
+        },
+        {
+          "in": "because",
+          "out": "\u0915\u093e\u0933\u091c\u0940",
+          "count": 1
+        },
+        {
+          "in": "because",
+          "out": "\u09b2\u0987",
+          "count": 1
+        },
+        {
+          "in": "because",
+          "out": "mahall",
+          "count": 1
+        },
+        {
+          "in": "due",
+          "out": "\u043d\u0438\u0446\u044b",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 54,
+      "n": 118,
+      "d50": 26,
+      "d50_ci": [
+        16,
+        20
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 3,
+      "spectral_gap_ratio": 1.1409536365576411,
+      "label": "comical\u2192humor",
+      "top_pairs": [
+        {
+          "in": "comical",
+          "out": "humor",
+          "count": 1
+        },
+        {
+          "in": "confusing",
+          "out": "keb",
+          "count": 1
+        },
+        {
+          "in": "unusual",
+          "out": "\u0d2a",
+          "count": 1
+        },
+        {
+          "in": "amazed",
+          "out": "\u1ed5",
+          "count": 1
+        },
+        {
+          "in": "paradoxical",
+          "out": "ncia",
+          "count": 1
+        },
+        {
+          "in": "improbable",
+          "out": "Impossible",
+          "count": 1
+        },
+        {
+          "in": "comical",
+          "out": "\u5b9d\u77f3",
+          "count": 1
+        },
+        {
+          "in": "gorgeous",
+          "out": "nonce",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 58,
+      "n": 41,
+      "d50": 6,
+      "d50_ci": [
+        3,
+        5
+      ],
+      "d90": 28,
+      "spectral_gap_idx": 38,
+      "spectral_gap_ratio": 1.6962450596797047,
+      "label": "ones\u2192\u0626\u06d5\u0648",
+      "top_pairs": [
+        {
+          "in": "ones",
+          "out": "\u0626\u06d5\u0648",
+          "count": 1
+        },
+        {
+          "in": "him",
+          "out": "JPL",
+          "count": 1
+        },
+        {
+          "in": "him",
+          "out": "kter\u00e9",
+          "count": 1
+        },
+        {
+          "in": "ones",
+          "out": "celle",
+          "count": 1
+        },
+        {
+          "in": "ones",
+          "out": "Holly",
+          "count": 1
+        },
+        {
+          "in": "him",
+          "out": "beliau",
+          "count": 1
+        },
+        {
+          "in": "ones",
+          "out": "\u09ac\u09bf\u099a\u09be\u09b0\u09aa\u09a4\u09bf",
+          "count": 1
+        },
+        {
+          "in": "them",
+          "out": "szen",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 61,
+      "n": 241,
+      "d50": 28,
+      "d50_ci": [
+        24,
+        26
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1737657198382463,
+      "label": "pricing\u2192discounts",
+      "top_pairs": [
+        {
+          "in": "pricing",
+          "out": "discounts",
+          "count": 1
+        },
+        {
+          "in": "printing",
+          "out": "ronome",
+          "count": 1
+        },
+        {
+          "in": "scheduling",
+          "out": "\u09aa\u09cd\u09b0\u09a4\u09bf\u09ac\u09c7\u09a6\u09a8\u09c7",
+          "count": 1
+        },
+        {
+          "in": "publishing",
+          "out": "publication",
+          "count": 1
+        },
+        {
+          "in": "naming",
+          "out": "named",
+          "count": 1
+        },
+        {
+          "in": "advertising",
+          "out": "\u0441\u0435\u043b\u043e",
+          "count": 1
+        },
+        {
+          "in": "monitoring",
+          "out": "\u09cd\u09b2\u09be\u09ae",
+          "count": 1
+        },
+        {
+          "in": "lighting",
+          "out": "ction",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 62,
+      "n": 68,
+      "d50": 13,
+      "d50_ci": [
+        7,
+        9
+      ],
+      "d90": 52,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1756512124266678,
+      "label": "emails\u2192\u043e\u0434\u0435\u0436\u0434\u044b",
+      "top_pairs": [
+        {
+          "in": "emails",
+          "out": "\u043e\u0434\u0435\u0436\u0434\u044b",
+          "count": 1
+        },
+        {
+          "in": "online",
+          "out": "\u09b8\u09be\u09b9\u09be\u09af",
+          "count": 1
+        },
+        {
+          "in": "http",
+          "out": "\uff5c",
+          "count": 1
+        },
+        {
+          "in": "website",
+          "out": "folder",
+          "count": 1
+        },
+        {
+          "in": "blog",
+          "out": "\u092a\u093e\u0920\u094d\u092f\u0915\u094d\u0930\u092e\u094b\u0902",
+          "count": 1
+        },
+        {
+          "in": "blog",
+          "out": "\u043b\u0438\u0446\u043e\u043c",
+          "count": 1
+        },
+        {
+          "in": "internet",
+          "out": "Broadband",
+          "count": 1
+        },
+        {
+          "in": "ONLINE",
+          "out": "Komis",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 68,
+      "n": 150,
+      "d50": 27,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1491259912027123,
+      "label": "suburbs\u2192suburban",
+      "top_pairs": [
+        {
+          "in": "suburbs",
+          "out": "suburban",
+          "count": 2
+        },
+        {
+          "in": "buildings",
+          "out": "Palt",
+          "count": 1
+        },
+        {
+          "in": "computers",
+          "out": "\u043f\u0440\u0438\u043d\u0438\u043c\u0430",
+          "count": 1
+        },
+        {
+          "in": "newspapers",
+          "out": "newspaper",
+          "count": 1
+        },
+        {
+          "in": "apartments",
+          "out": "mansion",
+          "count": 1
+        },
+        {
+          "in": "churches",
+          "out": "church",
+          "count": 1
+        },
+        {
+          "in": "districts",
+          "out": "regional",
+          "count": 1
+        },
+        {
+          "in": "prisons",
+          "out": "imprisonment",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 69,
+      "n": 154,
+      "d50": 26,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2397078936015467,
+      "label": "aged\u2192age",
+      "top_pairs": [
+        {
+          "in": "aged",
+          "out": "age",
+          "count": 2
+        },
+        {
+          "in": "mentioned",
+          "out": "aplic",
+          "count": 1
+        },
+        {
+          "in": "staffed",
+          "out": "PEP",
+          "count": 1
+        },
+        {
+          "in": "sized",
+          "out": "\u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u044b",
+          "count": 1
+        },
+        {
+          "in": "pictured",
+          "out": "\u0930\u093f\u0935\u093e\u0907\u091c",
+          "count": 1
+        },
+        {
+          "in": "discussed",
+          "out": "\u30b3\u30f3\u30c6\u30f3\u30c4",
+          "count": 1
+        },
+        {
+          "in": "termed",
+          "out": "\ud835\ude67",
+          "count": 1
+        },
+        {
+          "in": "repurposed",
+          "out": "\u0989\u09a8\u09cd\u09a8\u09a4",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 70,
+      "n": 42,
+      "d50": 12,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 33,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.3624949762622103,
+      "label": "magazine\u2192\u4e66\u7c4d",
+      "top_pairs": [
+        {
+          "in": "magazine",
+          "out": "\u4e66\u7c4d",
+          "count": 1
+        },
+        {
+          "in": "grocery",
+          "out": "\u1d43",
+          "count": 1
+        },
+        {
+          "in": "Pharmacy",
+          "out": "\u91aa",
+          "count": 1
+        },
+        {
+          "in": "newspapers",
+          "out": "Birds",
+          "count": 1
+        },
+        {
+          "in": "bookstores",
+          "out": "utterances",
+          "count": 1
+        },
+        {
+          "in": "newspapers",
+          "out": "bacter",
+          "count": 1
+        },
+        {
+          "in": "newspaper",
+          "out": "Frames",
+          "count": 1
+        },
+        {
+          "in": "supermarket",
+          "out": "orsun",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 72,
+      "n": 270,
+      "d50": 29,
+      "d50_ci": [
+        25,
+        28
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.0914858773699425,
+      "label": "videos\u2192video",
+      "top_pairs": [
+        {
+          "in": "videos",
+          "out": "video",
+          "count": 3
+        },
+        {
+          "in": "finances",
+          "out": "financial",
+          "count": 2
+        },
+        {
+          "in": "questionnaires",
+          "out": "\u6ef8",
+          "count": 1
+        },
+        {
+          "in": "Images",
+          "out": "Honey",
+          "count": 1
+        },
+        {
+          "in": "phrases",
+          "out": "\u0418\u043d\u0442\u0435\u0440\u0435",
+          "count": 1
+        },
+        {
+          "in": "recordings",
+          "out": "peremptory",
+          "count": 1
+        },
+        {
+          "in": "portraits",
+          "out": "\u09aa\u09c1\u09b0\u09be\u09a3",
+          "count": 1
+        },
+        {
+          "in": "languages",
+          "out": "Pencil",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 73,
+      "n": 62,
+      "d50": 17,
+      "d50_ci": [
+        8,
+        11
+      ],
+      "d90": 47,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.2056047207326723,
+      "label": "BOTH\u2192both",
+      "top_pairs": [
+        {
+          "in": "BOTH",
+          "out": "both",
+          "count": 2
+        },
+        {
+          "in": "SELF",
+          "out": "self",
+          "count": 1
+        },
+        {
+          "in": "SCHOOL",
+          "out": "school",
+          "count": 1
+        },
+        {
+          "in": "FILM",
+          "out": "film",
+          "count": 1
+        },
+        {
+          "in": "egym",
+          "out": "fellow",
+          "count": 1
+        },
+        {
+          "in": "LOCAL",
+          "out": "local",
+          "count": 1
+        },
+        {
+          "in": "youngsters",
+          "out": "young",
+          "count": 1
+        },
+        {
+          "in": "beforehand",
+          "out": "first",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 75,
+      "n": 36,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 28,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1289519776943895,
+      "label": "inventions\u2192Gei\u00dfler",
+      "top_pairs": [
+        {
+          "in": "inventions",
+          "out": "Gei\u00dfler",
+          "count": 1
+        },
+        {
+          "in": "tools",
+          "out": "\u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u044b",
+          "count": 1
+        },
+        {
+          "in": "items",
+          "out": "ength",
+          "count": 1
+        },
+        {
+          "in": "methods",
+          "out": "\u09bf\u09b0\u09cd\u09ac",
+          "count": 1
+        },
+        {
+          "in": "techniques",
+          "out": "\u0995\u09be\u0995",
+          "count": 1
+        },
+        {
+          "in": "teknologi",
+          "out": "contexts",
+          "count": 1
+        },
+        {
+          "in": "methods",
+          "out": "quotes",
+          "count": 1
+        },
+        {
+          "in": "tools",
+          "out": "\u30ed\u30b0",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 77,
+      "n": 65,
+      "d50": 18,
+      "d50_ci": [
+        9,
+        11
+      ],
+      "d90": 51,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1023632729573627,
+      "label": "songs\u2192endors",
+      "top_pairs": [
+        {
+          "in": "songs",
+          "out": "endors",
+          "count": 1
+        },
+        {
+          "in": "audio",
+          "out": "optics",
+          "count": 1
+        },
+        {
+          "in": "songwriting",
+          "out": "\u043a\u0430\u0440\u0442\u0438\u043d",
+          "count": 1
+        },
+        {
+          "in": "guitarist",
+          "out": "\u09be\u09a8\u09cd\u09a4\u09b0\u09bf\u09a4",
+          "count": 1
+        },
+        {
+          "in": "musicians",
+          "out": "Thoroughbred",
+          "count": 1
+        },
+        {
+          "in": "orchestras",
+          "out": "teams",
+          "count": 1
+        },
+        {
+          "in": "acoustic",
+          "out": "\u0995\u09cd\u09af\u09be\u09ae\u09c7\u09b0\u09be",
+          "count": 1
+        },
+        {
+          "in": "music",
+          "out": "TPU",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 79,
+      "n": 192,
+      "d50": 12,
+      "d50_ci": [
+        12,
+        14
+      ],
+      "d90": 59,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.100930319352273,
+      "label": "his\u2192\u5979\u4eec",
+      "top_pairs": [
+        {
+          "in": "his",
+          "out": "\u5979\u4eec",
+          "count": 3
+        },
+        {
+          "in": "you",
+          "out": "you",
+          "count": 2
+        },
+        {
+          "in": "which",
+          "out": "who",
+          "count": 2
+        },
+        {
+          "in": "other",
+          "out": "\u0434\u0440\u0443\u0433\u0438\u0445",
+          "count": 1
+        },
+        {
+          "in": "any",
+          "out": "kinds",
+          "count": 1
+        },
+        {
+          "in": "which",
+          "out": "?),",
+          "count": 1
+        },
+        {
+          "in": "any",
+          "out": "\u092b\u093f\u0915\u0947\u0936\u0928",
+          "count": 1
+        },
+        {
+          "in": "which",
+          "out": "cuja",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 80,
+      "n": 30,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 20,
+      "spectral_gap_idx": 25,
+      "spectral_gap_ratio": 1275971.2097566419,
+      "label": "Japanese\u2192Japan",
+      "top_pairs": [
+        {
+          "in": "Japanese",
+          "out": "Japan",
+          "count": 2
+        },
+        {
+          "in": "Australian",
+          "out": "Australia",
+          "count": 2
+        },
+        {
+          "in": "Canadian",
+          "out": "Canada",
+          "count": 2
+        },
+        {
+          "in": "international",
+          "out": "Australia",
+          "count": 1
+        },
+        {
+          "in": "Ethiopian",
+          "out": "Ethiopia",
+          "count": 1
+        },
+        {
+          "in": "Hispanic",
+          "out": "Argentina",
+          "count": 1
+        },
+        {
+          "in": "Indian",
+          "out": "India",
+          "count": 1
+        },
+        {
+          "in": "Kurdish",
+          "out": "Iraq",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 82,
+      "n": 248,
+      "d50": 29,
+      "d50_ci": [
+        25,
+        27
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.176390290269277,
+      "label": "firearm\u2192firearms",
+      "top_pairs": [
+        {
+          "in": "firearm",
+          "out": "firearms",
+          "count": 2
+        },
+        {
+          "in": "luggage",
+          "out": "bags",
+          "count": 2
+        },
+        {
+          "in": "diagonal",
+          "out": "rows",
+          "count": 2
+        },
+        {
+          "in": "noon",
+          "out": "hours",
+          "count": 1
+        },
+        {
+          "in": "Criminal",
+          "out": "publishers",
+          "count": 1
+        },
+        {
+          "in": "journalistic",
+          "out": "journalists",
+          "count": 1
+        },
+        {
+          "in": "entrepreneur",
+          "out": "investors",
+          "count": 1
+        },
+        {
+          "in": "motherhood",
+          "out": "wives",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 87,
+      "n": 43,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 34,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.4838178985523025,
+      "label": "sixty\u2192\u0c41\u0c32",
+      "top_pairs": [
+        {
+          "in": "sixty",
+          "out": "\u0c41\u0c32",
+          "count": 1
+        },
+        {
+          "in": "thousand",
+          "out": "\u0e49\u0e22",
+          "count": 1
+        },
+        {
+          "in": "million",
+          "out": "ferm",
+          "count": 1
+        },
+        {
+          "in": "fifty",
+          "out": "jeito",
+          "count": 1
+        },
+        {
+          "in": "dozen",
+          "out": "ScriptName",
+          "count": 1
+        },
+        {
+          "in": "eighty",
+          "out": "Review",
+          "count": 1
+        },
+        {
+          "in": "fifty",
+          "out": "totaling",
+          "count": 1
+        },
+        {
+          "in": "sixteen",
+          "out": "four",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 89,
+      "n": 37,
+      "d50": 12,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 29,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.1228025754568935,
+      "label": "diet\u2192intake",
+      "top_pairs": [
+        {
+          "in": "diet",
+          "out": "intake",
+          "count": 1
+        },
+        {
+          "in": "diet",
+          "out": "standoff",
+          "count": 1
+        },
+        {
+          "in": "nutrition",
+          "out": "Hunger",
+          "count": 1
+        },
+        {
+          "in": "vegetables",
+          "out": "Manu",
+          "count": 1
+        },
+        {
+          "in": "antibiotics",
+          "out": "Antib",
+          "count": 1
+        },
+        {
+          "in": "batteries",
+          "out": "\u0633\u0641",
+          "count": 1
+        },
+        {
+          "in": "ingredients",
+          "out": "\u05d3\u05d5\u05dc",
+          "count": 1
+        },
+        {
+          "in": "diets",
+          "out": "\u5668\u5b98",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 90,
+      "n": 56,
+      "d50": 16,
+      "d50_ci": [
+        8,
+        10
+      ],
+      "d90": 44,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.2472820268794291,
+      "label": "wine\u2192\u094d\u092f\u0942\u0936\u0928",
+      "top_pairs": [
+        {
+          "in": "wine",
+          "out": "\u094d\u092f\u0942\u0936\u0928",
+          "count": 1
+        },
+        {
+          "in": "rainfall",
+          "out": "pendown",
+          "count": 1
+        },
+        {
+          "in": "beverage",
+          "out": "adanam",
+          "count": 1
+        },
+        {
+          "in": "drinks",
+          "out": "Tiles",
+          "count": 1
+        },
+        {
+          "in": "taste",
+          "out": "\u0019p",
+          "count": 1
+        },
+        {
+          "in": "rainfall",
+          "out": "Bal",
+          "count": 1
+        },
+        {
+          "in": "beverage",
+          "out": "lemonade",
+          "count": 1
+        },
+        {
+          "in": "soup",
+          "out": "ATI",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 94,
+      "n": 856,
+      "d50": 30,
+      "d50_ci": [
+        30,
+        31
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2420478227204046,
+      "label": "whatever\u2192yne",
+      "top_pairs": [
+        {
+          "in": "whatever",
+          "out": "yne",
+          "count": 2
+        },
+        {
+          "in": "behalf",
+          "out": "Pada",
+          "count": 2
+        },
+        {
+          "in": "alone",
+          "out": "Esqu",
+          "count": 1
+        },
+        {
+          "in": "however",
+          "out": "\u3042\u3093",
+          "count": 1
+        },
+        {
+          "in": "currently",
+          "out": "\u0dc3\u0db8",
+          "count": 1
+        },
+        {
+          "in": "old",
+          "out": "Pollution",
+          "count": 1
+        },
+        {
+          "in": "rather",
+          "out": "application",
+          "count": 1
+        },
+        {
+          "in": "overall",
+          "out": "Slug",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 96,
+      "n": 42,
+      "d50": 11,
+      "d50_ci": [
+        5,
+        8
+      ],
+      "d90": 33,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.1863878595570625,
+      "label": "medical\u2192Soccer",
+      "top_pairs": [
+        {
+          "in": "medical",
+          "out": "Soccer",
+          "count": 1
+        },
+        {
+          "in": "Surgery",
+          "out": "giphy",
+          "count": 1
+        },
+        {
+          "in": "Health",
+          "out": "bbq",
+          "count": 1
+        },
+        {
+          "in": "hospitals",
+          "out": "\u092e\u0948\u0925",
+          "count": 1
+        },
+        {
+          "in": "ophthalm",
+          "out": "\u0b9a\u0bc6\u0baf\u0bcd\u0ba4\u0bbe\u0bb0\u0bcd",
+          "count": 1
+        },
+        {
+          "in": "cancer",
+          "out": "\u0b89\u0baf\u0bb0",
+          "count": 1
+        },
+        {
+          "in": "medics",
+          "out": "\u092a\u094b\u0930\u094d\u0928",
+          "count": 1
+        },
+        {
+          "in": "Medical",
+          "out": "biological",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 99,
+      "n": 46,
+      "d50": 11,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 35,
+      "spectral_gap_idx": 43,
+      "spectral_gap_ratio": 2.077509366473132,
+      "label": "countless\u2192\u09a6\u09c1\u099f\u09bf",
+      "top_pairs": [
+        {
+          "in": "countless",
+          "out": "\u09a6\u09c1\u099f\u09bf",
+          "count": 1
+        },
+        {
+          "in": "many",
+          "out": "\u0628\u0639\u0636",
+          "count": 1
+        },
+        {
+          "in": "dozens",
+          "out": "\u0641\u0633",
+          "count": 1
+        },
+        {
+          "in": "billions",
+          "out": "\u3084\u3059",
+          "count": 1
+        },
+        {
+          "in": "hundreds",
+          "out": "roughly",
+          "count": 1
+        },
+        {
+          "in": "many",
+          "out": "\u041f\u0420\u041e",
+          "count": 1
+        },
+        {
+          "in": "innumerable",
+          "out": "\u6f00",
+          "count": 1
+        },
+        {
+          "in": "millions",
+          "out": "\u0631\u06a9\u06be\u0646\u06d2",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 100,
+      "n": 30,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 23,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.3238928734192696,
+      "label": "week\u2192months",
+      "top_pairs": [
+        {
+          "in": "week",
+          "out": "months",
+          "count": 1
+        },
+        {
+          "in": "month",
+          "out": "RPL",
+          "count": 1
+        },
+        {
+          "in": "Monday",
+          "out": "showroom",
+          "count": 1
+        },
+        {
+          "in": "weekend",
+          "out": "settimane",
+          "count": 1
+        },
+        {
+          "in": "weekly",
+          "out": "monthly",
+          "count": 1
+        },
+        {
+          "in": "weekend",
+          "out": "\u0c39\u0c02",
+          "count": 1
+        },
+        {
+          "in": "Wednesday",
+          "out": "\u0645\u062a\u062d\u062f\u0647",
+          "count": 1
+        },
+        {
+          "in": "weekend",
+          "out": "Polyp",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 101,
+      "n": 166,
+      "d50": 26,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 3,
+      "spectral_gap_ratio": 1.0989228773820798,
+      "label": "homeowners\u2192\u845a",
+      "top_pairs": [
+        {
+          "in": "homeowners",
+          "out": "\u845a",
+          "count": 1
+        },
+        {
+          "in": "Passengers",
+          "out": "Vehicle",
+          "count": 1
+        },
+        {
+          "in": "passengers",
+          "out": "\u1260\u1275",
+          "count": 1
+        },
+        {
+          "in": "parents",
+          "out": "parental",
+          "count": 1
+        },
+        {
+          "in": "ppl",
+          "out": "ki\u1ec7n",
+          "count": 1
+        },
+        {
+          "in": "clients",
+          "out": "Josephine",
+          "count": 1
+        },
+        {
+          "in": "viewers",
+          "out": "Cradle",
+          "count": 1
+        },
+        {
+          "in": "attackers",
+          "out": "runApp",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 103,
+      "n": 40,
+      "d50": 10,
+      "d50_ci": [
+        4,
+        7
+      ],
+      "d90": 32,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.5220491280211454,
+      "label": "during\u2192\u092e\u0932\u0935",
+      "top_pairs": [
+        {
+          "in": "during",
+          "out": "\u092e\u0932\u0935",
+          "count": 1
+        },
+        {
+          "in": "during",
+          "out": "weekdays",
+          "count": 1
+        },
+        {
+          "in": "during",
+          "out": "crunch",
+          "count": 1
+        },
+        {
+          "in": "During",
+          "out": "taglio",
+          "count": 1
+        },
+        {
+          "in": "during",
+          "out": "ka",
+          "count": 1
+        },
+        {
+          "in": "during",
+          "out": "iculaire",
+          "count": 1
+        },
+        {
+          "in": "during",
+          "out": "altid",
+          "count": 1
+        },
+        {
+          "in": "amidst",
+          "out": "Linden",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 105,
+      "n": 41,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 32,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.345796961265833,
+      "label": "price\u2192\u09b8\u09ab\u09b2",
+      "top_pairs": [
+        {
+          "in": "price",
+          "out": "\u09b8\u09ab\u09b2",
+          "count": 1
+        },
+        {
+          "in": "temperature",
+          "out": "colder",
+          "count": 1
+        },
+        {
+          "in": "prices",
+          "out": "\u1015\u102b",
+          "count": 1
+        },
+        {
+          "in": "pricing",
+          "out": "Disposition",
+          "count": 1
+        },
+        {
+          "in": "discount",
+          "out": "\u770c",
+          "count": 1
+        },
+        {
+          "in": "temperature",
+          "out": "warming",
+          "count": 1
+        },
+        {
+          "in": "priced",
+          "out": "\u90fd\u5408",
+          "count": 1
+        },
+        {
+          "in": "price",
+          "out": "\u0433\u04c0",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 106,
+      "n": 192,
+      "d50": 30,
+      "d50_ci": [
+        23,
+        26
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.0954690697272054,
+      "label": "preparedness\u2192prepared",
+      "top_pairs": [
+        {
+          "in": "preparedness",
+          "out": "prepared",
+          "count": 2
+        },
+        {
+          "in": "uniformity",
+          "out": "\u1f35",
+          "count": 1
+        },
+        {
+          "in": "employability",
+          "out": "Resume",
+          "count": 1
+        },
+        {
+          "in": "fragility",
+          "out": "pharmacology",
+          "count": 1
+        },
+        {
+          "in": "diversity",
+          "out": "rainbow",
+          "count": 1
+        },
+        {
+          "in": "seriousness",
+          "out": "limited",
+          "count": 1
+        },
+        {
+          "in": "popularity",
+          "out": "\u652f\u6255\u3044",
+          "count": 1
+        },
+        {
+          "in": "diversity",
+          "out": "\u591a\u6837",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 108,
+      "n": 35,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 28,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.0862329391968772,
+      "label": "boundaries\u2192\ud22d",
+      "top_pairs": [
+        {
+          "in": "boundaries",
+          "out": "\ud22d",
+          "count": 1
+        },
+        {
+          "in": "regulations",
+          "out": "\u09a3\u09bf\u099c",
+          "count": 1
+        },
+        {
+          "in": "regulations",
+          "out": "\u0915\u094d\u200d\u092f\u093e",
+          "count": 1
+        },
+        {
+          "in": "norms",
+          "out": "cuadros",
+          "count": 1
+        },
+        {
+          "in": "restrictions",
+          "out": "promiscu",
+          "count": 1
+        },
+        {
+          "in": "rules",
+          "out": "versi",
+          "count": 1
+        },
+        {
+          "in": "parameters",
+          "out": "Characteristics",
+          "count": 1
+        },
+        {
+          "in": "laws",
+          "out": "\u0642\u0627\u0646\u0648\u0646",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 112,
+      "n": 47,
+      "d50": 14,
+      "d50_ci": [
+        7,
+        9
+      ],
+      "d90": 37,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.1019254720747382,
+      "label": "Bible\u2192\u01e4",
+      "top_pairs": [
+        {
+          "in": "Bible",
+          "out": "\u01e4",
+          "count": 1
+        },
+        {
+          "in": "prayers",
+          "out": "\u7792",
+          "count": 1
+        },
+        {
+          "in": "theological",
+          "out": "\u8318",
+          "count": 1
+        },
+        {
+          "in": "sermon",
+          "out": "formulaire",
+          "count": 1
+        },
+        {
+          "in": "Bible",
+          "out": "\u043f\u0440\u043e\u0434\u0443\u043a\u0442\u0430",
+          "count": 1
+        },
+        {
+          "in": "Bible",
+          "out": "\u30b8\u30e3\u30f3",
+          "count": 1
+        },
+        {
+          "in": "churches",
+          "out": "HUN",
+          "count": 1
+        },
+        {
+          "in": "churches",
+          "out": "\u092e\u0902\u0926\u093f\u0930\u094b\u0902",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 115,
+      "n": 48,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 38,
+      "spectral_gap_idx": 5,
+      "spectral_gap_ratio": 1.2438112084940196,
+      "label": "student\u2192\u0627\u0645\u0631\u0623\u0629",
+      "top_pairs": [
+        {
+          "in": "student",
+          "out": "\u0627\u0645\u0631\u0623\u0629",
+          "count": 1
+        },
+        {
+          "in": "students",
+          "out": "Celebr",
+          "count": 1
+        },
+        {
+          "in": "schools",
+          "out": "naud",
+          "count": 1
+        },
+        {
+          "in": "students",
+          "out": "ometries",
+          "count": 1
+        },
+        {
+          "in": "school",
+          "out": "condomin",
+          "count": 1
+        },
+        {
+          "in": "sekolah",
+          "out": "\u0785",
+          "count": 1
+        },
+        {
+          "in": "classrooms",
+          "out": "meetings",
+          "count": 1
+        },
+        {
+          "in": "students",
+          "out": "tempering",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 120,
+      "n": 119,
+      "d50": 29,
+      "d50_ci": [
+        18,
+        22
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.1400597571570157,
+      "label": "brains\u2192brain",
+      "top_pairs": [
+        {
+          "in": "brains",
+          "out": "brain",
+          "count": 2
+        },
+        {
+          "in": "newborns",
+          "out": "Gender",
+          "count": 1
+        },
+        {
+          "in": "cigarettes",
+          "out": "smoking",
+          "count": 1
+        },
+        {
+          "in": "clocks",
+          "out": "clock",
+          "count": 1
+        },
+        {
+          "in": "minds",
+          "out": "mind",
+          "count": 1
+        },
+        {
+          "in": "gemstones",
+          "out": "gem",
+          "count": 1
+        },
+        {
+          "in": "earthquakes",
+          "out": "earthquake",
+          "count": 1
+        },
+        {
+          "in": "diapers",
+          "out": "diaper",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 124,
+      "n": 255,
+      "d50": 30,
+      "d50_ci": [
+        25,
+        27
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1517170841915803,
+      "label": "biopic\u2192Appear",
+      "top_pairs": [
+        {
+          "in": "biopic",
+          "out": "Appear",
+          "count": 1
+        },
+        {
+          "in": "LGBT",
+          "out": "transgender",
+          "count": 1
+        },
+        {
+          "in": "Tolkien",
+          "out": "\u01b0\u1ee3",
+          "count": 1
+        },
+        {
+          "in": "PhD",
+          "out": "\ud14c\uc2a4\ud2b8",
+          "count": 1
+        },
+        {
+          "in": "Kevin",
+          "out": "\u09eb\u09e6\u09e6",
+          "count": 1
+        },
+        {
+          "in": "hippie",
+          "out": "bohemian",
+          "count": 1
+        },
+        {
+          "in": "Reiki",
+          "out": "\u629b",
+          "count": 1
+        },
+        {
+          "in": "XYZ",
+          "out": "\u0c2a\u0c4d\u0c30\u0c2d\u0c41\u0c24\u0c4d\u0c35",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 125,
+      "n": 38,
+      "d50": 12,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.180537436333114,
+      "label": "Johannesburg\u2192\u9cd6",
+      "top_pairs": [
+        {
+          "in": "Johannesburg",
+          "out": "\u9cd6",
+          "count": 1
+        },
+        {
+          "in": "Madagascar",
+          "out": "ny",
+          "count": 1
+        },
+        {
+          "in": "Johannesburg",
+          "out": "\u0627\u0628\u06cc",
+          "count": 1
+        },
+        {
+          "in": "Nairobi",
+          "out": "ahme",
+          "count": 1
+        },
+        {
+          "in": "Johannesburg",
+          "out": "\u095f\u093e",
+          "count": 1
+        },
+        {
+          "in": "Africa",
+          "out": "\u10d8\u10d0\u10de",
+          "count": 1
+        },
+        {
+          "in": "Antarctica",
+          "out": "ice",
+          "count": 1
+        },
+        {
+          "in": "Ethiopia",
+          "out": "Portland",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 128,
+      "n": 131,
+      "d50": 30,
+      "d50_ci": [
+        20,
+        23
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 1,
+      "spectral_gap_ratio": 1.0952203086918544,
+      "label": "controversy\u2192debate",
+      "top_pairs": [
+        {
+          "in": "controversy",
+          "out": "debate",
+          "count": 1
+        },
+        {
+          "in": "violation",
+          "out": "\u0caa\u0c9f\u0ccd\u0c9f",
+          "count": 1
+        },
+        {
+          "in": "boredom",
+          "out": "QPushButton",
+          "count": 1
+        },
+        {
+          "in": "dilemma",
+          "out": "dlg",
+          "count": 1
+        },
+        {
+          "in": "plagiarism",
+          "out": "amenity",
+          "count": 1
+        },
+        {
+          "in": "poverty",
+          "out": "golden",
+          "count": 1
+        },
+        {
+          "in": "selfish",
+          "out": "\u0e41\u0e21\u0e48",
+          "count": 1
+        },
+        {
+          "in": "controversy",
+          "out": "\u09aa\u09c2\u09b0\u09cd\u09a3",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 129,
+      "n": 70,
+      "d50": 20,
+      "d50_ci": [
+        9,
+        12
+      ],
+      "d90": 54,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.290725871424337,
+      "label": "headphones\u2192Handlers",
+      "top_pairs": [
+        {
+          "in": "headphones",
+          "out": "Handlers",
+          "count": 1
+        },
+        {
+          "in": "smartphone",
+          "out": "Gep",
+          "count": 1
+        },
+        {
+          "in": "telefon",
+          "out": "\u0441\u0442\u0440\u043e",
+          "count": 1
+        },
+        {
+          "in": "smartphone",
+          "out": "digital",
+          "count": 1
+        },
+        {
+          "in": "blockchain",
+          "out": "Shelf",
+          "count": 1
+        },
+        {
+          "in": "emails",
+          "out": "letters",
+          "count": 1
+        },
+        {
+          "in": "telephone",
+          "out": "\u0645\u067e",
+          "count": 1
+        },
+        {
+          "in": "smartphone",
+          "out": "\u624b\u673a",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 130,
+      "n": 30,
+      "d50": 6,
+      "d50_ci": [
+        3,
+        5
+      ],
+      "d90": 22,
+      "spectral_gap_idx": 27,
+      "spectral_gap_ratio": 1.3574817262253962,
+      "label": "everywhere\u2192Applicable",
+      "top_pairs": [
+        {
+          "in": "everywhere",
+          "out": "Applicable",
+          "count": 1
+        },
+        {
+          "in": "every",
+          "out": "comunicazione",
+          "count": 1
+        },
+        {
+          "in": "everywhere",
+          "out": "varit",
+          "count": 1
+        },
+        {
+          "in": "everyone",
+          "out": "hundreds",
+          "count": 1
+        },
+        {
+          "in": "everything",
+          "out": "anything",
+          "count": 1
+        },
+        {
+          "in": "everyone",
+          "out": "\u17c0\u1794",
+          "count": 1
+        },
+        {
+          "in": "everyone",
+          "out": "\u307e\u305f",
+          "count": 1
+        },
+        {
+          "in": "everyone",
+          "out": "saling",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 131,
+      "n": 33,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 26,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.274320526280368,
+      "label": "differing\u2192a\u0142",
+      "top_pairs": [
+        {
+          "in": "differing",
+          "out": "a\u0142",
+          "count": 1
+        },
+        {
+          "in": "varying",
+          "out": "Cindy",
+          "count": 1
+        },
+        {
+          "in": "Different",
+          "out": "unhealthy",
+          "count": 1
+        },
+        {
+          "in": "different",
+          "out": "\u092e\u093e\u0936",
+          "count": 1
+        },
+        {
+          "in": "varieties",
+          "out": "\u0924\u0941\u0915",
+          "count": 1
+        },
+        {
+          "in": "varying",
+          "out": "\u09b8\u09be\u09dc\u09c7",
+          "count": 1
+        },
+        {
+          "in": "differently",
+          "out": "impresa",
+          "count": 1
+        },
+        {
+          "in": "diverse",
+          "out": "\u55e8",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 132,
+      "n": 51,
+      "d50": 16,
+      "d50_ci": [
+        7,
+        10
+      ],
+      "d90": 39,
+      "spectral_gap_idx": 48,
+      "spectral_gap_ratio": 1227278.5620103818,
+      "label": "Hours\u2192hours",
+      "top_pairs": [
+        {
+          "in": "Hours",
+          "out": "hours",
+          "count": 2
+        },
+        {
+          "in": "Diagram",
+          "out": "diagrams",
+          "count": 1
+        },
+        {
+          "in": "Reasons",
+          "out": "reasons",
+          "count": 1
+        },
+        {
+          "in": "Supplier",
+          "out": "suppliers",
+          "count": 1
+        },
+        {
+          "in": "Characters",
+          "out": "characters",
+          "count": 1
+        },
+        {
+          "in": "Experiments",
+          "out": "experiments",
+          "count": 1
+        },
+        {
+          "in": "Courses",
+          "out": "courses",
+          "count": 1
+        },
+        {
+          "in": "Products",
+          "out": "products",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 134,
+      "n": 44,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 32,
+      "spectral_gap_idx": 39,
+      "spectral_gap_ratio": 1.3186735439694552,
+      "label": "winter\u2192\u90b8",
+      "top_pairs": [
+        {
+          "in": "winter",
+          "out": "\u90b8",
+          "count": 1
+        },
+        {
+          "in": "daytime",
+          "out": "fide",
+          "count": 1
+        },
+        {
+          "in": "afternoon",
+          "out": "\u09b7\u09cd\u099f\u09cd\u09b0",
+          "count": 1
+        },
+        {
+          "in": "nightly",
+          "out": "weekly",
+          "count": 1
+        },
+        {
+          "in": "daytime",
+          "out": "fan",
+          "count": 1
+        },
+        {
+          "in": "nocturnal",
+          "out": "sunscreen",
+          "count": 1
+        },
+        {
+          "in": "nightlife",
+          "out": "ByType",
+          "count": 1
+        },
+        {
+          "in": "nighttime",
+          "out": "midnight",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 141,
+      "n": 31,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 25,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.3287562377865088,
+      "label": "afterwards\u2192\u304c\u898b",
+      "top_pairs": [
+        {
+          "in": "afterwards",
+          "out": "\u304c\u898b",
+          "count": 1
+        },
+        {
+          "in": "afterwards",
+          "out": "\u0938\u0902\u0935\u0948\u0927\u093e\u0928\u093f\u0915",
+          "count": 1
+        },
+        {
+          "in": "after",
+          "out": "\u6279\u51c6",
+          "count": 1
+        },
+        {
+          "in": "etter",
+          "out": "pand\u00e9mie",
+          "count": 1
+        },
+        {
+          "in": "after",
+          "out": "publication",
+          "count": 1
+        },
+        {
+          "in": "before",
+          "out": "\u0441\u043f\u0443\u0441\u0442\u044f",
+          "count": 1
+        },
+        {
+          "in": "dopo",
+          "out": "kasih",
+          "count": 1
+        },
+        {
+          "in": "setelah",
+          "out": "undes",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 143,
+      "n": 592,
+      "d50": 31,
+      "d50_ci": [
+        30,
+        32
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.0926269536210969,
+      "label": "worden\u2192\u88ab",
+      "top_pairs": [
+        {
+          "in": "worden",
+          "out": "\u88ab",
+          "count": 3
+        },
+        {
+          "in": "vuonna",
+          "out": "\u09e7\u09ef\u09ef",
+          "count": 2
+        },
+        {
+          "in": "sekolah",
+          "out": "Teacher",
+          "count": 1
+        },
+        {
+          "in": "italien",
+          "out": "Listener",
+          "count": 1
+        },
+        {
+          "in": "birbir",
+          "out": "silenc",
+          "count": 1
+        },
+        {
+          "in": "Schauspieler",
+          "out": "unix",
+          "count": 1
+        },
+        {
+          "in": "nuevos",
+          "out": "\u0928\u0935\u0947",
+          "count": 1
+        },
+        {
+          "in": "blevet",
+          "out": "affinity",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 145,
+      "n": 39,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 29,
+      "spectral_gap_idx": 35,
+      "spectral_gap_ratio": 1.9839122497989432,
+      "label": "weekly\u2192d\u00e9cada",
+      "top_pairs": [
+        {
+          "in": "weekly",
+          "out": "d\u00e9cada",
+          "count": 1
+        },
+        {
+          "in": "annually",
+          "out": "\u989a",
+          "count": 1
+        },
+        {
+          "in": "biennial",
+          "out": "\u0bae\u0bc1\u0bb0\u0bc1\u0b95",
+          "count": 1
+        },
+        {
+          "in": "yearly",
+          "out": "preexisting",
+          "count": 1
+        },
+        {
+          "in": "daily",
+          "out": "\u09aa\u09c1\u09b8\u09cd\u09a4",
+          "count": 1
+        },
+        {
+          "in": "annually",
+          "out": "\u6bcf\u6b21",
+          "count": 1
+        },
+        {
+          "in": "weekly",
+          "out": "next",
+          "count": 1
+        },
+        {
+          "in": "daily",
+          "out": "morning",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 146,
+      "n": 71,
+      "d50": 21,
+      "d50_ci": [
+        10,
+        12
+      ],
+      "d90": 55,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2386651465811316,
+      "label": "assistance\u2192help",
+      "top_pairs": [
+        {
+          "in": "assistance",
+          "out": "help",
+          "count": 2
+        },
+        {
+          "in": "discussion",
+          "out": "adhere",
+          "count": 1
+        },
+        {
+          "in": "guidance",
+          "out": "guide",
+          "count": 1
+        },
+        {
+          "in": "conversation",
+          "out": "discuss",
+          "count": 1
+        },
+        {
+          "in": "information",
+          "out": "\u043b\u04d9\u043d",
+          "count": 1
+        },
+        {
+          "in": "recent",
+          "out": "continue",
+          "count": 1
+        },
+        {
+          "in": "distraction",
+          "out": "distract",
+          "count": 1
+        },
+        {
+          "in": "sympath",
+          "out": "sympathize",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 147,
+      "n": 113,
+      "d50": 27,
+      "d50_ci": [
+        16,
+        19
+      ],
+      "d90": 66,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2884265728139526,
+      "label": "Sports\u2192sports",
+      "top_pairs": [
+        {
+          "in": "Sports",
+          "out": "sports",
+          "count": 2
+        },
+        {
+          "in": "Banking",
+          "out": "banking",
+          "count": 2
+        },
+        {
+          "in": "Mining",
+          "out": "gold",
+          "count": 2
+        },
+        {
+          "in": "Ancient",
+          "out": "ancient",
+          "count": 2
+        },
+        {
+          "in": "Homeless",
+          "out": "homeless",
+          "count": 1
+        },
+        {
+          "in": "Eating",
+          "out": "dining",
+          "count": 1
+        },
+        {
+          "in": "Aviation",
+          "out": "aircraft",
+          "count": 1
+        },
+        {
+          "in": "Infection",
+          "out": "bacteria",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 151,
+      "n": 56,
+      "d50": 10,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 41,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.276831885342245,
+      "label": "cities\u2192capital",
+      "top_pairs": [
+        {
+          "in": "cities",
+          "out": "capital",
+          "count": 2
+        },
+        {
+          "in": "cities",
+          "out": "\u0909\u0926\u094d\u092f",
+          "count": 1
+        },
+        {
+          "in": "regions",
+          "out": "professionnelle",
+          "count": 1
+        },
+        {
+          "in": "cities",
+          "out": "\u0441\u043e\u0431",
+          "count": 1
+        },
+        {
+          "in": "cities",
+          "out": "\u092e\u0941\u0902\u092c\u0908",
+          "count": 1
+        },
+        {
+          "in": "towns",
+          "out": "\u0c38\u0c30\u0c4d",
+          "count": 1
+        },
+        {
+          "in": "city",
+          "out": "Cincinnati",
+          "count": 1
+        },
+        {
+          "in": "countries",
+          "out": "CEO",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 152,
+      "n": 37,
+      "d50": 7,
+      "d50_ci": [
+        3,
+        5
+      ],
+      "d90": 29,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.40207981827631,
+      "label": "thereof\u2192\u0630\u0644\u0643",
+      "top_pairs": [
+        {
+          "in": "thereof",
+          "out": "\u0630\u0644\u0643",
+          "count": 1
+        },
+        {
+          "in": "thereof",
+          "out": "\u0909\u0938\u0915\u094b",
+          "count": 1
+        },
+        {
+          "in": "thereof",
+          "out": "magnets",
+          "count": 1
+        },
+        {
+          "in": "thereof",
+          "out": "\u0d15\u0d3e",
+          "count": 1
+        },
+        {
+          "in": "ofthe",
+          "out": "\u03bb\u03af",
+          "count": 1
+        },
+        {
+          "in": "thereof",
+          "out": "coelastic",
+          "count": 1
+        },
+        {
+          "in": "ofthe",
+          "out": "\u0626\u06d5\u0645",
+          "count": 1
+        },
+        {
+          "in": "thereby",
+          "out": "process",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 153,
+      "n": 112,
+      "d50": 20,
+      "d50_ci": [
+        14,
+        17
+      ],
+      "d90": 63,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.160263778142037,
+      "label": "Dutch\u2192van",
+      "top_pairs": [
+        {
+          "in": "Dutch",
+          "out": "van",
+          "count": 2
+        },
+        {
+          "in": "Ukrainian",
+          "out": "\u0443\u043a\u0440\u0430\u0438\u043d",
+          "count": 2
+        },
+        {
+          "in": "Chinese",
+          "out": "Tai",
+          "count": 1
+        },
+        {
+          "in": "Soviet",
+          "out": "deo",
+          "count": 1
+        },
+        {
+          "in": "Soviet",
+          "out": "sendMessage",
+          "count": 1
+        },
+        {
+          "in": "Israeli",
+          "out": "clove",
+          "count": 1
+        },
+        {
+          "in": "Chinese",
+          "out": "\u091c",
+          "count": 1
+        },
+        {
+          "in": "Soviet",
+          "out": "USSR",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 159,
+      "n": 413,
+      "d50": 30,
+      "d50_ci": [
+        28,
+        30
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.0452112098951074,
+      "label": "name\u2192named",
+      "top_pairs": [
+        {
+          "in": "name",
+          "out": "named",
+          "count": 2
+        },
+        {
+          "in": "task",
+          "out": "\u4f9d\u983c",
+          "count": 1
+        },
+        {
+          "in": "hierarchy",
+          "out": "hierarchical",
+          "count": 1
+        },
+        {
+          "in": "book",
+          "out": "gesund",
+          "count": 1
+        },
+        {
+          "in": "test",
+          "out": "testing",
+          "count": 1
+        },
+        {
+          "in": "forum",
+          "out": "\u6559\u4f1a",
+          "count": 1
+        },
+        {
+          "in": "season",
+          "out": "\u09af\u09a4\u09a6\u09bf\u09a8",
+          "count": 1
+        },
+        {
+          "in": "file",
+          "out": "RefSet",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 160,
+      "n": 34,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 26,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2623897193200178,
+      "label": "inability\u2192imperfect",
+      "top_pairs": [
+        {
+          "in": "inability",
+          "out": "imperfect",
+          "count": 1
+        },
+        {
+          "in": "unable",
+          "out": "\u0930\u0939",
+          "count": 1
+        },
+        {
+          "in": "abilities",
+          "out": "endurance",
+          "count": 1
+        },
+        {
+          "in": "inability",
+          "out": "p\u00f5h",
+          "count": 1
+        },
+        {
+          "in": "incapable",
+          "out": "MJ",
+          "count": 1
+        },
+        {
+          "in": "skill",
+          "out": "ObjectID",
+          "count": 1
+        },
+        {
+          "in": "abilities",
+          "out": "\u092e\u0941\u0939\u0948\u092f\u093e",
+          "count": 1
+        },
+        {
+          "in": "capable",
+          "out": "aghe",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 161,
+      "n": 246,
+      "d50": 27,
+      "d50_ci": [
+        23,
+        26
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.1021138971292865,
+      "label": "purchased\u2192purchase",
+      "top_pairs": [
+        {
+          "in": "purchased",
+          "out": "purchase",
+          "count": 2
+        },
+        {
+          "in": "reversed",
+          "out": "reverse",
+          "count": 1
+        },
+        {
+          "in": "replied",
+          "out": "reply",
+          "count": 1
+        },
+        {
+          "in": "merged",
+          "out": "\u09ac\u09be\u09a8\u09cd\u09a7",
+          "count": 1
+        },
+        {
+          "in": "answered",
+          "out": "answer",
+          "count": 1
+        },
+        {
+          "in": "revived",
+          "out": "reviving",
+          "count": 1
+        },
+        {
+          "in": "immigrated",
+          "out": "America",
+          "count": 1
+        },
+        {
+          "in": "healed",
+          "out": "hospitals",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 163,
+      "n": 140,
+      "d50": 21,
+      "d50_ci": [
+        17,
+        19
+      ],
+      "d90": 63,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.0917535095023316,
+      "label": "telah\u2192\u0111\u00e3",
+      "top_pairs": [
+        {
+          "in": "telah",
+          "out": "\u0111\u00e3",
+          "count": 2
+        },
+        {
+          "in": "adalah",
+          "out": "\u09aa\u09be\u099f",
+          "count": 1
+        },
+        {
+          "in": "telah",
+          "out": "tried",
+          "count": 1
+        },
+        {
+          "in": "bahwa",
+          "out": "elor",
+          "count": 1
+        },
+        {
+          "in": "adalah",
+          "out": "considered",
+          "count": 1
+        },
+        {
+          "in": "oleh",
+          "out": "tj",
+          "count": 1
+        },
+        {
+          "in": "yaitu",
+          "out": "\u73b7",
+          "count": 1
+        },
+        {
+          "in": "dapat",
+          "out": "iaio",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 164,
+      "n": 43,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 40,
+      "spectral_gap_ratio": 1267810.4398984741,
+      "label": "others\u2192Others",
+      "top_pairs": [
+        {
+          "in": "others",
+          "out": "Others",
+          "count": 2
+        },
+        {
+          "in": "again",
+          "out": "Again",
+          "count": 1
+        },
+        {
+          "in": "our",
+          "out": "Seems",
+          "count": 1
+        },
+        {
+          "in": "already",
+          "out": "Already",
+          "count": 1
+        },
+        {
+          "in": "our",
+          "out": "\u0431\u0430\u0448",
+          "count": 1
+        },
+        {
+          "in": "further",
+          "out": "Further",
+          "count": 1
+        },
+        {
+          "in": "throughout",
+          "out": "Throughout",
+          "count": 1
+        },
+        {
+          "in": "multiple",
+          "out": "Multiple",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 167,
+      "n": 180,
+      "d50": 18,
+      "d50_ci": [
+        16,
+        18
+      ],
+      "d90": 62,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.3610866305909832,
+      "label": "oleh\u2192by",
+      "top_pairs": [
+        {
+          "in": "oleh",
+          "out": "by",
+          "count": 3
+        },
+        {
+          "in": "jika",
+          "out": "if",
+          "count": 3
+        },
+        {
+          "in": "bahwa",
+          "out": "that",
+          "count": 3
+        },
+        {
+          "in": "ofthe",
+          "out": "of",
+          "count": 3
+        },
+        {
+          "in": "atthe",
+          "out": "at",
+          "count": 2
+        },
+        {
+          "in": "eftersom",
+          "out": "because",
+          "count": 2
+        },
+        {
+          "in": "telah",
+          "out": "has",
+          "count": 2
+        },
+        {
+          "in": "merupakan",
+          "out": "is",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "cluster": 174,
+      "n": 34,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        6
+      ],
+      "d90": 27,
+      "spectral_gap_idx": 3,
+      "spectral_gap_ratio": 1.1885243805690493,
+      "label": "animals\u2192\u092e\u093e\u091c\u093f\u0915",
+      "top_pairs": [
+        {
+          "in": "animals",
+          "out": "\u092e\u093e\u091c\u093f\u0915",
+          "count": 1
+        },
+        {
+          "in": "animals",
+          "out": "names",
+          "count": 1
+        },
+        {
+          "in": "animals",
+          "out": "owners",
+          "count": 1
+        },
+        {
+          "in": "animals",
+          "out": "\u2165",
+          "count": 1
+        },
+        {
+          "in": "livestock",
+          "out": "\u0632\u0648",
+          "count": 1
+        },
+        {
+          "in": "wildlife",
+          "out": "\u76c6",
+          "count": 1
+        },
+        {
+          "in": "livestock",
+          "out": "\ud83d\udc67",
+          "count": 1
+        },
+        {
+          "in": "animales",
+          "out": "underwear",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 179,
+      "n": 192,
+      "d50": 27,
+      "d50_ci": [
+        22,
+        25
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2242884348380803,
+      "label": "Therefore\u2192therefore",
+      "top_pairs": [
+        {
+          "in": "Therefore",
+          "out": "therefore",
+          "count": 2
+        },
+        {
+          "in": "Focusing",
+          "out": "waters",
+          "count": 1
+        },
+        {
+          "in": "Meanwhile",
+          "out": "meanwhile",
+          "count": 1
+        },
+        {
+          "in": "Would",
+          "out": "oleks",
+          "count": 1
+        },
+        {
+          "in": "Always",
+          "out": "\u1787\u17b8\u179c",
+          "count": 1
+        },
+        {
+          "in": "Requests",
+          "out": "statusCode",
+          "count": 1
+        },
+        {
+          "in": "Predictions",
+          "out": "promised",
+          "count": 1
+        },
+        {
+          "in": "Previous",
+          "out": "previous",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 180,
+      "n": 31,
+      "d50": 7,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 24,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.461478572322953,
+      "label": "rapid\u2192Long",
+      "top_pairs": [
+        {
+          "in": "rapid",
+          "out": "Long",
+          "count": 1
+        },
+        {
+          "in": "soon",
+          "out": "\u7719",
+          "count": 1
+        },
+        {
+          "in": "quickly",
+          "out": "exceedingly",
+          "count": 1
+        },
+        {
+          "in": "soon",
+          "out": "ushchev",
+          "count": 1
+        },
+        {
+          "in": "soon",
+          "out": "tomorrow",
+          "count": 1
+        },
+        {
+          "in": "quicker",
+          "out": "\u043e\u0448\u0438",
+          "count": 1
+        },
+        {
+          "in": "shortly",
+          "out": "late",
+          "count": 1
+        },
+        {
+          "in": "schnell",
+          "out": "ubit",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 182,
+      "n": 44,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 31,
+      "spectral_gap_idx": 41,
+      "spectral_gap_ratio": 1.9550627176678756,
+      "label": "Days\u2192}}]{",
+      "top_pairs": [
+        {
+          "in": "Days",
+          "out": "}}]{",
+          "count": 1
+        },
+        {
+          "in": "weeks",
+          "out": "jerseys",
+          "count": 1
+        },
+        {
+          "in": "months",
+          "out": "week",
+          "count": 1
+        },
+        {
+          "in": "months",
+          "out": "\u6c38",
+          "count": 1
+        },
+        {
+          "in": "hours",
+          "out": "\u0917\u094d\u0930\u0939\u094b\u0902",
+          "count": 1
+        },
+        {
+          "in": "periods",
+          "out": "}}{",
+          "count": 1
+        },
+        {
+          "in": "months",
+          "out": "since",
+          "count": 1
+        },
+        {
+          "in": "hours",
+          "out": "veck",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 185,
+      "n": 50,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 38,
+      "spectral_gap_idx": 47,
+      "spectral_gap_ratio": 2.0630816907810257,
+      "label": "namely\u2192dv",
+      "top_pairs": [
+        {
+          "in": "namely",
+          "out": "dv",
+          "count": 1
+        },
+        {
+          "in": "include",
+          "out": "\u0bb1\u0bbf\u0bb5\u0bc1",
+          "count": 1
+        },
+        {
+          "in": "plus",
+          "out": "gleichzeitig",
+          "count": 1
+        },
+        {
+          "in": "including",
+          "out": "Truy",
+          "count": 1
+        },
+        {
+          "in": "Includes",
+          "out": "\u306a\u304b\u306a\u304b",
+          "count": 1
+        },
+        {
+          "in": "namely",
+          "out": "birdie",
+          "count": 1
+        },
+        {
+          "in": "ranging",
+          "out": "\u0d2e\u0d41\u0d24\u0d7d",
+          "count": 1
+        },
+        {
+          "in": "including",
+          "out": "cotisation",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 186,
+      "n": 190,
+      "d50": 27,
+      "d50_ci": [
+        22,
+        25
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.149306842458269,
+      "label": "gifts\u2192gift",
+      "top_pairs": [
+        {
+          "in": "gifts",
+          "out": "gift",
+          "count": 2
+        },
+        {
+          "in": "origins",
+          "out": "origin",
+          "count": 2
+        },
+        {
+          "in": "awards",
+          "out": "award",
+          "count": 2
+        },
+        {
+          "in": "choices",
+          "out": "choice",
+          "count": 2
+        },
+        {
+          "in": "situations",
+          "out": "situation",
+          "count": 2
+        },
+        {
+          "in": "relationships",
+          "out": "relationship",
+          "count": 2
+        },
+        {
+          "in": "commands",
+          "out": "command",
+          "count": 2
+        },
+        {
+          "in": "metrics",
+          "out": "measuring",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 189,
+      "n": 41,
+      "d50": 10,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 38,
+      "spectral_gap_ratio": 1.934564880434398,
+      "label": "September\u2192\u74dc",
+      "top_pairs": [
+        {
+          "in": "September",
+          "out": "\u74dc",
+          "count": 1
+        },
+        {
+          "in": "december",
+          "out": "Benefits",
+          "count": 1
+        },
+        {
+          "in": "July",
+          "out": "juin",
+          "count": 1
+        },
+        {
+          "in": "September",
+          "out": "\u9a6c\u62c9",
+          "count": 1
+        },
+        {
+          "in": "December",
+          "out": "\u09a4\u09be\u09aa",
+          "count": 1
+        },
+        {
+          "in": "September",
+          "out": "\u3011-",
+          "count": 1
+        },
+        {
+          "in": "July",
+          "out": "Tuesday",
+          "count": 1
+        },
+        {
+          "in": "November",
+          "out": "Randy",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 191,
+      "n": 30,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        5
+      ],
+      "d90": 24,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2092137538085863,
+      "label": "importance\u2192abuses",
+      "top_pairs": [
+        {
+          "in": "importance",
+          "out": "abuses",
+          "count": 1
+        },
+        {
+          "in": "helpful",
+          "out": "aude",
+          "count": 1
+        },
+        {
+          "in": "importance",
+          "out": "\u0cb8\u0ccd\u0caa",
+          "count": 1
+        },
+        {
+          "in": "importantly",
+          "out": "most",
+          "count": 1
+        },
+        {
+          "in": "crucial",
+          "out": "projeto",
+          "count": 1
+        },
+        {
+          "in": "worthwhile",
+          "out": "\uf0d2",
+          "count": 1
+        },
+        {
+          "in": "importantly",
+          "out": "\u0e31\u0e48\u0e07",
+          "count": 1
+        },
+        {
+          "in": "beneficial",
+          "out": "\u4f1a\u81ea\u52a8",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 192,
+      "n": 30,
+      "d50": 5,
+      "d50_ci": [
+        3,
+        4
+      ],
+      "d90": 20,
+      "spectral_gap_idx": 26,
+      "spectral_gap_ratio": 975884.7293339181,
+      "label": "second\u2192\u7b2c",
+      "top_pairs": [
+        {
+          "in": "second",
+          "out": "\u7b2c",
+          "count": 2
+        },
+        {
+          "in": "second",
+          "out": "first",
+          "count": 2
+        },
+        {
+          "in": "third",
+          "out": "ambos",
+          "count": 1
+        },
+        {
+          "in": "second",
+          "out": "\uac01",
+          "count": 1
+        },
+        {
+          "in": "second",
+          "out": "seventh",
+          "count": 1
+        },
+        {
+          "in": "final",
+          "out": "ifold",
+          "count": 1
+        },
+        {
+          "in": "sixth",
+          "out": "Chapter",
+          "count": 1
+        },
+        {
+          "in": "seventh",
+          "out": "\u05d1\u05e1",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 195,
+      "n": 33,
+      "d50": 9,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 26,
+      "spectral_gap_idx": 30,
+      "spectral_gap_ratio": 1.3544704331547872,
+      "label": "Women\u2192\u79dd",
+      "top_pairs": [
+        {
+          "in": "Women",
+          "out": "\u79dd",
+          "count": 1
+        },
+        {
+          "in": "femininity",
+          "out": "\u79bb\u5f00\u4e86",
+          "count": 1
+        },
+        {
+          "in": "female",
+          "out": "goddess",
+          "count": 1
+        },
+        {
+          "in": "Women",
+          "out": "ibor",
+          "count": 1
+        },
+        {
+          "in": "female",
+          "out": "\u099c\u09a8\u09c7",
+          "count": 1
+        },
+        {
+          "in": "females",
+          "out": "\u0a23\u0a3e",
+          "count": 1
+        },
+        {
+          "in": "spokeswoman",
+          "out": "spokesman",
+          "count": 1
+        },
+        {
+          "in": "woman",
+          "out": "masculine",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 197,
+      "n": 158,
+      "d50": 26,
+      "d50_ci": [
+        21,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.2187734490777058,
+      "label": "diplomatic\u2192embassy",
+      "top_pairs": [
+        {
+          "in": "diplomatic",
+          "out": "embassy",
+          "count": 2
+        },
+        {
+          "in": "journalistic",
+          "out": "\u0441\u043a\u0443",
+          "count": 1
+        },
+        {
+          "in": "meteorological",
+          "out": "weather",
+          "count": 1
+        },
+        {
+          "in": "musical",
+          "out": "singing",
+          "count": 1
+        },
+        {
+          "in": "agricultural",
+          "out": "Revel",
+          "count": 1
+        },
+        {
+          "in": "racial",
+          "out": "Haryana",
+          "count": 1
+        },
+        {
+          "in": "regulatory",
+          "out": "konser",
+          "count": 1
+        },
+        {
+          "in": "ecological",
+          "out": "\u05d4\u05e8",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 199,
+      "n": 140,
+      "d50": 27,
+      "d50_ci": [
+        19,
+        22
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1106414471925108,
+      "label": "owners\u2192owner",
+      "top_pairs": [
+        {
+          "in": "owners",
+          "out": "owner",
+          "count": 2
+        },
+        {
+          "in": "politicians",
+          "out": "political",
+          "count": 2
+        },
+        {
+          "in": "traders",
+          "out": "trading",
+          "count": 2
+        },
+        {
+          "in": "songwriters",
+          "out": "songwriting",
+          "count": 1
+        },
+        {
+          "in": "physicians",
+          "out": "\u093e\u092e\u0941",
+          "count": 1
+        },
+        {
+          "in": "artistes",
+          "out": "\u0ba8\u0bbe\u0b99\u0bcd\u0b95\u0bb3\u0bcd",
+          "count": 1
+        },
+        {
+          "in": "Scientists",
+          "out": "technological",
+          "count": 1
+        },
+        {
+          "in": "historians",
+          "out": "\u0633\u0639\u0648\u062f",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 204,
+      "n": 39,
+      "d50": 11,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 36,
+      "spectral_gap_ratio": 1.372143347273157,
+      "label": "AUSTRAL\u2192\u65e5\u672c\u306e",
+      "top_pairs": [
+        {
+          "in": "AUSTRAL",
+          "out": "\u65e5\u672c\u306e",
+          "count": 1
+        },
+        {
+          "in": "Aboriginal",
+          "out": "deb",
+          "count": 1
+        },
+        {
+          "in": "Aboriginal",
+          "out": "apers",
+          "count": 1
+        },
+        {
+          "in": "Australia",
+          "out": "Estados",
+          "count": 1
+        },
+        {
+          "in": "Papua",
+          "out": "Amr",
+          "count": 1
+        },
+        {
+          "in": "Maori",
+          "out": "waxaa",
+          "count": 1
+        },
+        {
+          "in": "Australien",
+          "out": "Abroad",
+          "count": 1
+        },
+        {
+          "in": "Vancouver",
+          "out": "OU",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 212,
+      "n": 31,
+      "d50": 8,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 24,
+      "spectral_gap_idx": 28,
+      "spectral_gap_ratio": 2.309408856727783,
+      "label": "oder\u2192dem\u00e1s",
+      "top_pairs": [
+        {
+          "in": "oder",
+          "out": "dem\u00e1s",
+          "count": 1
+        },
+        {
+          "in": "eller",
+          "out": "\u0130l\u00e7",
+          "count": 1
+        },
+        {
+          "in": "oder",
+          "out": "/-",
+          "count": 1
+        },
+        {
+          "in": "nicht",
+          "out": "nici",
+          "count": 1
+        },
+        {
+          "in": "nicht",
+          "out": "Gu",
+          "count": 1
+        },
+        {
+          "in": "eller",
+          "out": "\u30eb\u30fc\u30d7",
+          "count": 1
+        },
+        {
+          "in": "eller",
+          "out": "either",
+          "count": 1
+        },
+        {
+          "in": "oder",
+          "out": "\u0938\u094d\u0924\u0935",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 217,
+      "n": 47,
+      "d50": 15,
+      "d50_ci": [
+        7,
+        10
+      ],
+      "d90": 37,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.123865082610631,
+      "label": "imperfect\u2192selectable",
+      "top_pairs": [
+        {
+          "in": "imperfect",
+          "out": "selectable",
+          "count": 1
+        },
+        {
+          "in": "unduly",
+          "out": "\u10e1\u10d0\u10e8",
+          "count": 1
+        },
+        {
+          "in": "excessive",
+          "out": "\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07",
+          "count": 1
+        },
+        {
+          "in": "unsafe",
+          "out": "injuries",
+          "count": 1
+        },
+        {
+          "in": "incorrect",
+          "out": "bi\u1ec7t",
+          "count": 1
+        },
+        {
+          "in": "haphazard",
+          "out": "\u4e00\u5ea6",
+          "count": 1
+        },
+        {
+          "in": "unnecessarily",
+          "out": "lavar",
+          "count": 1
+        },
+        {
+          "in": "useless",
+          "out": "surgery",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 223,
+      "n": 50,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        7
+      ],
+      "d90": 34,
+      "spectral_gap_idx": 46,
+      "spectral_gap_ratio": 608399.3590296071,
+      "label": "Five\u21925",
+      "top_pairs": [
+        {
+          "in": "Five",
+          "out": "5",
+          "count": 2
+        },
+        {
+          "in": "Seven",
+          "out": "7",
+          "count": 2
+        },
+        {
+          "in": "three",
+          "out": "beide",
+          "count": 1
+        },
+        {
+          "in": "eight",
+          "out": "cycline",
+          "count": 1
+        },
+        {
+          "in": "TWO",
+          "out": "pa",
+          "count": 1
+        },
+        {
+          "in": "nine",
+          "out": "Carn",
+          "count": 1
+        },
+        {
+          "in": "four",
+          "out": "ayl",
+          "count": 1
+        },
+        {
+          "in": "deux",
+          "out": "\u043a\u043e\u0440\u0434",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 228,
+      "n": 173,
+      "d50": 25,
+      "d50_ci": [
+        21,
+        23
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1950931774578337,
+      "label": "Karnataka\u2192Kannada",
+      "top_pairs": [
+        {
+          "in": "Karnataka",
+          "out": "Kannada",
+          "count": 2
+        },
+        {
+          "in": "Ontario",
+          "out": "Canada",
+          "count": 1
+        },
+        {
+          "in": "Ontario",
+          "out": "\u0438\u0441\u0441\u043b\u0435\u0434\u043e\u0432\u0430\u0442\u0435\u043b\u044c",
+          "count": 1
+        },
+        {
+          "in": "Zhejiang",
+          "out": "kredit",
+          "count": 1
+        },
+        {
+          "in": "Milwaukee",
+          "out": "Ukraine",
+          "count": 1
+        },
+        {
+          "in": "Cincinnati",
+          "out": "hepatic",
+          "count": 1
+        },
+        {
+          "in": "Minnesota",
+          "out": "Maserati",
+          "count": 1
+        },
+        {
+          "in": "Alberta",
+          "out": "oils",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 230,
+      "n": 38,
+      "d50": 9,
+      "d50_ci": [
+        5,
+        6
+      ],
+      "d90": 30,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.3010815933476174,
+      "label": "beforehand\u2192\u63d0\u524d",
+      "top_pairs": [
+        {
+          "in": "beforehand",
+          "out": "\u63d0\u524d",
+          "count": 1
+        },
+        {
+          "in": "originally",
+          "out": "\u539f\u6765",
+          "count": 1
+        },
+        {
+          "in": "initial",
+          "out": "inaugural",
+          "count": 1
+        },
+        {
+          "in": "initial",
+          "out": "inesper",
+          "count": 1
+        },
+        {
+          "in": "earlier",
+          "out": "BuildAction",
+          "count": 1
+        },
+        {
+          "in": "previously",
+          "out": "\u10d8\u10e6",
+          "count": 1
+        },
+        {
+          "in": "formerly",
+          "out": "\u314c",
+          "count": 1
+        },
+        {
+          "in": "initially",
+          "out": "upgrade",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 233,
+      "n": 286,
+      "d50": 26,
+      "d50_ci": [
+        24,
+        26
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.3141883796448806,
+      "label": "output\u2192Output",
+      "top_pairs": [
+        {
+          "in": "output",
+          "out": "Output",
+          "count": 2
+        },
+        {
+          "in": "inside",
+          "out": "Inside",
+          "count": 2
+        },
+        {
+          "in": "width",
+          "out": "width",
+          "count": 2
+        },
+        {
+          "in": "Lahore",
+          "out": "Pakistan",
+          "count": 2
+        },
+        {
+          "in": "psychologist",
+          "out": "Psych",
+          "count": 2
+        },
+        {
+          "in": "school",
+          "out": "School",
+          "count": 2
+        },
+        {
+          "in": "year",
+          "out": "Year",
+          "count": 2
+        },
+        {
+          "in": "Florida",
+          "out": "Florida",
+          "count": 2
+        }
+      ]
+    },
+    {
+      "cluster": 236,
+      "n": 30,
+      "d50": 9,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 23,
+      "spectral_gap_idx": 27,
+      "spectral_gap_ratio": 2274385.2651188094,
+      "label": "AUSTRAL\u2192Australian",
+      "top_pairs": [
+        {
+          "in": "AUSTRAL",
+          "out": "Australian",
+          "count": 2
+        },
+        {
+          "in": "Nigeria",
+          "out": "Nigerian",
+          "count": 1
+        },
+        {
+          "in": "Indones",
+          "out": "Indonesian",
+          "count": 1
+        },
+        {
+          "in": "japan",
+          "out": "Japanese",
+          "count": 1
+        },
+        {
+          "in": "Galway",
+          "out": "Irish",
+          "count": 1
+        },
+        {
+          "in": "Scotland",
+          "out": "Scottish",
+          "count": 1
+        },
+        {
+          "in": "Belize",
+          "out": "Guatem",
+          "count": 1
+        },
+        {
+          "in": "Tunisia",
+          "out": "Tunisian",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 238,
+      "n": 259,
+      "d50": 28,
+      "d50_ci": [
+        25,
+        27
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1352225484436371,
+      "label": "rename\u2192naming",
+      "top_pairs": [
+        {
+          "in": "rename",
+          "out": "naming",
+          "count": 1
+        },
+        {
+          "in": "require",
+          "out": "variables",
+          "count": 1
+        },
+        {
+          "in": "replace",
+          "out": "\u062c\u0631\u064a",
+          "count": 1
+        },
+        {
+          "in": "restore",
+          "out": "restoring",
+          "count": 1
+        },
+        {
+          "in": "relocate",
+          "out": "relocated",
+          "count": 1
+        },
+        {
+          "in": "restore",
+          "out": "restoration",
+          "count": 1
+        },
+        {
+          "in": "celebrate",
+          "out": "Latest",
+          "count": 1
+        },
+        {
+          "in": "alleviate",
+          "out": "alleviating",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 241,
+      "n": 48,
+      "d50": 9,
+      "d50_ci": [
+        4,
+        6
+      ],
+      "d90": 37,
+      "spectral_gap_idx": 45,
+      "spectral_gap_ratio": 3.0158898963231997,
+      "label": "beiden\u2192\u4ff6",
+      "top_pairs": [
+        {
+          "in": "beiden",
+          "out": "\u4ff6",
+          "count": 1
+        },
+        {
+          "in": "nearby",
+          "out": "\u20a9",
+          "count": 1
+        },
+        {
+          "in": "begge",
+          "out": "\u0924\u0940\u0928\u094b\u0902",
+          "count": 1
+        },
+        {
+          "in": "nearby",
+          "out": "vodu",
+          "count": 1
+        },
+        {
+          "in": "both",
+          "out": "\u0440\u0430\u0437\u043d\u044b\u0435",
+          "count": 1
+        },
+        {
+          "in": "both",
+          "out": "ivel",
+          "count": 1
+        },
+        {
+          "in": "both",
+          "out": "otland",
+          "count": 1
+        },
+        {
+          "in": "Either",
+          "out": "pu\u021bin",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 244,
+      "n": 44,
+      "d50": 13,
+      "d50_ci": [
+        6,
+        8
+      ],
+      "d90": 32,
+      "spectral_gap_idx": 41,
+      "spectral_gap_ratio": 38738.87360351336,
+      "label": "are\u2192is",
+      "top_pairs": [
+        {
+          "in": "are",
+          "out": "is",
+          "count": 2
+        },
+        {
+          "in": "Reputation",
+          "out": "complicates",
+          "count": 1
+        },
+        {
+          "in": "acheter",
+          "out": "buys",
+          "count": 1
+        },
+        {
+          "in": "Fake",
+          "out": "pretends",
+          "count": 1
+        },
+        {
+          "in": "been",
+          "out": "was",
+          "count": 1
+        },
+        {
+          "in": "depending",
+          "out": "depends",
+          "count": 1
+        },
+        {
+          "in": "according",
+          "out": "says",
+          "count": 1
+        },
+        {
+          "in": "jsou",
+          "out": "has",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 248,
+      "n": 327,
+      "d50": 29,
+      "d50_ci": [
+        26,
+        29
+      ],
+      "d90": 69,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1024971366807799,
+      "label": "zuerst\u2192first",
+      "top_pairs": [
+        {
+          "in": "zuerst",
+          "out": "first",
+          "count": 4
+        },
+        {
+          "in": "mijn",
+          "out": "my",
+          "count": 4
+        },
+        {
+          "in": "zowel",
+          "out": "both",
+          "count": 2
+        },
+        {
+          "in": "espacio",
+          "out": "space",
+          "count": 2
+        },
+        {
+          "in": "entrambi",
+          "out": "both",
+          "count": 2
+        },
+        {
+          "in": "lors",
+          "out": "during",
+          "count": 2
+        },
+        {
+          "in": "digunakan",
+          "out": "use",
+          "count": 2
+        },
+        {
+          "in": "nome",
+          "out": "name",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 249,
+      "n": 232,
+      "d50": 27,
+      "d50_ci": [
+        23,
+        26
+      ],
+      "d90": 68,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1257683467285853,
+      "label": "watching\u2192viewing",
+      "top_pairs": [
+        {
+          "in": "watching",
+          "out": "viewing",
+          "count": 1
+        },
+        {
+          "in": "contributing",
+          "out": "Retrieval",
+          "count": 1
+        },
+        {
+          "in": "Connecting",
+          "out": "Assad",
+          "count": 1
+        },
+        {
+          "in": "separating",
+          "out": "\u5206\u9694",
+          "count": 1
+        },
+        {
+          "in": "restoring",
+          "out": "a\u00f1ade",
+          "count": 1
+        },
+        {
+          "in": "watching",
+          "out": "\u092b\u094b\u091f\u094b",
+          "count": 1
+        },
+        {
+          "in": "coinciding",
+          "out": "\u0d2e\u0d4d\u0d2a\u0d30",
+          "count": 1
+        },
+        {
+          "in": "being",
+          "out": "\u3068\u601d\u3044\u307e\u3059",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 251,
+      "n": 108,
+      "d50": 25,
+      "d50_ci": [
+        15,
+        19
+      ],
+      "d90": 66,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1030114225799368,
+      "label": "Philippine\u2192N\u011b",
+      "top_pairs": [
+        {
+          "in": "Philippine",
+          "out": "N\u011b",
+          "count": 1
+        },
+        {
+          "in": "Polynesian",
+          "out": "Islander",
+          "count": 1
+        },
+        {
+          "in": "Filipino",
+          "out": "\u533a\u522b",
+          "count": 1
+        },
+        {
+          "in": "Tamil",
+          "out": "Thir",
+          "count": 1
+        },
+        {
+          "in": "Indonesian",
+          "out": "\u10e3\u10e1",
+          "count": 1
+        },
+        {
+          "in": "Mexican",
+          "out": "Qin",
+          "count": 1
+        },
+        {
+          "in": "Philippine",
+          "out": "\u03bb\u03bb\u03b1",
+          "count": 1
+        },
+        {
+          "in": "Iraqi",
+          "out": "Rust",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 254,
+      "n": 234,
+      "d50": 25,
+      "d50_ci": [
+        22,
+        24
+      ],
+      "d90": 67,
+      "spectral_gap_idx": 0,
+      "spectral_gap_ratio": 1.1300273227635649,
+      "label": "recently\u2192recent",
+      "top_pairs": [
+        {
+          "in": "recently",
+          "out": "recent",
+          "count": 3
+        },
+        {
+          "in": "mysteriously",
+          "out": "\ud83d\ude2d\ud83d\ude2d",
+          "count": 1
+        },
+        {
+          "in": "ethically",
+          "out": "morality",
+          "count": 1
+        },
+        {
+          "in": "correspondingly",
+          "out": "cr\u00edt",
+          "count": 1
+        },
+        {
+          "in": "presumably",
+          "out": "\u093f\u0928\u0947",
+          "count": 1
+        },
+        {
+          "in": "remotely",
+          "out": "\u09ac\u09bf\u09b2",
+          "count": 1
+        },
+        {
+          "in": "recently",
+          "out": "last",
+          "count": 1
+        },
+        {
+          "in": "simultaneously",
+          "out": "\u0446\u0438\u043e\u043d\u043d\u044b\u043c",
+          "count": 1
+        }
+      ]
+    },
+    {
+      "cluster": 255,
+      "n": 55,
+      "d50": 16,
+      "d50_ci": [
+        8,
+        10
+      ],
+      "d90": 43,
+      "spectral_gap_idx": 2,
+      "spectral_gap_ratio": 1.109171417459256,
+      "label": "culinary\u2192bracelet",
+      "top_pairs": [
+        {
+          "in": "culinary",
+          "out": "bracelet",
+          "count": 1
+        },
+        {
+          "in": "cuisine",
+          "out": "\u0b42",
+          "count": 1
+        },
+        {
+          "in": "restaurant",
+          "out": "LOADSTRING",
+          "count": 1
+        },
+        {
+          "in": "restaurantes",
+          "out": "Coachella",
+          "count": 1
+        },
+        {
+          "in": "restaurante",
+          "out": "shops",
+          "count": 1
+        },
+        {
+          "in": "seafood",
+          "out": "\u4f4f\u5b85",
+          "count": 1
+        },
+        {
+          "in": "lunches",
+          "out": "=\"$(",
+          "count": 1
+        },
+        {
+          "in": "foodservice",
+          "out": "\u30e9\u30a4\u30f3",
+          "count": 1
+        }
+      ]
+    }
+  ],
+  "skipped_cluster_ids": [
+    0,
+    3,
+    5,
+    6,
+    8,
+    12,
+    13,
+    14,
+    15,
+    19,
+    20,
+    23,
+    26,
+    30,
+    36,
+    40,
+    45,
+    47,
+    49,
+    51,
+    52,
+    53,
+    55,
+    56,
+    57,
+    59,
+    60,
+    63,
+    64,
+    65,
+    66,
+    67,
+    71,
+    74,
+    76,
+    78,
+    81,
+    83,
+    84,
+    85,
+    86,
+    88,
+    91,
+    92,
+    93,
+    95,
+    97,
+    98,
+    102,
+    104,
+    107,
+    109,
+    110,
+    111,
+    113,
+    114,
+    116,
+    117,
+    118,
+    119,
+    121,
+    122,
+    123,
+    126,
+    127,
+    133,
+    135,
+    136,
+    137,
+    138,
+    139,
+    140,
+    142,
+    144,
+    148,
+    149,
+    150,
+    154,
+    155,
+    156,
+    157,
+    158,
+    162,
+    165,
+    166,
+    168,
+    169,
+    170,
+    171,
+    172,
+    173,
+    175,
+    176,
+    177,
+    178,
+    181,
+    183,
+    184,
+    187,
+    188,
+    190,
+    193,
+    194,
+    196,
+    198,
+    200,
+    201,
+    202,
+    203,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    213,
+    214,
+    215,
+    216,
+    218,
+    219,
+    220,
+    221,
+    222,
+    224,
+    225,
+    226,
+    227,
+    229,
+    231,
+    232,
+    234,
+    235,
+    237,
+    239,
+    240,
+    242,
+    243,
+    245,
+    246,
+    247,
+    250,
+    252,
+    253
+  ],
+  "params": {
+    "vindex": "gemma3-4b.vindex",
+    "k": 256,
+    "min_cluster_size": 30,
+    "gate_cos_threshold": 0.15,
+    "gate_cos_percentile": 85.0,
+    "same_concept_threshold": 0.9,
+    "n_bootstrap": 100,
+    "clustering": "euclidean"
+  },
+  "clustering_method": "euclidean"
+}

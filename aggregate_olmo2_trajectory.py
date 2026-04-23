@@ -24,8 +24,8 @@ _CHECKPOINTS = [
 ]
 
 
-def load_checkpoint(out_dir: str, name: str) -> dict | None:
-    path = os.path.join(out_dir, f"olmo2-{name}.vindex", "per_cluster_svd.json")
+def load_checkpoint(out_dir: str, name: str, suffix: str = "") -> dict | None:
+    path = os.path.join(out_dir, f"olmo2-{name}.vindex", f"per_cluster_svd{suffix}.json")
     if not os.path.exists(path):
         print(f"  MISSING: {path}")
         return None
@@ -76,6 +76,7 @@ def summarise(data: dict, name: str, tokens_b: int) -> dict:
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--outputs-dir", default="outputs")
+    parser.add_argument("--suffix", default="", help="filename suffix e.g. '_spherical'")
     args = parser.parse_args()
 
     rows = []
@@ -83,7 +84,7 @@ def main():
 
     for name, tokens_b in _CHECKPOINTS:
         print(f"Loading {name} ...")
-        data = load_checkpoint(args.outputs_dir, name)
+        data = load_checkpoint(args.outputs_dir, name, args.suffix)
         if data is None:
             missing.append(name)
             continue
@@ -119,12 +120,12 @@ def main():
     }
 
     os.makedirs(args.outputs_dir, exist_ok=True)
-    json_path = os.path.join(args.outputs_dir, "olmo2_trajectory.json")
+    json_path = os.path.join(args.outputs_dir, f"olmo2_trajectory{args.suffix}.json")
     with open(json_path, "w") as f:
         json.dump(result, f, indent=2)
     print(f"\nSaved: {json_path}")
 
-    csv_path = os.path.join(args.outputs_dir, "olmo2_trajectory.csv")
+    csv_path = os.path.join(args.outputs_dir, f"olmo2_trajectory{args.suffix}.csv")
     fields = ["checkpoint", "tokens_b", "n_analyzed", "n_skipped", "n_passing",
               "pass_rate", "d50_median", "d50_p5", "d50_p25", "d50_p75", "d50_p95"]
     with open(csv_path, "w", newline="") as f:

@@ -116,7 +116,9 @@ echo ""
 echo "════════════════════════════════════════════════"
 echo "  Sweep complete. Aggregating ..."
 echo "════════════════════════════════════════════════"
-python aggregate_olmo2_trajectory.py
-python visualize_olmo2_trajectory.py
+python aggregate_olmo2_trajectory.py --suffix "${SUFFIX}"
+python visualize_olmo2_trajectory.py \
+    --trajectory "outputs/olmo2_trajectory${SUFFIX}.json" \
+    --outputs-dir "outputs"
 echo ""
-echo "Done. Results in outputs/olmo2_trajectory.{json,csv}"
+echo "Done. Results in outputs/olmo2_trajectory${SUFFIX}.{json,csv}"

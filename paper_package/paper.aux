@@ -1,0 +1,145 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\citation{hernandez2024linearity,chanin2023identifying}
+\citation{hayuk2026}
+\citation{geva2021transformer,geva2022transformer}
+\citation{hayuk2026}
+\citation{hernandez2024linearity}
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{1}{section.1}\protected@file@percent }
+\citation{}
+\@writefile{toc}{\contentsline {paragraph}{Summary of contributions.}{2}{section*.1}\protected@file@percent }
+\citation{paccanaro2001learning}
+\citation{hernandez2024linearity}
+\citation{chanin2023identifying}
+\citation{csiszarik2025structure}
+\citation{park2024linear}
+\citation{geva2021transformer,geva2022transformer}
+\citation{hayuk2026}
+\citation{elhage2022toy}
+\citation{dhillon2001concept}
+\citation{bird2009natural}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Background}{3}{section.2}\protected@file@percent }
+\newlabel{sec:background}{{2}{3}{Background}{section.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Linear relational structure and low-dimensional claims}{3}{subsection.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}FFN as key-value memory and vocabulary projection}{3}{subsection.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Superposition and effective cluster rank}{3}{subsection.2.3}\protected@file@percent }
+\citation{biderman2023pythia}
+\citation{olmo2024olmo2}
+\citation{copy_first_translate_later_2026}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Spherical $k$-means}{4}{subsection.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Training-trajectory analysis}{4}{subsection.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3}Methodology}{4}{section.3}\protected@file@percent }
+\newlabel{sec:methodology}{{3}{4}{Methodology}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Offset extraction}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Quality filter.}{4}{section*.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Spherical $k$-means clustering}{4}{subsection.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Per-cluster SVD and $d_{50}$}{4}{subsection.3.3}\protected@file@percent }
+\citation{elhage2022toy}
+\@writefile{toc}{\contentsline {paragraph}{What $d_{50}$ measures.}{5}{section*.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Content-coherence diagnostic}{5}{subsection.3.4}\protected@file@percent }
+\newlabel{sec:coherence}{{3.4}{5}{Content-coherence diagnostic}{subsection.3.4}{}}
+\@writefile{toc}{\contentsline {paragraph}{Null calibration.}{5}{section*.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5}The two metrics we report}{5}{subsection.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4}Gemma: pipeline validation}{5}{section.4}\protected@file@percent }
+\newlabel{sec:gemma}{{4}{5}{Gemma: pipeline validation}{section.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Gemma-3 4B cluster statistics across three clustering variants on identical offset data. All three satisfy the pass-rate criterion; all three show substantial cluster-size-to-$d_{50}$ correlation. ``Coh.'' counts clusters with at least one source-target pair of count $\geq 2$.}}{5}{table.1}\protected@file@percent }
+\newlabel{tab:gemma}{{1}{5}{Gemma-3 4B cluster statistics across three clustering variants on identical offset data. All three satisfy the pass-rate criterion; all three show substantial cluster-size-to-$d_{50}$ correlation. ``Coh.'' counts clusters with at least one source-target pair of count $\geq 2$}{table.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Recovered relation families}{6}{subsection.4.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Identifiable linguistic relation families on Gemma-3 4B, extracted from content-coherent spherical $k$-means clusters. Note the wide $d_{50}$ range (10--29), which we interpret as reflecting cluster-size variation rather than relation-rank variation.}}{6}{table.2}\protected@file@percent }
+\newlabel{tab:gemma-families}{{2}{6}{Identifiable linguistic relation families on Gemma-3 4B, extracted from content-coherent spherical $k$-means clusters. Note the wide $d_{50}$ range (10--29), which we interpret as reflecting cluster-size variation rather than relation-rank variation}{table.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5}The cluster-size confound}{6}{section.5}\protected@file@percent }
+\newlabel{sec:confound}{{5}{6}{The cluster-size confound}{section.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}Cluster size predicts $d_{50}$}{6}{subsection.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Gemma-3 4B: $d_{50}$ vs.\ cluster size. Coherent clusters (green) and noise clusters (gray) show indistinguishable size scaling, with Pearson $r(n, d_{50}) = 0.71$ and $0.73$ respectively. Median curves by log-spaced size bin are overlaid. The Hernandez 5--22D band is shaded; clusters enter and leave this band primarily as a function of size, not of whether they contain real relation structure.}}{7}{figure.1}\protected@file@percent }
+\newlabel{fig:d50-vs-n}{{1}{7}{Gemma-3 4B: $d_{50}$ vs.\ cluster size. Coherent clusters (green) and noise clusters (gray) show indistinguishable size scaling, with Pearson $r(n, d_{50}) = 0.71$ and $0.73$ respectively. Median curves by log-spaced size bin are overlaid. The Hernandez 5--22D band is shaded; clusters enter and leave this band primarily as a function of size, not of whether they contain real relation structure}{figure.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}What this means for the pass-rate metric}{7}{subsection.5.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Median $d_{50}$ by cluster-size bin, separately for content-coherent and noise clusters, on two models. At each size bin, coherent and noise clusters have nearly identical median $d_{50}$. The scaling with $n$ is monotonic for both coherent and noise clusters.}}{8}{table.3}\protected@file@percent }
+\newlabel{tab:size-d50}{{3}{8}{Median $d_{50}$ by cluster-size bin, separately for content-coherent and noise clusters, on two models. At each size bin, coherent and noise clusters have nearly identical median $d_{50}$. The scaling with $n$ is monotonic for both coherent and noise clusters}{table.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Median $d_{50}$ by cluster-size bin on Gemma-3 4B (left) and OLMo-2 7B final checkpoint (right), split by content coherence. Within each bin, coherent and noise clusters have nearly identical $d_{50}$; the Hernandez 5--22D band (shaded) corresponds roughly to clusters of size $n \lesssim 75$--$90$ on both models.}}{8}{figure.2}\protected@file@percent }
+\newlabel{fig:size-bins}{{2}{8}{Median $d_{50}$ by cluster-size bin on Gemma-3 4B (left) and OLMo-2 7B final checkpoint (right), split by content coherence. Within each bin, coherent and noise clusters have nearly identical $d_{50}$; the Hernandez 5--22D band (shaded) corresponds roughly to clusters of size $n \lesssim 75$--$90$ on both models}{figure.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}Coherent clusters partially resist the size scaling}{8}{subsection.5.3}\protected@file@percent }
+\citation{liu2023llm360}
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces OLMo-2 7B final checkpoint: Pearson correlation of cluster size and $d_{50}$, separately for content-coherent and noise clusters. Both correlations are strong and positive, with coherent clusters showing even stronger scaling.}}{9}{table.4}\protected@file@percent }
+\newlabel{tab:olmo-rn}{{4}{9}{OLMo-2 7B final checkpoint: Pearson correlation of cluster size and $d_{50}$, separately for content-coherent and noise clusters. Both correlations are strong and positive, with coherent clusters showing even stronger scaling}{table.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}Implications for methodology}{9}{subsection.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}Cross-model panel}{9}{section.6}\protected@file@percent }
+\newlabel{sec:crossmodel}{{6}{9}{Cross-model panel}{section.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5}{\ignorespaces Cross-model pass rate and content coherence. All five models are decoder-only transformers with gated FFN blocks. Boldface highlights the Amber case: 65\% pass rate with near-zero content coherence, the clearest demonstration that pass rate alone can be misleading.}}{9}{table.5}\protected@file@percent }
+\newlabel{tab:crossmodel}{{5}{9}{Cross-model pass rate and content coherence. All five models are decoder-only transformers with gated FFN blocks. Boldface highlights the Amber case: 65\% pass rate with near-zero content coherence, the clearest demonstration that pass rate alone can be misleading}{table.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}Amber 7B: the fake-pass}{9}{subsection.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Cross-model pass rate (red) versus content-coherence rate (green). Amber's 65\% pass rate is consistent with a successful replication, but its $<$1\% coherence rate indicates the clusters contain no recognizable linguistic structure. The two metrics agree roughly on Gemma but diverge sharply on Amber.}}{10}{figure.3}\protected@file@percent }
+\newlabel{fig:crossmodel}{{3}{10}{Cross-model pass rate (red) versus content-coherence rate (green). Amber's 65\% pass rate is consistent with a successful replication, but its $<$1\% coherence rate indicates the clusters contain no recognizable linguistic structure. The two metrics agree roughly on Gemma but diverge sharply on Amber}{figure.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}Cross-model coherence distribution}{10}{subsection.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.3}Comparing Gemma and OLMo-2 at matched sizes}{11}{subsection.6.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces $d_{50}$ distributions for Gemma-3 4B (left) and OLMo-2 7B (right), with content-coherent clusters in green and noise in gray. Both models span the full $d_{50}$ range; the claim that OLMo-2 ``implements relations at higher dimensionality'' does not survive this comparison. Gemma's median coherent $d_{50}$ (dashed line, 17) is actually higher than OLMo-2's (12), and 83\% of OLMo-2 coherent clusters fall within the Hernandez band (shaded), versus 55\% for Gemma.}}{11}{figure.4}\protected@file@percent }
+\newlabel{fig:d50-dist}{{4}{11}{$d_{50}$ distributions for Gemma-3 4B (left) and OLMo-2 7B (right), with content-coherent clusters in green and noise in gray. Both models span the full $d_{50}$ range; the claim that OLMo-2 ``implements relations at higher dimensionality'' does not survive this comparison. Gemma's median coherent $d_{50}$ (dashed line, 17) is actually higher than OLMo-2's (12), and 83\% of OLMo-2 coherent clusters fall within the Hernandez band (shaded), versus 55\% for Gemma}{figure.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {7}The OLMo-2 trajectory: when content coherence emerges}{11}{section.7}\protected@file@percent }
+\newlabel{sec:trajectory}{{7}{11}{The OLMo-2 trajectory: when content coherence emerges}{section.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6}{\ignorespaces OLMo-2 seven-checkpoint trajectory. ``(E)'' Euclidean $k$-means; ``(S-R)'' spherical $k$-means with random init.}}{12}{table.6}\protected@file@percent }
+\newlabel{tab:trajectory}{{6}{12}{OLMo-2 seven-checkpoint trajectory. ``(E)'' Euclidean $k$-means; ``(S-R)'' spherical $k$-means with random init}{table.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces OLMo-2 trajectory across seven checkpoints. Euclidean pass rate (red) shows a cliff at 214B tokens that spherical pass rate (blue) does not, indicating the cliff is a clustering-method artifact. Content coherence (green, right axis) shows a sharp emergence between 214B and 911B tokens that neither pass-rate curve tracks --- this is the informative training-dynamics signal.}}{12}{figure.5}\protected@file@percent }
+\newlabel{fig:trajectory}{{5}{12}{OLMo-2 trajectory across seven checkpoints. Euclidean pass rate (red) shows a cliff at 214B tokens that spherical pass rate (blue) does not, indicating the cliff is a clustering-method artifact. Content coherence (green, right axis) shows a sharp emergence between 214B and 911B tokens that neither pass-rate curve tracks --- this is the informative training-dynamics signal}{figure.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.1}The Euclidean pass-rate cliff is a clustering artifact}{12}{subsection.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.2}Content coherence emerges between 214B and 911B tokens}{13}{subsection.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {7.3}Content-coherence onset is not capability onset}{13}{subsection.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8}Robustness}{14}{section.8}\protected@file@percent }
+\newlabel{sec:robustness}{{8}{14}{Robustness}{section.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.1}Clustering method does not change the qualitative picture}{14}{subsection.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.2}Synthetic baseline for spherical $k$-means}{14}{subsection.8.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.3}Bootstrap CI has a known bug}{14}{subsection.8.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {8.4}Null baseline for content coherence}{14}{subsection.8.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {9}Discussion}{14}{section.9}\protected@file@percent }
+\newlabel{sec:discussion}{{9}{14}{Discussion}{section.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.1}Why does $d_{50}$ scale with cluster size?}{14}{subsection.9.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.2}What does coherence tell us that $d_{50}$ doesn't?}{15}{subsection.9.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.3}Implications for weight-based interpretability methodology}{15}{subsection.9.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.4}What remains open}{15}{subsection.9.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {9.5}Weight-based vs.\ activation-based methods measure different things}{16}{subsection.9.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {10}Limitations}{16}{section.10}\protected@file@percent }
+\newlabel{sec:limitations}{{10}{16}{Limitations}{section.10}{}}
+\@writefile{toc}{\contentsline {paragraph}{N=1 per model family.}{16}{section*.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Coherence threshold is heuristic.}{16}{section*.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Bootstrap confidence intervals incorrect.}{16}{section*.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Trajectory checkpoint gaps large.}{16}{section*.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{No behavioral correspondence.}{16}{section*.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{No causal attribution for data composition hypothesis.}{16}{section*.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limited clustering parameter sweep.}{16}{section*.11}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Prior overclaim retracted.}{16}{section*.12}\protected@file@percent }
+\citation{hayuk2026}
+\@writefile{toc}{\contentsline {section}{\numberline {11}Conclusion}{17}{section.11}\protected@file@percent }
+\newlabel{sec:conclusion}{{11}{17}{Conclusion}{section.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A}Appendix: reanalysis history}{17}{appendix.A}\protected@file@percent }
+\newlabel{sec:reanalysis}{{A}{17}{Appendix: reanalysis history}{appendix.A}{}}
+\@writefile{toc}{\contentsline {paragraph}{The prior draft's claim.}{17}{section*.14}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Where the error was.}{18}{section*.15}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What prompted the reanalysis.}{18}{section*.16}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Why the error was not caught earlier.}{18}{section*.17}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What we verified after catching the error.}{18}{section*.18}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{What to learn.}{18}{section*.19}\protected@file@percent }
+\bibstyle{plainnat}
+\bibcite{bird2009natural}{{1}{2009}{{Bird et al.}}{{}}}
+\bibcite{biderman2023pythia}{{2}{2023}{{Biderman et al.}}{{}}}
+\bibcite{bricken2023towards}{{3}{2023}{{Bricken et al.}}{{}}}
+\bibcite{chanin2023identifying}{{4}{2023}{{Chanin et al.}}{{}}}
+\bibcite{copy_first_translate_later_2026}{{5}{2026}{{Copy-First-Translate-Later authors}}{{}}}
+\bibcite{csiszarik2025structure}{{6}{2025}{{Csisz\'arik et al.}}{{}}}
+\bibcite{dhillon2001concept}{{7}{2001}{{Dhillon and Modha}}{{}}}
+\bibcite{elhage2022toy}{{8}{2022}{{Elhage et al.}}{{}}}
+\@writefile{toc}{\contentsline {paragraph}{Context for this revision.}{19}{section*.20}\protected@file@percent }
+\bibcite{geva2021transformer}{{9}{2021}{{Geva et al.}}{{}}}
+\bibcite{geva2022transformer}{{10}{2022}{{Geva et al.}}{{}}}
+\bibcite{hayuk2026}{{11}{2026}{{Hayuk}}{{}}}
+\bibcite{hernandez2024linearity}{{12}{2024}{{Hernandez et al.}}{{}}}
+\bibcite{jiang2023mistral}{{13}{2023}{{Jiang et al.}}{{}}}
+\bibcite{liu2023llm360}{{14}{2023}{{Liu et al.}}{{}}}
+\bibcite{modell2025origins}{{15}{2025}{{Modell et al.}}{{}}}
+\bibcite{nostalgebraist2020logit}{{16}{2020}{{Nostalgebraist}}{{}}}
+\bibcite{olmo2024olmo2}{{17}{2024}{{OLMo team}}{{}}}
+\bibcite{paccanaro2001learning}{{18}{2001}{{Paccanaro and Hinton}}{{}}}
+\bibcite{park2024linear}{{19}{2024}{{Park et al.}}{{}}}
+\bibcite{team2025gemma3}{{20}{2025}{{Gemma Team}}{{}}}
+\bibcite{templeton2024scaling}{{21}{2024}{{Templeton et al.}}{{}}}
+\bibcite{yang2024qwen2}{{22}{2024}{{Yang et al.}}{{}}}
+\gdef \@abspage@last{20}

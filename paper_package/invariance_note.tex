@@ -1,0 +1,538 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{natbib}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=blue!50!black,
+  citecolor=blue!50!black,
+}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\cossim}{cos}
+\DeclareMathOperator{\spn}{span}
+\DeclareMathOperator{\tr}{tr}
+
+\title{Orthogonal Invariance and Perturbative Stability\\
+of Weight-Space Offset Clustering}
+
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We state and prove a structural invariance property of the spherical $k$-means clustering of weight-derived offset vectors in transformer language models, as used in the LARQL pipeline~\citep{hayuk_larql} and its downstream analyses~\citep{cluster_size_confound}. The main result is that if two model parameterizations differ by a joint orthogonal transformation of the residual-stream basis, then every quantity the offset-clustering methodology produces --- anchoring functions, offsets, centroids, cluster partitions, per-cluster SVD spectra --- is invariant up to covariant rotation. The pair partition induced by exact source-target token equality refines every such cluster partition. We then relax the exact-orthogonality hypothesis to an additive perturbation model and show that offset angles deform linearly in the perturbation magnitude while centroid-pair cosines deform quadratically, giving two distinct stability regimes for the geometric and combinatorial content of the clustering.
+\end{abstract}
+
+\section{Setup and notation}
+
+Fix a vocabulary $V$, a hidden dimension $d \in \mathbb{N}$, and a feed-forward intermediate dimension $d_{\mathrm{ffn}} \in \mathbb{N}$. We consider transformer language models whose parameters relevant to the offset construction are the triple
+\[
+\theta \;=\; (E, \, W_{\mathrm{gate}}, \, W_{\mathrm{down}}) \;\in\; \mathbb{R}^{|V| \times d} \times \mathbb{R}^{d_{\mathrm{ffn}} \times d} \times \mathbb{R}^{d_{\mathrm{ffn}} \times d}.
+\]
+Rows are indexed by vocabulary tokens for $E$ and by feature indices for $W_{\mathrm{gate}}, W_{\mathrm{down}}$. For $t \in V$ we write $E[t] \in \mathbb{R}^d$ for the $t$-th row (the token embedding), and for a feature index $f \in \{1, \ldots, d_{\mathrm{ffn}}\}$ we write $g_f^\theta = W_{\mathrm{gate}}[f, :] \in \mathbb{R}^d$ for its gate vector and $w_f^\theta = W_{\mathrm{down}}[f, :] \in \mathbb{R}^d$ for its down-projection vector. All three objects live in the $d$-dimensional residual-stream basis.
+
+\begin{remark}
+We adopt the convention that the down-projection vector $w_f^\theta$ is the row of $W_{\mathrm{down}}$ corresponding to feature $f$, so that both gate and down vectors are row vectors in $\mathbb{R}^d$ and transform identically under changes of residual-stream basis. This convention is consistent with the interpretation of FFN layers as key--value memories~\citep{geva_2021,geva_2022}: both the key (gate) and value (down) associated with feature $f$ are vectors in the residual-stream representation space.
+\end{remark}
+
+Let $V^{\mathrm{word}} \subseteq V$ denote a fixed subset of tokens (in applications, the whole-word tokens). Let $\mathcal{F} \subseteq \{1, \ldots, d_{\mathrm{ffn}}\}$ denote a fixed subset of features (in applications, those surviving a quality filter, a knowledge-band layer restriction, etc.).
+
+\begin{definition}[Anchoring]
+\label{def:anchoring}
+The \emph{source anchor} and \emph{target anchor} functions induced by $\theta$ are $\sigma_\theta, \tau_\theta : \mathcal{F} \to V$ defined by
+\[
+\sigma_\theta(f) \;=\; \argmax_{t \in V^{\mathrm{word}}} \, \cossim\!\big( E[t], \, g_f^\theta \big), \qquad
+\tau_\theta(f) \;=\; \argmax_{t \in V} \, \big\langle E[t], \, w_f^\theta \big\rangle,
+\]
+where $\cossim(x, y) = \langle x, y \rangle / (\|x\|\|y\|)$ and ties are broken by a fixed rule (e.g., smallest token index).
+\end{definition}
+
+\begin{definition}[Offset map]
+\label{def:offset}
+Given $\theta$ and $f \in \mathcal{F}$ with $E[\tau_\theta(f)] \neq E[\sigma_\theta(f)]$, the \emph{offset} of $f$ in $\theta$ is the unit vector
+\[
+\mathcal{O}(f; \theta) \;=\; \frac{E[\tau_\theta(f)] - E[\sigma_\theta(f)]}{\big\| E[\tau_\theta(f)] - E[\sigma_\theta(f)] \big\|} \;\in\; S^{d-1}.
+\]
+For brevity we write $\mu_f^\theta = \| E[\tau_\theta(f)] - E[\sigma_\theta(f)] \|$ for the unnormalized offset magnitude.
+\end{definition}
+
+\begin{definition}[Spherical $k$-means]
+\label{def:spherical-kmeans}
+Fix $K \in \mathbb{N}$. Given a set of unit vectors $\{x_f\}_{f \in \mathcal{F}} \subset S^{d-1}$ and a tuple of unit centroids $\mathbf{c} = (c_1, \ldots, c_K) \in (S^{d-1})^K$, the \emph{assignment map} is
+\[
+\pi(x; \mathbf{c}) \;=\; \argmax_{k \in \{1, \ldots, K\}} \, \langle x, c_k \rangle,
+\]
+with ties broken by a fixed rule. A \emph{spherical $k$-means iteration} starting from $\mathbf{c}^{(t)}$ produces $\mathbf{c}^{(t+1)}$ via assignment and centroid update~\citep{dhillon_modha_2001}:
+\begin{enumerate}[label=(\roman*), itemsep=0pt]
+\item \emph{Assignment:} let $S_k^{(t)} = \{ f \in \mathcal{F} : \pi(x_f; \mathbf{c}^{(t)}) = k \}$.
+\item \emph{Update:} for each $k$, if $S_k^{(t)} \neq \emptyset$ and $\sum_{f \in S_k^{(t)}} x_f \neq 0$, set
+\[
+c_k^{(t+1)} \;=\; \frac{\sum_{f \in S_k^{(t)}} x_f}{\big\| \sum_{f \in S_k^{(t)}} x_f \big\|};
+\]
+otherwise, apply a fixed re-seeding rule (e.g., the point farthest from $c_k^{(t)}$ among currently assigned features).
+\end{enumerate}
+\end{definition}
+
+\section{The pair partition}
+
+Before addressing invariance under basis changes, we record a purely combinatorial fact about the offset construction that is independent of clustering.
+
+\begin{definition}[Pair partition]
+\label{def:pair-partition}
+Define an equivalence relation $\sim_P$ on $\mathcal{F}$ by
+\[
+f \sim_P f' \quad \Longleftrightarrow \quad \big( \sigma_\theta(f), \tau_\theta(f) \big) = \big( \sigma_\theta(f'), \tau_\theta(f') \big).
+\]
+Let $\mathcal{P}_\theta = \mathcal{F} / \sim_P$ denote the resulting partition, and for $[p] \in \mathcal{P}_\theta$ let $n_{[p]} = |[p]|$ be the \emph{multiplicity} of the pair-class $[p]$.
+\end{definition}
+
+\begin{proposition}[Refinement]
+\label{prop:refinement}
+Let $\mathbf{c} \in (S^{d-1})^K$ be any centroid tuple, and let $\mathcal{C}(\mathbf{c}) = \{ C_1, \ldots, C_K \}$ be the partition of $\mathcal{F}$ induced by the assignment map $f \mapsto \pi(\mathcal{O}(f; \theta); \mathbf{c})$. Then $\mathcal{P}_\theta$ refines $\mathcal{C}(\mathbf{c})$: every pair-class $[p] \in \mathcal{P}_\theta$ is contained in a single cluster $C_k$.
+\end{proposition}
+
+\begin{proof}
+For $f, f' \in [p]$, we have $\sigma_\theta(f) = \sigma_\theta(f')$ and $\tau_\theta(f) = \tau_\theta(f')$, so by Definition~\ref{def:offset}, $\mathcal{O}(f; \theta) = \mathcal{O}(f'; \theta)$. The assignment $\pi(\cdot; \mathbf{c})$ is a function of the offset, hence $\pi(\mathcal{O}(f; \theta); \mathbf{c}) = \pi(\mathcal{O}(f'; \theta); \mathbf{c})$ (ties notwithstanding, since the tie-breaking rule is deterministic). Thus $f$ and $f'$ lie in the same $C_k$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:refinement} holds for \emph{any} deterministic clustering rule whose assignments depend only on the offset vector; the argument does not use any specific property of spherical $k$-means. The content-coherence diagnostic of~\citep{cluster_size_confound} is precisely the question of whether any pair-class of multiplicity $\geq 2$ is contained in a given cluster.
+\end{remark}
+
+\section{Orthogonal invariance}
+
+\begin{definition}[Orthogonal equivalence]
+\label{def:orth-equivalence}
+Two parameter tuples $\theta = (E, W_{\mathrm{gate}}, W_{\mathrm{down}})$ and $\theta' = (E', W'_{\mathrm{gate}}, W'_{\mathrm{down}})$ are \emph{orthogonally equivalent}, written $\theta \sim_O \theta'$, if there exists $Q \in O(d)$ such that
+\[
+E' \;=\; E Q, \qquad W'_{\mathrm{gate}} \;=\; W_{\mathrm{gate}} Q, \qquad W'_{\mathrm{down}} \;=\; W_{\mathrm{down}} Q.
+\]
+\end{definition}
+
+Orthogonal equivalence is the natural gauge symmetry of the offset construction: it corresponds to a rotation of the residual-stream basis, which leaves all inner products between residual-stream representations invariant. Equivalence classes under $\sim_O$ are the true ``observable'' objects.
+
+\begin{lemma}[Anchoring invariance]
+\label{lem:anchoring}
+If $\theta \sim_O \theta'$ via $Q \in O(d)$, then $\sigma_\theta = \sigma_{\theta'}$ and $\tau_\theta = \tau_{\theta'}$ as functions $\mathcal{F} \to V$.
+\end{lemma}
+
+\begin{proof}
+For any $t \in V$ and any $f \in \mathcal{F}$,
+\[
+\cossim\!\big( E'[t], g_f^{\theta'} \big)
+\;=\;
+\frac{\big\langle E[t] Q, \, g_f^\theta Q \big\rangle}{\| E[t] Q \|\, \| g_f^\theta Q \|}
+\;=\;
+\frac{\big\langle E[t], g_f^\theta \big\rangle}{\| E[t] \|\, \| g_f^\theta \|}
+\;=\; \cossim\!\big( E[t], g_f^\theta \big),
+\]
+using $\langle xQ, yQ \rangle = \langle x, y \rangle$ and $\|xQ\| = \|x\|$ for $Q \in O(d)$. Since the cosine similarity is preserved pointwise over $t$, the $\argmax$ over $t$ is the same for $\theta$ and $\theta'$, with identical tie-breaking. Hence $\sigma_{\theta'}(f) = \sigma_\theta(f)$. An identical argument, replacing cosine with inner product, shows $\tau_{\theta'}(f) = \tau_\theta(f)$.
+\end{proof}
+
+\begin{theorem}[Orthogonal invariance of offset clustering]
+\label{thm:main}
+Let $\theta \sim_O \theta'$ via $Q \in O(d)$. Assume $E[\tau_\theta(f)] \neq E[\sigma_\theta(f)]$ for all $f \in \mathcal{F}$. Fix $K \in \mathbb{N}$ and an initial centroid tuple $\mathbf{c}^{(0)} = (c_1^{(0)}, \ldots, c_K^{(0)}) \in (S^{d-1})^K$. Define the corresponding initialization for $\theta'$ by $\mathbf{c}'^{(0)} = (c_1^{(0)} Q, \ldots, c_K^{(0)} Q)$. Let $\mathbf{c}^{(t)}$ and $\mathbf{c}'^{(t)}$ denote the centroids after $t$ iterations of spherical $k$-means on offsets from $\theta$ and $\theta'$ respectively, using identical tie-breaking and re-seeding rules. Then for every $t \geq 0$:
+
+\begin{enumerate}[label=(\roman*), itemsep=1pt]
+\item $\mathcal{O}(f; \theta') = \mathcal{O}(f; \theta) \cdot Q$ for every $f \in \mathcal{F}$.
+\item $c_k'^{(t)} = c_k^{(t)} Q$ for every $k \in \{1, \ldots, K\}$.
+\item $\pi\big(\mathcal{O}(f; \theta'); \mathbf{c}'^{(t)}\big) = \pi\big(\mathcal{O}(f; \theta); \mathbf{c}^{(t)}\big)$ for every $f \in \mathcal{F}$.
+\end{enumerate}
+
+In particular, the spherical $k$-means cluster partition of $\mathcal{F}$ is identical for the two models at every iteration as a labeled set partition (under the correspondence $c_k \leftrightarrow c_k Q$), and the algorithms converge (if they do) in the same number of iterations.
+\end{theorem}
+
+\begin{proof}
+\emph{Part (i).} By Lemma~\ref{lem:anchoring}, $\sigma_{\theta'} = \sigma_\theta$ and $\tau_{\theta'} = \tau_\theta$. Hence
+\[
+\mathcal{O}(f; \theta')
+\;=\; \frac{E'[\tau_{\theta}(f)] - E'[\sigma_{\theta}(f)]}{\| E'[\tau_{\theta}(f)] - E'[\sigma_{\theta}(f)] \|}
+\;=\; \frac{(E[\tau_{\theta}(f)] - E[\sigma_{\theta}(f)]) Q}{\| (E[\tau_{\theta}(f)] - E[\sigma_{\theta}(f)]) Q \|}
+\;=\; \mathcal{O}(f; \theta) \cdot Q,
+\]
+using $\|xQ\| = \|x\|$.
+
+\emph{Parts (ii) and (iii) by induction on $t$.}
+
+\emph{Base case ($t=0$).} (ii) holds by construction. For (iii),
+\[
+\pi\big(\mathcal{O}(f; \theta'); \mathbf{c}'^{(0)}\big)
+\;=\; \argmax_k \, \big\langle \mathcal{O}(f; \theta) Q, c_k^{(0)} Q \big\rangle
+\;=\; \argmax_k \, \big\langle \mathcal{O}(f; \theta), c_k^{(0)} \big\rangle
+\;=\; \pi\big(\mathcal{O}(f; \theta); \mathbf{c}^{(0)}\big),
+\]
+with identical tie-breaking since all inner products coincide.
+
+\emph{Inductive step.} Suppose (ii) and (iii) hold at iteration $t$. Let $S_k^{(t)} = \{ f \in \mathcal{F} : \pi(\mathcal{O}(f; \theta); \mathbf{c}^{(t)}) = k \}$. By the inductive hypothesis (iii) at time $t$, the same set $S_k^{(t)}$ is the $k$-th cluster in $\theta'$.
+
+If $S_k^{(t)} \neq \emptyset$ and $\sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \neq 0$, then
+\[
+c_k^{(t+1)} \;=\; \frac{\sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta)}{\big\| \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \big\|}.
+\]
+Using (i),
+\[
+\sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta') \;=\; \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \cdot Q \;=\; \Big( \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \Big) Q,
+\]
+which has norm $\big\| \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \big\|$ because $Q$ is orthogonal. Hence
+\[
+c_k'^{(t+1)} \;=\; \frac{\big( \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \big) Q}{\| \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) \|} \;=\; c_k^{(t+1)} \cdot Q,
+\]
+establishing (ii) at time $t+1$. If the degenerate case of the update applies (empty cluster or zero vector sum), the fixed re-seeding rule is applied identically in both models by the inductive hypothesis, so the transformation relation is preserved.
+
+For (iii) at time $t+1$:
+\[
+\pi\big(\mathcal{O}(f; \theta'); \mathbf{c}'^{(t+1)}\big)
+\;=\; \argmax_k \, \big\langle \mathcal{O}(f; \theta) Q, c_k^{(t+1)} Q \big\rangle
+\;=\; \argmax_k \, \big\langle \mathcal{O}(f; \theta), c_k^{(t+1)} \big\rangle
+\;=\; \pi\big(\mathcal{O}(f; \theta); \mathbf{c}^{(t+1)}\big).
+\]
+The induction is complete.
+\end{proof}
+
+\begin{corollary}[Invariance of per-cluster spectral statistics]
+\label{cor:svd}
+Under the hypotheses of Theorem~\ref{thm:main}, for every $t \geq 0$ and every cluster index $k$, the singular value decomposition of the mean-centered offset matrix of cluster $k$ is invariant. Specifically, if $X_k \in \mathbb{R}^{|S_k^{(t)}| \times d}$ is the matrix whose rows are $\{\mathcal{O}(f; \theta) - \bar{c}_k\}_{f \in S_k^{(t)}}$ (with $\bar{c}_k$ the unnormalized mean), and $X'_k$ is the analogous matrix for $\theta'$, then $X'_k = X_k Q$. Consequently, $X_k$ and $X'_k$ have identical singular values; the right singular vectors of $X'_k$ are those of $X_k$ rotated by $Q$; and all invariant spectral statistics --- including $d_{50}^{(k)}$, $d_{90}^{(k)}$, the spectral gap, and bootstrap confidence intervals --- coincide for the two models.
+\end{corollary}
+
+\begin{proof}
+$X'_k = X_k Q$ follows from Theorem~\ref{thm:main}(i). The SVD of $X_k Q$ is $X_k Q = U_k \Sigma_k (V_k^\top Q) = U_k \Sigma_k (Q^\top V_k)^\top$, so the singular values coincide and right singular vectors rotate by $Q$. Functions of the singular value spectrum (including $d_{50}$) are therefore identical.
+\end{proof}
+
+\section{Perturbative stability}
+
+We now relax the exact orthogonal equivalence of Definition~\ref{def:orth-equivalence} to an additive perturbation and study how the invariance of Theorem~\ref{thm:main} degrades. This models the situation of two training runs with identical architecture and data but stochastic initialization, where we expect the two final parameterizations to be close to orthogonal equivalents of each other but not exactly equal.
+
+\begin{definition}[Perturbed orthogonal equivalence]
+\label{def:perturbation}
+Fix $\theta = (E, W_{\mathrm{gate}}, W_{\mathrm{down}})$ and $Q \in O(d)$. Given perturbation matrices $\Delta_E \in \mathbb{R}^{|V| \times d}$, $\Delta_G, \Delta_D \in \mathbb{R}^{d_{\mathrm{ffn}} \times d}$, the \emph{perturbed parameterization} is
+\[
+\theta' \;=\; \big( EQ + \Delta_E, \; W_{\mathrm{gate}} Q + \Delta_G, \; W_{\mathrm{down}} Q + \Delta_D \big).
+\]
+Let $\varepsilon_E = \max_{t \in V} \| \Delta_E[t] \|$, $\varepsilon_G = \max_{f} \| \Delta_G[f, :] \|$, $\varepsilon_D = \max_{f} \| \Delta_D[f, :] \|$, and $\varepsilon = \max(\varepsilon_E, \varepsilon_G, \varepsilon_D)$.
+\end{definition}
+
+We analyze how each component of the offset-clustering pipeline deforms under this perturbation. The technical foundation is the following elementary lemma, which controls the direction of a unit vector under additive perturbation.
+
+\begin{lemma}[Unit-vector deflection]
+\label{lem:deflection}
+Let $u \in S^{d-1}$, $c > 0$, and $v \in \mathbb{R}^d$. Decompose $v = v_\parallel u + v_\perp$ with $v_\perp \perp u$. Suppose $c + v_\parallel > 0$. Then the vector
+\[
+u' \;=\; \frac{c u + v}{\| c u + v \|}
+\]
+is well-defined and the angle $\alpha$ between $u$ and $u'$ satisfies
+\[
+\tan \alpha \;=\; \frac{\| v_\perp \|}{c + v_\parallel}, \qquad
+\sin \alpha \;=\; \frac{\| v_\perp \|}{\sqrt{(c + v_\parallel)^2 + \| v_\perp \|^2}}, \qquad
+\cos \alpha \;=\; \frac{c + v_\parallel}{\sqrt{(c + v_\parallel)^2 + \| v_\perp \|^2}}.
+\]
+In particular, for $\| v \| \ll c$,
+\[
+\alpha \;=\; \frac{\| v_\perp \|}{c} + O\!\left( \frac{\| v \|^2}{c^2} \right), \qquad
+\cos \alpha \;=\; 1 \,-\, \frac{\| v_\perp \|^2}{2 c^2} \,+\, O\!\left( \frac{\| v \|^3}{c^3} \right).
+\]
+\end{lemma}
+
+\begin{proof}
+Write $c u + v = (c + v_\parallel) u + v_\perp$, so the components of $cu + v$ parallel and perpendicular to $u$ are $c + v_\parallel$ and $\| v_\perp \|$ respectively. The claimed trigonometric identities follow from the definition of the angle between $u$ and $u'$ as $\cos\alpha = \langle u, u' \rangle$, using $\langle u, u' \rangle = (c + v_\parallel) / \| cu + v \|$ and $\| cu + v \| = \sqrt{(c + v_\parallel)^2 + \| v_\perp \|^2}$. The small-$\| v \|$ expansions are Taylor series of $\arctan$ and $1 / \sqrt{1 + x}$, respectively.
+\end{proof}
+
+\begin{corollary}[Offset deflection]
+\label{cor:offset-deflection}
+Let $\theta'$ be a perturbation of $\theta$ as in Definition~\ref{def:perturbation}. Fix $f \in \mathcal{F}$, and suppose $\sigma_{\theta'}(f) = \sigma_\theta(f)$ and $\tau_{\theta'}(f) = \tau_\theta(f)$ (i.e., the anchoring is unchanged; cf.\ Lemma~\ref{lem:anchoring-stability} below). Let $\delta_f = \Delta_E[\tau_\theta(f)] - \Delta_E[\sigma_\theta(f)] \in \mathbb{R}^d$, and decompose $\delta_f = \delta_f^\parallel \cdot \mathcal{O}(f; \theta) Q + \delta_f^\perp$ with $\delta_f^\perp \perp \mathcal{O}(f; \theta) Q$. Then
+\[
+\mathcal{O}(f; \theta') \;=\; \frac{\mu_f^\theta \cdot \mathcal{O}(f; \theta) Q \,+\, \delta_f}{\| \mu_f^\theta \cdot \mathcal{O}(f; \theta) Q + \delta_f \|},
+\]
+and the angle $\alpha_f$ between $\mathcal{O}(f; \theta) Q$ and $\mathcal{O}(f; \theta')$ satisfies
+\[
+\alpha_f \;=\; \frac{\| \delta_f^\perp \|}{\mu_f^\theta} \,+\, O\!\left( \frac{\| \delta_f \|^2}{(\mu_f^\theta)^2} \right), \qquad \| \delta_f \| \leq 2 \varepsilon_E.
+\]
+\end{corollary}
+
+\begin{proof}
+Since the anchoring tokens are unchanged, the numerator of $\mathcal{O}(f; \theta')$ is
+\[
+E'[\tau_\theta(f)] - E'[\sigma_\theta(f)] \;=\; (E[\tau_\theta(f)] - E[\sigma_\theta(f)]) Q + \delta_f \;=\; \mu_f^\theta \cdot \mathcal{O}(f; \theta) Q + \delta_f.
+\]
+Apply Lemma~\ref{lem:deflection} with $u = \mathcal{O}(f; \theta) Q$, $c = \mu_f^\theta$, $v = \delta_f$.
+\end{proof}
+
+Corollary~\ref{cor:offset-deflection} is the source of the linear dependence of the angular deflection on the perturbation: $\alpha_f$ scales as $\varepsilon_E / \mu_f^\theta$ to leading order. It is amplified for features whose raw offset magnitude $\mu_f^\theta$ is small --- i.e., features whose source and target embeddings lie close together in $\mathbb{R}^d$.
+
+We next record an analogous result for anchoring stability. The situation is slightly messier because the anchoring $\argmax$ over the vocabulary is sensitive not only to the perturbation at the chosen token but also at competing tokens, and because cosine similarity involves normalization of \emph{both} arguments.
+
+\begin{lemma}[Anchoring stability]
+\label{lem:anchoring-stability}
+Let $\theta'$ be a perturbation of $\theta$ as in Definition~\ref{def:perturbation}. Fix $f \in \mathcal{F}$ and define the \emph{anchoring margins}
+\[
+\gamma_f^\sigma \;=\; \cossim(E[\sigma_\theta(f)], g_f^\theta) \,-\, \max_{\substack{t \in V^{\mathrm{word}} \\ t \neq \sigma_\theta(f)}} \cossim(E[t], g_f^\theta), \qquad
+\gamma_f^\tau \;=\; \big\langle E[\tau_\theta(f)], w_f^\theta \big\rangle \,-\, \max_{\substack{t \in V \\ t \neq \tau_\theta(f)}} \big\langle E[t], w_f^\theta \big\rangle.
+\]
+Let $\mu_E^{\min} = \min_{t \in V} \|E[t]\|$, assumed positive, and $M_E = \max_{t \in V} \|E[t]\|$. Assume $\|g_f^\theta\| > 0$ and $\|w_f^\theta\| > 0$. If
+\begin{align}
+\frac{\varepsilon_E}{\mu_E^{\min}} + \frac{\varepsilon_G}{\|g_f^\theta\|} + R_\sigma &\;<\; \frac{\gamma_f^\sigma}{2}, \tag{$\sigma$-cond} \label{eq:sigma-cond} \\
+M_E \, \varepsilon_D + \|w_f^\theta\| \, \varepsilon_E + \varepsilon_E \varepsilon_D &\;<\; \frac{\gamma_f^\tau}{2}, \tag{$\tau$-cond} \label{eq:tau-cond}
+\end{align}
+where $R_\sigma = O\!\big((\varepsilon_E / \mu_E^{\min})^2 + (\varepsilon_G / \|g_f^\theta\|)^2\big)$ captures second-order contributions, then $\sigma_{\theta'}(f) = \sigma_\theta(f)$ and $\tau_{\theta'}(f) = \tau_\theta(f)$.
+\end{lemma}
+
+\begin{proof}
+We treat the two cases separately.
+
+\emph{$\tau$-case (inner product).} For any $t \in V$, expand the perturbed inner product:
+\begin{align*}
+\big\langle E'[t], w_f^{\theta'} \big\rangle
+&\;=\; \big\langle E[t] Q + \Delta_E[t], \; w_f^\theta Q + \Delta_D[f, :] \big\rangle \\
+&\;=\; \big\langle E[t], w_f^\theta \big\rangle \;+\; \underbrace{\big\langle E[t] Q, \Delta_D[f, :] \big\rangle}_{T_1(t)} \;+\; \underbrace{\big\langle \Delta_E[t], w_f^\theta Q \big\rangle}_{T_2(t)} \;+\; \underbrace{\big\langle \Delta_E[t], \Delta_D[f, :] \big\rangle}_{T_3(t)},
+\end{align*}
+where we used $\langle E[t]Q, w_f^\theta Q \rangle = \langle E[t], w_f^\theta \rangle$ since $Q \in O(d)$. By the Cauchy--Schwarz inequality and the perturbation bounds of Definition~\ref{def:perturbation},
+\[
+|T_1(t)| \;\leq\; \|E[t]\| \cdot \varepsilon_D \;\leq\; M_E \, \varepsilon_D, \qquad
+|T_2(t)| \;\leq\; \varepsilon_E \cdot \|w_f^\theta\|, \qquad
+|T_3(t)| \;\leq\; \varepsilon_E \, \varepsilon_D.
+\]
+Therefore, uniformly over $t \in V$,
+\[
+\Delta_\tau \;:=\; \max_{t \in V} \big| \langle E'[t], w_f^{\theta'} \rangle - \langle E[t], w_f^\theta \rangle \big| \;\leq\; M_E \, \varepsilon_D + \|w_f^\theta\| \, \varepsilon_E + \varepsilon_E \, \varepsilon_D.
+\]
+Under condition~\eqref{eq:tau-cond}, $\Delta_\tau < \gamma_f^\tau / 2$. For any $t \neq \tau_\theta(f)$,
+\begin{align*}
+\big\langle E'[\tau_\theta(f)], w_f^{\theta'} \big\rangle - \big\langle E'[t], w_f^{\theta'} \big\rangle
+&\;\geq\; \big( \langle E[\tau_\theta(f)], w_f^\theta \rangle - \Delta_\tau \big) - \big( \langle E[t], w_f^\theta \rangle + \Delta_\tau \big) \\
+&\;\geq\; \gamma_f^\tau - 2 \Delta_\tau \;>\; 0,
+\end{align*}
+so $\tau_\theta(f)$ is still the strict maximizer in $\theta'$ (the tie-breaking rule is not invoked). Hence $\tau_{\theta'}(f) = \tau_\theta(f)$.
+
+\emph{$\sigma$-case (cosine similarity).} We use an elementary bound on the perturbation of cosine similarity: for $x, y \in \mathbb{R}^d \setminus \{0\}$ and perturbations $\delta_x, \delta_y \in \mathbb{R}^d$ with $\|\delta_x\| < \|x\|$ and $\|\delta_y\| < \|y\|$,
+\begin{equation}
+\big| \cossim(x + \delta_x, y + \delta_y) - \cossim(x, y) \big|
+\;\leq\; \frac{\|\delta_x\|}{\|x\|} + \frac{\|\delta_y\|}{\|y\|} + O\!\left( \frac{\|\delta_x\|^2}{\|x\|^2} + \frac{\|\delta_y\|^2}{\|y\|^2} \right).
+\label{eq:cos-perturbation}
+\end{equation}
+To see~\eqref{eq:cos-perturbation}, write $\hat{u} = u / \|u\|$ for $u \neq 0$. Then $\cossim(x, y) = \langle \hat{x}, \hat{y} \rangle$, and by the bilinearity of the inner product,
+\[
+\langle \widehat{x + \delta_x}, \widehat{y + \delta_y} \rangle - \langle \hat{x}, \hat{y} \rangle
+\;=\; \langle \widehat{x + \delta_x} - \hat{x}, \widehat{y + \delta_y} \rangle + \langle \hat{x}, \widehat{y + \delta_y} - \hat{y} \rangle.
+\]
+Applying $|\langle a, b \rangle| \leq \|a\|\|b\|$ and $\|\widehat{y + \delta_y}\| = \|\hat{x}\| = 1$,
+\[
+\big| \langle \widehat{x + \delta_x}, \widehat{y + \delta_y} \rangle - \langle \hat{x}, \hat{y} \rangle \big|
+\;\leq\; \|\widehat{x + \delta_x} - \hat{x}\| + \|\widehat{y + \delta_y} - \hat{y}\|.
+\]
+By Lemma~\ref{lem:deflection} applied with $u = \hat{x}$, $c = \|x\|$, $v = \delta_x$, the angle $\alpha_x$ between $\hat{x}$ and $\widehat{x + \delta_x}$ satisfies $\alpha_x = \|\delta_x^\perp\| / \|x\| + O(\|\delta_x\|^2 / \|x\|^2)$, and therefore
+\[
+\|\widehat{x + \delta_x} - \hat{x}\| \;=\; 2 \sin(\alpha_x / 2) \;\leq\; \alpha_x \;\leq\; \frac{\|\delta_x\|}{\|x\|} + O\!\left(\frac{\|\delta_x\|^2}{\|x\|^2}\right).
+\]
+The analogous bound for $\widehat{y + \delta_y} - \hat{y}$ completes~\eqref{eq:cos-perturbation}.
+
+Now apply~\eqref{eq:cos-perturbation} with $x = E[t] Q$, $y = g_f^\theta Q$, $\delta_x = \Delta_E[t]$, $\delta_y = \Delta_G[f, :]$. Since $Q \in O(d)$ preserves norms, $\|x\| = \|E[t]\| \geq \mu_E^{\min}$ and $\|y\| = \|g_f^\theta\|$. Using $\cossim(xQ, yQ) = \cossim(x, y)$, we obtain, uniformly over $t \in V^{\mathrm{word}}$,
+\[
+\Delta_\sigma \;:=\; \max_{t \in V^{\mathrm{word}}} \big| \cossim(E'[t], g_f^{\theta'}) - \cossim(E[t], g_f^\theta) \big| \;\leq\; \frac{\varepsilon_E}{\mu_E^{\min}} + \frac{\varepsilon_G}{\|g_f^\theta\|} + R_\sigma,
+\]
+where $R_\sigma$ absorbs the second-order terms. Under condition~\eqref{eq:sigma-cond}, $\Delta_\sigma < \gamma_f^\sigma / 2$, and the argmax-preservation argument of the $\tau$-case, applied to cosine similarities instead of inner products, gives $\sigma_{\theta'}(f) = \sigma_\theta(f)$.
+\end{proof}
+
+\begin{remark}
+Lemma~\ref{lem:anchoring-stability} shows that the set of features whose anchoring flips under perturbation is supported on those with anchoring margin $\gamma_f^\sigma$ or $\gamma_f^\tau$ less than $O(\varepsilon)$. The fraction of such features is, by definition, the empirical anchoring-margin CDF evaluated at an $O(\varepsilon)$ threshold; a quantitative bound on the expected flip fraction therefore requires a regularity assumption on the empirical CDF near zero (cf.\ Remark~\ref{rem:margin-density} for the corresponding assumption at the cluster-margin level). We do not claim a universal linear rate for anchoring flips; it is a conditional consequence of an assumption about the shape of the anchoring-margin distribution for a given model.
+\end{remark}
+
+We now turn to cluster-assignment stability. For a feature whose anchoring is unchanged, the offset deflection is $\alpha_f \lesssim 2\varepsilon_E / \mu_f^\theta$ by Corollary~\ref{cor:offset-deflection}. Whether this angular deflection induces a cluster-assignment flip depends on the feature's \emph{cluster margin}, which we now define.
+
+\begin{definition}[Cluster margin]
+\label{def:cluster-margin}
+Given centroids $\mathbf{c}$, feature $f \in \mathcal{F}$, and offset $x_f = \mathcal{O}(f; \theta) \in S^{d-1}$, let $k^*(f) = \pi(x_f; \mathbf{c})$ be the assigned cluster and $k^{**}(f) = \argmax_{k \neq k^*(f)} \langle x_f, c_k \rangle$ the second-closest cluster. The \emph{cluster margin} of $f$ is
+\[
+\gamma_f \;=\; \langle x_f, c_{k^*(f)} \rangle - \langle x_f, c_{k^{**}(f)} \rangle \;\in\; [0, 2].
+\]
+\end{definition}
+
+\begin{lemma}[Sufficient condition for cluster-assignment stability]
+\label{lem:assignment-stability}
+Let $\theta'$ be a perturbation of $\theta$ with anchoring unchanged at $f$, and let $\mathbf{c}, \mathbf{c}'$ be centroid tuples with $c'_k = c_k Q + \zeta_k$ for perturbations $\zeta_k \in \mathbb{R}^d$ with $\max_k \|\zeta_k\| \leq \eta$ and $c'_k \in S^{d-1}$. If
+\[
+\alpha_f + \eta \;<\; \frac{\gamma_f}{2},
+\]
+where $\alpha_f$ is the offset deflection angle from Corollary~\ref{cor:offset-deflection}, then $\pi(\mathcal{O}(f; \theta'); \mathbf{c}') = \pi(\mathcal{O}(f; \theta); \mathbf{c})$ under the correspondence $k \leftrightarrow k$.
+\end{lemma}
+
+\begin{proof}
+For any $k$,
+\[
+\big| \langle \mathcal{O}(f; \theta'), c'_k \rangle - \langle \mathcal{O}(f; \theta) Q, c_k Q \rangle \big|
+\;\leq\; \alpha_f + \eta + O(\alpha_f \eta),
+\]
+by Cauchy--Schwarz applied to the differences $\mathcal{O}(f; \theta') - \mathcal{O}(f; \theta) Q$ (of norm $\leq \alpha_f$ to leading order, by Lemma~\ref{lem:deflection}) and $c'_k - c_k Q = \zeta_k$ (of norm $\leq \eta$). Using $\langle \mathcal{O}(f; \theta) Q, c_k Q \rangle = \langle \mathcal{O}(f; \theta), c_k \rangle$, we conclude that each cosine similarity in $\theta'$ differs from its counterpart in $\theta$ by at most $\alpha_f + \eta$. If this is less than $\gamma_f / 2$, then the largest cosine similarity is not displaced past the second-largest, and the argmax is preserved.
+\end{proof}
+
+\begin{remark}[Assignment-flip fraction under an empirical-CDF regularity assumption]
+\label{rem:margin-density}
+Lemma~\ref{lem:assignment-stability} implies that a feature $f$ flips its cluster assignment only if $\gamma_f < 2(\alpha_f + \eta) \lesssim 4 \varepsilon_E / \mu_f^\theta + 2\eta$. Let $F_N$ denote the empirical CDF of the margin distribution $\{\gamma_f\}_{f \in \mathcal{F}}$:
+\[
+F_N(\tau) \;=\; \frac{1}{|\mathcal{F}|} \big| \{ f \in \mathcal{F} : \gamma_f < \tau \} \big|.
+\]
+Then the fraction of features that may flip their cluster assignment under the perturbation is bounded above by $F_N\big(2 \max_f (\alpha_f + \eta)\big)$. This is an exact consequence of Lemma~\ref{lem:assignment-stability}, but its smallness depends on the shape of $F_N$ near zero.
+
+To obtain a rate statement, we impose:
+
+\begin{quote}
+\textbf{(R)} There exist constants $L > 0$ and $\tau_0 > 0$ such that $F_N(\tau) \leq L \tau$ for all $\tau \in [0, \tau_0]$.
+\end{quote}
+
+Hypothesis (R) is a claim about the model and the clustering: it says that the empirical margin CDF grows at most linearly near zero. We do not prove (R); it is an empirically testable property of any given clustering, and different models or different choices of $K$ may satisfy it with different constants $L$.
+
+Under (R), for $\varepsilon$ small enough that $2 \max_f (\alpha_f + \eta) \leq \tau_0$:
+\[
+\text{fraction of flipped features} \;\leq\; L \cdot 2 \max_f (\alpha_f + \eta) \;=\; O(\varepsilon).
+\]
+The constant depends on $L$, the distribution of offset denominators $\{\mu_f^\theta\}$, and $\eta$. The rate is linear in $\varepsilon$.
+\end{remark}
+
+\begin{remark}[Empirical verification of hypothesis (R) on Gemma-3 4B]
+\label{rem:cdf-empirical}
+Hypothesis (R) is directly testable from any given clustering by computing the empirical margin distribution. We report the result of this test on one model: Gemma-3 4B with spherical $k$-means clustering ($K = 256$, $N = 18{,}324$ retained features, clustering procedure of~\citep{cluster_size_confound}).
+
+Table~\ref{tab:R-empirical} summarizes the empirical margin CDF.
+
+\begin{table}[h]
+\centering
+\small
+\begin{tabular}{rrrrrrr}
+\toprule
+$\tau$ & 0.01 & 0.05 & 0.10 & 0.15 & 0.33 & 0.44 \\
+\midrule
+$F_N(\tau)$ & 0.031 & 0.263 & 0.548 & 0.747 & 0.950 & 0.990 \\
+\bottomrule
+\end{tabular}
+\caption{Empirical margin CDF $F_N(\tau)$ for Gemma-3 4B, $K = 256$.}
+\label{tab:R-empirical}
+\end{table}
+
+Fitting the linear bound $F_N(\tau) \leq L \tau$ on $[0, 0.1]$:
+\begin{itemize}[itemsep=0pt, topsep=2pt]
+\item least-squares slope through origin: $L_{\mathrm{fit}} \approx 5.41$;
+\item worst-case bound: $L_{\mathrm{worst}} \approx 11.05$.
+\end{itemize}
+Hypothesis (R) holds on this model with $\tau_0 = 0.1$ and $L = 11.05$. The worst-case constant is set by a small subpopulation of features with unusually small margins (3.1\% of features have $\gamma_f < 0.01$). For the bulk of the population, the local slope $F_N(\tau) / \tau$ is closer to $5$--$6$ in the range $\tau \in [0.01, 0.1]$.
+
+The verdict for Proposition~\ref{prop:centroid-quadratic} under this value of $L$: the interior-quadratic term dominates the boundary-linear term when $\varepsilon \ll 1/L \approx 0.09$. This is a non-trivial but narrow regime. For perturbations $\varepsilon$ of order $10^{-2}$ or smaller, the quadratic centroid-stability claim is substantive; for $\varepsilon$ of order $10^{-1}$ or larger, the linear boundary-churn term dominates and the stability claim reduces to the general $O(\varepsilon)$ bound.
+
+We note that $L$ depends on $K$ (the number of clusters), the distribution of $\mu_f^\theta$, and the data-dependent structure of the offset cloud. The number reported here is specific to Gemma-3 4B at $K = 256$; a sweep over $K$ would be informative but is not performed here.
+\end{remark}
+
+\begin{proposition}[Centroid-pair cosine is quadratic in $\varepsilon$]
+\label{prop:centroid-quadratic}
+Let $\theta'$ be a perturbation of $\theta$. Assume (as above) that anchoring is preserved for all features, and that the set of features whose cluster assignment flips has size $O(\varepsilon)$ times $|\mathcal{F}|$ to leading order. Fix a cluster $k$ with fixed-point cluster $S_k \subseteq \mathcal{F}$ of size $n_k$ and centroid $c_k$ in model $\theta$. Let $c'_k$ be the corresponding centroid in $\theta'$. Then
+\[
+\cossim(c_k Q, \, c'_k) \;=\; 1 - O(\varepsilon^2) \;+\; O(\varepsilon)
+\]
+where the $O(\varepsilon^2)$ term reflects the geometric displacement of the centroid direction due to offsets that remain assigned to cluster $k$, and the $O(\varepsilon)$ term reflects the contribution of flipped features.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+Decompose
+\[
+c'_k - c_k Q \;=\; \underbrace{ \big( \text{update from unflipped features} \big) }_{\text{first component}} + \underbrace{ \big( \text{update from flipped features} \big) }_{\text{second component}}.
+\]
+For unflipped features, the contribution is $\sum_{f \in S_k, \text{unflipped}} [\mathcal{O}(f; \theta') - \mathcal{O}(f; \theta) Q]$, of norm bounded by $\sum_f \alpha_f \cdot 1 \cdot 1 = O(n_k \cdot \varepsilon)$. However, the centroid is the \emph{normalized} mean; its direction is affected by the perpendicular component only, which by Lemma~\ref{lem:deflection} produces a cosine deficit quadratic in $\alpha_f$. Under an isotropy assumption that $\sum_f \delta_f^\perp$ has mean zero, the summed perturbation has norm $O(\sqrt{n_k} \cdot \varepsilon)$, and the resulting angular deflection of $c'_k$ from $c_k Q$ is $O(\varepsilon / \sqrt{n_k})$, giving a cosine deficit of $O(\varepsilon^2 / n_k)$.
+
+For flipped features, the contribution is (at most) the number of flipped features in cluster $k$, which under hypothesis (R) from Remark~\ref{rem:margin-density} is $O(\varepsilon \cdot n_k)$. Each flipped feature contributes linearly to the centroid shift, giving a cosine deficit of $O(\varepsilon)$. In regimes where hypothesis (R) holds with small $L$, the interior (quadratic) contribution can dominate.
+
+The stated leading behavior therefore has a quadratic contribution from the geometric deformation of the cluster's interior, plus a linear contribution from membership churn at the boundary. If hypothesis (R) fails or $L$ is large, the linear term dominates; if $L$ is small (well-separated clusters) and $\varepsilon$ is small enough relative to $L^{-1}$, the quadratic term dominates and $\cossim(c_k Q, c'_k) = 1 - O(\varepsilon^2)$.
+\end{proof}
+
+\begin{remark}
+Proposition~\ref{prop:centroid-quadratic} is stated as a sketch because the precise constants depend on hypothesis (R) of Remark~\ref{rem:margin-density}, the cluster-size distribution, and the correlation structure of the perturbations across features. We leave a full treatment (along the lines of Davis--Kahan~\citep{davis_kahan_1970} or Wedin~\citep{wedin_1972} perturbation bounds for singular subspaces) to follow-up work. What the sketch establishes is the \emph{qualitative} claim: centroid deformation is \emph{quadratic} in $\varepsilon$ in the interior of the cluster, with a linear correction from boundary churn whose magnitude depends on an empirically testable property of the margin distribution.
+\end{remark}
+
+\section{Discussion}
+
+The results above formalize a rotation gauge symmetry of the weight-space offset-clustering pipeline. Theorem~\ref{thm:main} establishes that every measurable output --- anchoring functions, offset vectors, cluster centroids, cluster partitions, and by Corollary~\ref{cor:svd}, per-cluster SVD spectra including $d_{50}$ --- is invariant under joint orthogonal reparameterization of the residual-stream basis. The invariance is exact, not merely up to permutation of cluster labels.
+
+Proposition~\ref{prop:refinement} records a distinct structural fact: the pair partition $\mathcal{P}_\theta$, defined by source-target token equality, refines \emph{any} centroid-based cluster partition of the offset cloud. This implies that the content-coherence diagnostic of~\citep{cluster_size_confound} is well-defined independent of clustering: ``coherent clusters contain a multiplicity-$\geq 2$ pair-class'' is a statement about the refinement structure, not about the specific cluster assignment.
+
+The perturbation analysis of Section~4 identifies two distinct stability regimes. The offset deflection angle $\alpha_f$ is linear in $\varepsilon$ with amplification $1 / \mu_f^\theta$ (Corollary~\ref{cor:offset-deflection}). The cluster-assignment flip fraction is bounded by the empirical margin CDF evaluated at $O(\varepsilon)$ (Lemma~\ref{lem:assignment-stability}); under an empirical regularity hypothesis on this CDF near zero --- hypothesis (R) of Remark~\ref{rem:margin-density} --- the flip fraction is linear in $\varepsilon$. In contrast, the centroid-pair cosine deformation is quadratic in $\varepsilon$ in the interior of clusters, with a linear boundary correction whose magnitude depends on (R) (Proposition~\ref{prop:centroid-quadratic}).
+
+The qualitative upshot, contingent on hypothesis (R): \emph{cluster geometry is more robust than cluster membership}. Small perturbations to the parameter set produce changes in which specific features sit in which clusters at a linear rate in $\varepsilon$, but changes in where the clusters \emph{are} as geometric objects at a quadratic rate in $\varepsilon$. This provides a formal basis --- conditional on the empirical behavior of the margin CDF near zero --- for an intuition that has been implicit in our empirical analyses: averaged per-cluster statistics (centroid direction, cluster size, $d_{50}$) should be more stable across twin-trained models than per-feature assignments. Hypothesis (R) has been empirically verified on one model (Remark~\ref{rem:cdf-empirical}) with a moderate constant $L \approx 11$, which makes the quadratic-over-linear separation substantive but narrow: the regime where the quadratic centroid term dominates is $\varepsilon \ll 1/L \approx 0.09$.
+
+\subsection*{Open questions}
+
+\begin{enumerate}[label=\arabic*., leftmargin=*, itemsep=1pt]
+\item \emph{Dependence of $L$ in hypothesis (R) on $K$ and model.} Remark~\ref{rem:cdf-empirical} verifies (R) on one model (Gemma-3 4B at $K = 256$) with $L_{\mathrm{worst}} \approx 11$. The quantitative strength of the stability claims of Section~4 depends directly on $L$, and $L$ is expected to vary with $K$ (more clusters crowd decision boundaries, inflating $L$) and with the model (different offset-cloud structure). A sweep of $L$ as a function of $K$ for a fixed model, and across several models, would sharpen the practical applicability of the bounds. An open conjecture is that coherent clusters in the sense of~\citep{cluster_size_confound} have systematically larger margins than noise clusters; if so, restricting the margin CDF to coherent features would give a smaller $L$, and the stability claims would apply more strongly to the methodologically relevant sub-population.
+\item \emph{Cross-model case.} Theorem~\ref{thm:main} addresses twin models whose parameterizations differ by joint residual-stream rotation. Genuine cross-model comparison (e.g., Gemma vs.\ OLMo-2) requires a map between two different embedding spaces, with different vocabularies and dimensionalities. A natural candidate is Procrustes alignment of shared-vocabulary embeddings, but its effect on the downstream clustering is not characterized by the results here.
+\item \emph{Exact centroid-perturbation bounds.} Proposition~\ref{prop:centroid-quadratic} is stated heuristically. A rigorous version would apply singular-subspace perturbation theory to the sample-covariance operator of the offset cloud. The corresponding result for eigenvalue stability ($d_{50}$-deformation) under small perturbations is a natural target.
+\item \emph{Random-perturbation regime.} If $\Delta_E, \Delta_G, \Delta_D$ are modeled as random matrices (e.g., iid Gaussian entries, as a model for training-stochasticity residuals), concentration estimates can sharpen the ``flip fraction is $O(\varepsilon)$'' claim into a quantitative probability bound. This requires integrating Lemma~\ref{lem:assignment-stability} against the perturbation distribution and combining with hypothesis (R) or its failure modes.
+\item \emph{Connection to pair-partition stability.} The pair partition $\mathcal{P}_\theta$ is determined by $\sigma_\theta, \tau_\theta$. By Lemma~\ref{lem:anchoring-stability}, anchoring is stable up to features in the $O(\varepsilon)$ tail of the anchoring-margin distribution. Consequently, $\mathcal{P}_{\theta'}$ differs from $\mathcal{P}_\theta$ only by a small number of reassignments at the boundary, under an analogue of hypothesis (R) for the anchoring margin. A clean statement of pair-partition stability as a set-partition distance (e.g., variation of information, Rand index) is not treated here but follows the same pattern.
+\end{enumerate}
+
+\paragraph{Acknowledgments.} This note builds on the offset construction of~\citep{hayuk_larql} and the methodology analysis of~\citep{cluster_size_confound}. Spherical $k$-means is due to~\citep{dhillon_modha_2001}; the perturbation-theoretic framework draws on classical results of~\citep{davis_kahan_1970, wedin_1972, stewart_sun_1990}.
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{99}
+
+\bibitem[Davis and Kahan(1970)]{davis_kahan_1970}
+C.~Davis and W.~M. Kahan.
+\newblock The rotation of eigenvectors by a perturbation. III.
+\newblock \emph{SIAM Journal on Numerical Analysis}, 7(1):1--46, 1970.
+
+\bibitem[Dhillon and Modha(2001)]{dhillon_modha_2001}
+I.~S. Dhillon and D.~S. Modha.
+\newblock Concept decompositions for large sparse text data using clustering.
+\newblock \emph{Machine Learning}, 42(1-2):143--175, 2001.
+
+\bibitem[Geva et al.(2021)]{geva_2021}
+M.~Geva, R.~Schuster, J.~Berant, and O.~Levy.
+\newblock Transformer feed-forward layers are key-value memories.
+\newblock In \emph{EMNLP}, 2021.
+
+\bibitem[Geva et al.(2022)]{geva_2022}
+M.~Geva, A.~Caciularu, K.~Wang, and Y.~Goldberg.
+\newblock Transformer feed-forward layers build predictions by promoting concepts in the vocabulary space.
+\newblock In \emph{EMNLP}, 2022.
+
+\bibitem[Hayuk(2026)]{hayuk_larql}
+C.~Hayuk.
+\newblock LARQL: The model is the database.
+\newblock \url{https://github.com/chrishayuk/larql}, 2026.
+
+\bibitem[Hernandez et al.(2024)]{hernandez_2024}
+E.~Hernandez, A.~S. Sharma, T.~Haklay, K.~Meng, M.~Wattenberg, J.~Andreas, Y.~Belinkov, and D.~Bau.
+\newblock Linearity of relation decoding in transformer language models.
+\newblock In \emph{ICLR}, 2024.
+
+\bibitem[Stewart and Sun(1990)]{stewart_sun_1990}
+G.~W. Stewart and J.~Sun.
+\newblock \emph{Matrix Perturbation Theory}.
+\newblock Academic Press, 1990.
+
+\bibitem[Wedin(1972)]{wedin_1972}
+P.-\AA. Wedin.
+\newblock Perturbation bounds in connection with singular value decomposition.
+\newblock \emph{BIT Numerical Mathematics}, 12(1):99--111, 1972.
+
+\bibitem[Author(2026)]{cluster_size_confound}
+[Author name].
+\newblock Cluster size, not relation rank: a reanalysis of dimensionality claims in weight-space linear relation analysis.
+\newblock Manuscript, 2026.
+
+\end{thebibliography}
+
+\end{document}
