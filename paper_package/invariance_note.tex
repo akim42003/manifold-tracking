@@ -45,6 +45,8 @@ of Weight-Space Offset Clustering}
 
 \section{Setup and notation}
 
+\paragraph{Conventions.} Throughout this note, $\|\cdot\|$ denotes the Euclidean ($\ell_2$) norm on $\mathbb{R}^d$ and $\langle \cdot, \cdot \rangle$ the standard Euclidean inner product, so that $\|v\|^2 = \langle v, v \rangle = \sum_{i=1}^d v_i^2$. The unit sphere $S^{d-1} = \{ v \in \mathbb{R}^d : \|v\| = 1 \}$ is the unit sphere with respect to this norm. Matrix norms are never invoked; when we write $\|M\|$ for a matrix $M$ it is understood to be applied row-wise to vectors in $\mathbb{R}^d$.
+
 Fix a vocabulary $V$, a hidden dimension $d \in \mathbb{N}$, and a feed-forward intermediate dimension $d_{\mathrm{ffn}} \in \mathbb{N}$. We consider transformer language models whose parameters relevant to the offset construction are the triple
 \[
 \theta \;=\; (E, \, W_{\mathrm{gate}}, \, W_{\mathrm{down}}) \;\in\; \mathbb{R}^{|V| \times d} \times \mathbb{R}^{d_{\mathrm{ffn}} \times d} \times \mathbb{R}^{d_{\mathrm{ffn}} \times d}.
@@ -235,7 +237,7 @@ We analyze how each component of the offset-clustering pipeline deforms under th
 
 \begin{lemma}[Unit-vector deflection]
 \label{lem:deflection}
-Let $u \in S^{d-1}$, $c > 0$, and $v \in \mathbb{R}^d$. Decompose $v = v_\parallel u + v_\perp$ with $v_\perp \perp u$. Suppose $c + v_\parallel > 0$. Then the vector
+Let $u \in S^{d-1}$, $c > 0$, and $v \in \mathbb{R}^d$. Write $v = v_\parallel u + v_\perp$, where $v_\parallel = \langle u, v \rangle \in \mathbb{R}$ is the scalar component of $v$ along $u$ and $v_\perp = v - v_\parallel u \in \mathbb{R}^d$ is the vector component of $v$ orthogonal to $u$ (so $\langle u, v_\perp \rangle = 0$). Suppose $c + v_\parallel > 0$. Then the vector
 \[
 u' \;=\; \frac{c u + v}{\| c u + v \|}
 \]

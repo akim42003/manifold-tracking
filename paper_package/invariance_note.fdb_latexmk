@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1776963082.71626 "invariance_note.tex" "invariance_note.pdf" "invariance_note" 1776963083.10562 0
+["pdflatex"] 1776963719.86615 "invariance_note.tex" "invariance_note.pdf" "invariance_note" 1776963720.29332 0
   "/etc/texmf/web2c/texmf.cnf" 1770649484.48546 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1095.tfm" 1136768653 1536 02c06700a42be0f5a28664c7273f82e7 ""
@@ -124,9 +124,9 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1770649498.42307 5472669 54eaf61a88b6b7896ebd0dac973cb29c ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1770649539 8214511 07aafe6e0ef00f541a9f2751f4fa9137 ""
-  "invariance_note.aux" 1776963083.0644 3827 a620b7aa2d3a4d17565ae9a57b21e38f "pdflatex"
-  "invariance_note.out" 1776963083.0644 678 59a5c6f50437b8168e55ea8195c93c2b "pdflatex"
-  "invariance_note.tex" 1776963023.36286 43699 3a44f7a605e9c67f13cb79f4c1808219 ""
+  "invariance_note.aux" 1776963720.25079 3924 b433a7f97fa36264a598e9da85481d2c "pdflatex"
+  "invariance_note.out" 1776963720.25179 678 59a5c6f50437b8168e55ea8195c93c2b "pdflatex"
+  "invariance_note.tex" 1776963709.7889 44414 8c5d43ce59981ae067a9c431a4b3abb7 ""
   (generated)
   "invariance_note.aux"
   "invariance_note.log"
