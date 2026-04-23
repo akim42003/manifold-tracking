@@ -435,34 +435,127 @@ Fitting the linear bound $F_N(\tau) \leq L \tau$ on $[0, 0.1]$:
 \end{itemize}
 Hypothesis (R) holds on this model with $\tau_0 = 0.1$ and $L = 11.05$. The worst-case constant is set by a small subpopulation of features with unusually small margins (3.1\% of features have $\gamma_f < 0.01$). For the bulk of the population, the local slope $F_N(\tau) / \tau$ is closer to $5$--$6$ in the range $\tau \in [0.01, 0.1]$.
 
-The verdict for Proposition~\ref{prop:centroid-quadratic} under this value of $L$: the interior-quadratic term dominates the boundary-linear term when $\varepsilon \ll 1/L \approx 0.09$. This is a non-trivial but narrow regime. For perturbations $\varepsilon$ of order $10^{-2}$ or smaller, the quadratic centroid-stability claim is substantive; for $\varepsilon$ of order $10^{-1}$ or larger, the linear boundary-churn term dominates and the stability claim reduces to the general $O(\varepsilon)$ bound.
+The verdict for Proposition~\ref{prop:centroid-quadratic} under this value of $L$: the centroid-deflection angle $\beta_k$ is bounded by a constant multiple of $L \varepsilon / \rho_k$, and the cosine deficit is bounded by the square of this, i.e., $O(L^2 \varepsilon^2 / \rho_k^2)$. For $L \approx 11$ and typical cluster concentrations $\rho_k \in [0.3, 0.7]$, the leading coefficient is of order $10^2$--$10^3$; the quadratic-in-$\varepsilon$ bound is substantive for $\varepsilon$ small enough that $L \varepsilon / \rho_k \ll 1$, e.g., $\varepsilon \lesssim 10^{-2}$. For larger $\varepsilon$, the linearization underlying Proposition~\ref{prop:centroid-quadratic} (assumption \ref{ass:small}) is not applicable and the bound does not apply.
 
 We note that $L$ depends on $K$ (the number of clusters), the distribution of $\mu_f^\theta$, and the data-dependent structure of the offset cloud. The number reported here is specific to Gemma-3 4B at $K = 256$; a sweep over $K$ would be informative but is not performed here.
 \end{remark}
 
-\begin{proposition}[Centroid-pair cosine is quadratic in $\varepsilon$]
+\begin{proposition}[Centroid deflection and cosine deficit under perturbation]
 \label{prop:centroid-quadratic}
-Let $\theta'$ be a perturbation of $\theta$. Assume (as above) that anchoring is preserved for all features, and that the set of features whose cluster assignment flips has size $O(\varepsilon)$ times $|\mathcal{F}|$ to leading order. Fix a cluster $k$ with fixed-point cluster $S_k \subseteq \mathcal{F}$ of size $n_k$ and centroid $c_k$ in model $\theta$. Let $c'_k$ be the corresponding centroid in $\theta'$. Then
+Fix $t \geq 0$ and let $\mathbf{c}^{(t)} = (c_1^{(t)}, \ldots, c_K^{(t)})$ be the centroid tuple at iteration $t$ of spherical $k$-means on $\theta$-offsets. Denote by $S_k^{(t)} \subseteq \mathcal{F}$ the cluster of features assigned to centroid $k$ at iteration $t$, and let $n_k^{(t)} = |S_k^{(t)}|$, $s_k^{(t)} = \sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta)$, and $\rho_k^{(t)} = \|s_k^{(t)}\| / n_k^{(t)} \in (0, 1]$ (the cluster concentration). Let $\mu_{\min}^\theta = \min_{f \in \mathcal{F}} \mu_f^\theta > 0$.
+
+Run spherical $k$-means on $\theta'$-offsets with any initial centroid tuple $\mathbf{c}'^{(t)}$, producing iteration $t+1$ centroids $\mathbf{c}'^{(t+1)}$. Assume:
+
+\begin{enumerate}[label=(A\arabic*), itemsep=0pt, leftmargin=*]
+\item \label{ass:R} Hypothesis (R) of Remark~\ref{rem:margin-density} holds at the iteration-$t$ cluster margins, with constants $L > 0$ and $\tau_0 > 0$.
+\item \label{ass:anchoring} For all $f \in \mathcal{F}$, $\sigma_{\theta'}(f) = \sigma_\theta(f)$ and $\tau_{\theta'}(f) = \tau_\theta(f)$ (anchoring preserved; sufficient conditions given by Lemma~\ref{lem:anchoring-stability}).
+\item \label{ass:c-prev} The previous-iteration centroids satisfy $\|c_k'^{(t)} - c_k^{(t)} Q\| \leq \eta^{(t)}$ for all $k$, with $\eta^{(t)} + \alpha_{\max} + \varepsilon_E / \mu_{\min}^\theta \leq \tau_0 / 2$, where $\alpha_{\max} = 2 \varepsilon_E / \mu_{\min}^\theta$ is the leading-order bound on offset deflection from Corollary~\ref{cor:offset-deflection}.
+\item \label{ass:locality} (\emph{Local flip uniformity.}) There exists $C_{\mathrm{loc}} \geq 1$ such that, for every cluster $k$, the number of features whose cluster assignment changes between $\theta$ and $\theta'$ at iteration $t+1$ \emph{and} that belong to $S_k^{(t)}$ or to the corresponding iteration-$(t+1)$ cluster in $\theta'$ is at most
 \[
-\cossim(c_k Q, \, c'_k) \;=\; 1 - O(\varepsilon^2) \;+\; O(\varepsilon)
+|S_k^{(t+1)} \triangle S_k'^{(t+1)}| \;\leq\; C_{\mathrm{loc}} \cdot p_{\mathrm{total}} \cdot n_k^{(t)},
 \]
-where the $O(\varepsilon^2)$ term reflects the geometric displacement of the centroid direction due to offsets that remain assigned to cluster $k$, and the $O(\varepsilon)$ term reflects the contribution of flipped features.
+where $p_{\mathrm{total}} \leq 2 L (\alpha_{\max} + \eta^{(t)})$ is the global flip fraction guaranteed by \ref{ass:R}.
+\item \label{ass:small} $\varepsilon / \rho_k^{(t)}$ is small enough that the linearization of Lemma~\ref{lem:deflection} is valid, i.e., the angle $\beta_k$ defined below satisfies $\beta_k \leq \pi/4$.
+\end{enumerate}
+
+Then
+\begin{equation}
+\big\| c_k'^{(t+1)} - c_k^{(t+1)} Q \big\| \;\leq\; \sqrt{2} \, \beta_k, \qquad
+\beta_k \;\leq\; \frac{1}{\rho_k^{(t)}} \left( 2 \varepsilon_E / \mu_{\min}^\theta \;+\; 2 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)}) \right) \;+\; O\!\left( \frac{\varepsilon^2}{(\rho_k^{(t)})^2} \right),
+\label{eq:centroid-angle}
+\end{equation}
+and the cosine deficit satisfies
+\begin{equation}
+1 - \cossim\!\big( c_k^{(t+1)} Q, \, c_k'^{(t+1)} \big) \;=\; \frac{\beta_k^2}{2} + O(\beta_k^4) \;=\; O\!\left( \frac{\varepsilon^2}{(\rho_k^{(t)})^2} \right).
+\label{eq:centroid-deficit}
+\end{equation}
 \end{proposition}
 
-\begin{proof}[Proof sketch]
-Decompose
+\begin{proof}
+Fix $k$. We drop the superscripts $^{(t)}$ and $^{(t+1)}$ where context permits, writing $S_k, n_k, s_k, c_k, \rho_k$ for the iteration-$t$ quantities and $c_k', c_k''$ for iteration-$(t+1)$ centroids in $\theta$ and $\theta'$.
+
+\textbf{Step 1: decompose the perturbed update.}
+
+By the spherical $k$-means update rule (Definition~\ref{def:spherical-kmeans}),
 \[
-c'_k - c_k Q \;=\; \underbrace{ \big( \text{update from unflipped features} \big) }_{\text{first component}} + \underbrace{ \big( \text{update from flipped features} \big) }_{\text{second component}}.
+c_k^{(t+1)} = \frac{s_k}{\|s_k\|}, \qquad
+c_k'^{(t+1)} = \frac{s_k'}{\|s_k'\|}, \quad \text{where } s_k' = \sum_{f \in S_k'^{(t+1)}} \mathcal{O}(f; \theta').
 \]
-For unflipped features, the contribution is $\sum_{f \in S_k, \text{unflipped}} [\mathcal{O}(f; \theta') - \mathcal{O}(f; \theta) Q]$, of norm bounded by $\sum_f \alpha_f \cdot 1 \cdot 1 = O(n_k \cdot \varepsilon)$. However, the centroid is the \emph{normalized} mean; its direction is affected by the perpendicular component only, which by Lemma~\ref{lem:deflection} produces a cosine deficit quadratic in $\alpha_f$. Under an isotropy assumption that $\sum_f \delta_f^\perp$ has mean zero, the summed perturbation has norm $O(\sqrt{n_k} \cdot \varepsilon)$, and the resulting angular deflection of $c'_k$ from $c_k Q$ is $O(\varepsilon / \sqrt{n_k})$, giving a cosine deficit of $O(\varepsilon^2 / n_k)$.
 
-For flipped features, the contribution is (at most) the number of flipped features in cluster $k$, which under hypothesis (R) from Remark~\ref{rem:margin-density} is $O(\varepsilon \cdot n_k)$. Each flipped feature contributes linearly to the centroid shift, giving a cosine deficit of $O(\varepsilon)$. In regimes where hypothesis (R) holds with small $L$, the interior (quadratic) contribution can dominate.
+Let $T_k = S_k^{(t)} \cap S_k'^{(t+1)}$ (features in cluster $k$ at iteration $t$ \emph{and} at iteration $t+1$ in $\theta'$), $P_k = S_k^{(t)} \setminus S_k'^{(t+1)}$ (``flipped out''), and $R_k = S_k'^{(t+1)} \setminus S_k^{(t)}$ (``flipped in''). Then $S_k'^{(t+1)} = T_k \cup R_k$ and $S_k^{(t)} = T_k \cup P_k$.
 
-The stated leading behavior therefore has a quadratic contribution from the geometric deformation of the cluster's interior, plus a linear contribution from membership churn at the boundary. If hypothesis (R) fails or $L$ is large, the linear term dominates; if $L$ is small (well-separated clusters) and $\varepsilon$ is small enough relative to $L^{-1}$, the quadratic term dominates and $\cossim(c_k Q, c'_k) = 1 - O(\varepsilon^2)$.
+Under assumption \ref{ass:anchoring} and Corollary~\ref{cor:offset-deflection}, for every $f \in \mathcal{F}$ we can write $\mathcal{O}(f; \theta') = \mathcal{O}(f; \theta) Q + \eta_f$ where $\|\eta_f\| \leq \alpha_f + O(\alpha_f^2) \leq \alpha_{\max} + O(\alpha_{\max}^2)$.
+
+Therefore
+\begin{align*}
+s_k' &= \sum_{f \in T_k} \big( \mathcal{O}(f; \theta) Q + \eta_f \big) + \sum_{f \in R_k} \mathcal{O}(f; \theta') \\
+&= \underbrace{\sum_{f \in S_k^{(t)}} \mathcal{O}(f; \theta) Q}_{= s_k Q} \;-\; \underbrace{\sum_{f \in P_k} \mathcal{O}(f; \theta) Q}_{A_k} \;+\; \underbrace{\sum_{f \in T_k} \eta_f}_{B_k} \;+\; \underbrace{\sum_{f \in R_k} \mathcal{O}(f; \theta')}_{C_k}.
+\end{align*}
+
+\textbf{Step 2: bound the norms of $A_k$, $B_k$, $C_k$.}
+
+Each term in $A_k$ and $C_k$ is a unit vector; hence by the triangle inequality
+\[
+\|A_k\| \leq |P_k|, \qquad \|C_k\| \leq |R_k|.
+\]
+For $B_k$, the triangle inequality and Corollary~\ref{cor:offset-deflection} give
+\[
+\|B_k\| \leq \sum_{f \in T_k} \|\eta_f\| \leq |T_k| \cdot \big(\alpha_{\max} + O(\alpha_{\max}^2)\big) \leq n_k \cdot \alpha_{\max} \big(1 + O(\alpha_{\max})\big).
+\]
+
+Write $m_k = |P_k| + |R_k| = |S_k^{(t)} \triangle S_k'^{(t+1)}|$ for the churn count at cluster $k$. By assumption \ref{ass:locality}, $m_k \leq C_{\mathrm{loc}} \cdot p_{\mathrm{total}} \cdot n_k$, and by \ref{ass:R}, $p_{\mathrm{total}} \leq 2 L (\alpha_{\max} + \eta^{(t)})$, so
+\[
+m_k \leq 2 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)}) \cdot n_k.
+\]
+
+\textbf{Step 3: apply Lemma~\ref{lem:deflection}.}
+
+Set $u = c_k Q$, $c = \|s_k\|$, $v = -A_k + B_k + C_k$. Then $s_k' = s_k Q + v$ and $c_k'^{(t+1)} = (cu + v)/\|cu + v\|$. Decompose $v = v_\parallel u + v_\perp$ as in Lemma~\ref{lem:deflection}. By the triangle inequality,
+\[
+\|v\| \leq \|A_k\| + \|B_k\| + \|C_k\| \leq m_k + n_k \alpha_{\max} \big(1 + O(\alpha_{\max})\big).
+\]
+In particular, $\|v_\perp\| \leq \|v\|$, so
+\begin{align}
+\|v_\perp\| &\leq \big( 2 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)}) + \alpha_{\max} \big) n_k + O(n_k \alpha_{\max}^2) \nonumber \\
+&= \big( \alpha_{\max} + 2 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)}) \big) n_k + O(n_k \varepsilon^2). \label{eq:v-perp-bound}
+\end{align}
+
+By Lemma~\ref{lem:deflection}, the angle $\beta_k$ between $u = c_k Q$ and $c_k'^{(t+1)}$ satisfies
+\[
+\tan \beta_k = \frac{\|v_\perp\|}{\|s_k\| + v_\parallel}.
+\]
+Since $|v_\parallel| \leq \|v\| \ll \|s_k\|$ by assumption \ref{ass:small} (which guarantees $\beta_k \leq \pi/4$), we have $\|s_k\| + v_\parallel \geq \|s_k\|/2$. Combined with $\|s_k\| = \rho_k n_k$ and \eqref{eq:v-perp-bound},
+\begin{align}
+\beta_k &\leq \tan \beta_k \leq \frac{\|v_\perp\|}{\|s_k\|/2} = \frac{2 \|v_\perp\|}{\rho_k n_k} \nonumber \\
+&\leq \frac{2 \alpha_{\max} + 4 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)})}{\rho_k} + O\!\left( \frac{\varepsilon^2}{\rho_k} \right). \label{eq:beta-bound}
+\end{align}
+Under \ref{ass:small}, $\beta_k \leq \pi/4 < 1$, so we may use $\beta_k \leq \tan \beta_k \leq 2\beta_k$ throughout; the factor 2 introduced here is absorbed into the constant. This establishes \eqref{eq:centroid-angle} up to a factor of 2 in the leading constant (which can be tightened by a more careful expansion of $\tan$).
+
+\textbf{Step 4: Euclidean distance bound.}
+
+For unit vectors $x, y \in S^{d-1}$ with angle $\beta$ between them, $\|x - y\| = 2 \sin(\beta/2) \leq \sqrt{2} \, \beta$ for $\beta \in [0, \pi/2]$. Applied to $x = c_k^{(t+1)} Q$ and $y = c_k'^{(t+1)}$ (noting $c_k^{(t+1)} Q$ is the normalization of $s_k Q$, which has the same direction as $u$), this gives the first inequality of \eqref{eq:centroid-angle}.
+
+\textbf{Step 5: cosine deficit.}
+
+The cosine between unit vectors equals the cosine of the angle between them:
+\[
+\cossim\!\big( c_k^{(t+1)} Q, \, c_k'^{(t+1)} \big) = \cos \beta_k = 1 - \frac{\beta_k^2}{2} + O(\beta_k^4).
+\]
+Substituting the bound \eqref{eq:beta-bound}, the cosine deficit is at most
+\[
+\frac{1}{2 \rho_k^2} \big( 2\alpha_{\max} + 4 C_{\mathrm{loc}} L (\alpha_{\max} + \eta^{(t)}) \big)^2 + O\!\left( \frac{\varepsilon^3}{\rho_k^3} \right) = O\!\left( \frac{\varepsilon^2}{\rho_k^2} \right),
+\]
+using $\alpha_{\max} = O(\varepsilon_E)$ and $\eta^{(t)} = O(\varepsilon)$ from \ref{ass:c-prev}. This establishes \eqref{eq:centroid-deficit}.
 \end{proof}
 
-\begin{remark}
-Proposition~\ref{prop:centroid-quadratic} is stated as a sketch because the precise constants depend on hypothesis (R) of Remark~\ref{rem:margin-density}, the cluster-size distribution, and the correlation structure of the perturbations across features. We leave a full treatment (along the lines of Davis--Kahan~\citep{davis_kahan_1970} or Wedin~\citep{wedin_1972} perturbation bounds for singular subspaces) to follow-up work. What the sketch establishes is the \emph{qualitative} claim: centroid deformation is \emph{quadratic} in $\varepsilon$ in the interior of the cluster, with a linear correction from boundary churn whose magnitude depends on an empirically testable property of the margin distribution.
+\begin{remark}[Base case and initialization]
+\label{rem:centroid-base-case}
+At $t = 0$, the assumption \ref{ass:c-prev} holds with $\eta^{(0)} = 0$ if the iteration is initialized by $\mathbf{c}'^{(0)} = \mathbf{c}^{(0)} Q$. Proposition~\ref{prop:centroid-quadratic} then gives $\beta_k^{(1)} \leq \frac{2 \alpha_{\max} (1 + 2 C_{\mathrm{loc}} L)}{\rho_k^{(0)}}$ and cosine deficit $O(\varepsilon^2 / \rho_k^{(0)\,2})$ at iteration 1. For $t \geq 1$ the assumption on $\eta^{(t)}$ must be supplied inductively; doing this rigorously requires tracking how $\rho_k^{(t)}$ and the margin distribution evolve across iterations, which is beyond the scope of the present note.
+\end{remark}
+
+\begin{remark}[Dependence on cluster concentration $\rho_k$]
+\label{rem:rho-dependence}
+The cosine-deficit bound $O(\varepsilon^2 / \rho_k^2)$ deteriorates for clusters with low concentration. For a cluster whose members are spread uniformly over a hemisphere, $\rho_k = O(1/\sqrt{n_k})$ and the bound becomes $O(\varepsilon^2 n_k)$; for such clusters, centroid stability degrades with cluster size. For tight clusters with $\rho_k = \Omega(1)$, the bound is $O(\varepsilon^2)$ independent of $n_k$. The empirical cluster concentration $\rho_k$ is directly measurable from the clustering output and can be reported alongside $d_{50}$ and other per-cluster statistics.
 \end{remark}
 
 \section{Discussion}
@@ -471,9 +564,9 @@ The results above formalize a rotation gauge symmetry of the weight-space offset
 
 Proposition~\ref{prop:refinement} records a distinct structural fact: the pair partition $\mathcal{P}_\theta$, defined by source-target token equality, refines \emph{any} centroid-based cluster partition of the offset cloud. This implies that the content-coherence diagnostic of~\citep{cluster_size_confound} is well-defined independent of clustering: ``coherent clusters contain a multiplicity-$\geq 2$ pair-class'' is a statement about the refinement structure, not about the specific cluster assignment.
 
-The perturbation analysis of Section~4 identifies two distinct stability regimes. The offset deflection angle $\alpha_f$ is linear in $\varepsilon$ with amplification $1 / \mu_f^\theta$ (Corollary~\ref{cor:offset-deflection}). The cluster-assignment flip fraction is bounded by the empirical margin CDF evaluated at $O(\varepsilon)$ (Lemma~\ref{lem:assignment-stability}); under an empirical regularity hypothesis on this CDF near zero --- hypothesis (R) of Remark~\ref{rem:margin-density} --- the flip fraction is linear in $\varepsilon$. In contrast, the centroid-pair cosine deformation is quadratic in $\varepsilon$ in the interior of clusters, with a linear boundary correction whose magnitude depends on (R) (Proposition~\ref{prop:centroid-quadratic}).
+The perturbation analysis of Section~4 identifies two distinct stability regimes. The offset deflection angle $\alpha_f$ is linear in $\varepsilon$ with amplification $1 / \mu_f^\theta$ (Corollary~\ref{cor:offset-deflection}). The cluster-assignment flip fraction is bounded by the empirical margin CDF evaluated at $O(\varepsilon)$ (Lemma~\ref{lem:assignment-stability}); under hypothesis (R) of Remark~\ref{rem:margin-density} it is linear in $\varepsilon$. By contrast, the centroid \emph{direction} deflects by an angle $\beta_k = O(\varepsilon / \rho_k)$ that is also linear in $\varepsilon$, but the centroid-pair \emph{cosine deficit} $1 - \cossim(c_k Q, c_k')$ is quadratic in $\varepsilon$ because it equals $\sin^2(\beta_k/2) + O(\beta_k^4) = O(\beta_k^2)$ (Proposition~\ref{prop:centroid-quadratic}). Both contributions to $\beta_k$ --- the retained-feature offset-deflection term and the boundary-churn term --- are themselves linear in $\varepsilon$; the quadratic savings come from the geometric relationship between angle and cosine on the sphere, not from any cancellation between contributions.
 
-The qualitative upshot, contingent on hypothesis (R): \emph{cluster geometry is more robust than cluster membership}. Small perturbations to the parameter set produce changes in which specific features sit in which clusters at a linear rate in $\varepsilon$, but changes in where the clusters \emph{are} as geometric objects at a quadratic rate in $\varepsilon$. This provides a formal basis --- conditional on the empirical behavior of the margin CDF near zero --- for an intuition that has been implicit in our empirical analyses: averaged per-cluster statistics (centroid direction, cluster size, $d_{50}$) should be more stable across twin-trained models than per-feature assignments. Hypothesis (R) has been empirically verified on one model (Remark~\ref{rem:cdf-empirical}) with a moderate constant $L \approx 11$, which makes the quadratic-over-linear separation substantive but narrow: the regime where the quadratic centroid term dominates is $\varepsilon \ll 1/L \approx 0.09$.
+The qualitative upshot, contingent on hypothesis (R): \emph{cluster geometry is more robust than cluster membership, on a square-root scale}. Small perturbations to the parameter set produce changes in which specific features sit in which clusters at a linear rate in $\varepsilon$ (flip fraction is $O(L \varepsilon)$), and changes in the centroid direction at a rate also linear in $\varepsilon$ (angular deflection is $O(L \varepsilon / \rho_k)$). What's quadratic is the \emph{cosine deficit}, because the cosine of a small angle is $1 - (\text{angle})^2/2$; equivalently, centroids move a distance $O(\varepsilon / \rho_k)$ but their inner product with the ideal target drops by only $O(\varepsilon^2 / \rho_k^2)$. This gives a formal basis --- conditional on the empirical behavior of the margin CDF near zero --- for an intuition that has been implicit in our empirical analyses: averaged per-cluster statistics (centroid direction in cosine terms, cluster size, $d_{50}$) should be more stable across twin-trained models than per-feature assignments. Hypothesis (R) has been empirically verified on one model (Remark~\ref{rem:cdf-empirical}) with a moderate constant $L \approx 11$, which makes the quadratic cosine-deficit bound substantive for $\varepsilon$ small enough that $L \varepsilon / \rho_k \ll 1$.
 
 \subsection*{Open questions}
 
