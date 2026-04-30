@@ -1,0 +1,239 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage[margin=1in]{geometry}
+\usepackage[round]{natbib}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator{\cossim}{cossim}
+\newcommand{\Frisk}{\mathcal{F}_{\mathrm{risk}}}
+\newcommand{\Hmult}[1]{\mathcal{H}_{#1}}
+
+\title{Cross-Dimensional Equivalence of Offset Clustering: \\
+A Framework for Teacher--Student Comparison}
+\author{[author]}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section{Setup}
+\label{sec:setup}
+
+Throughout, $\|\cdot\|$ denotes the Euclidean ($\ell_2$) norm and $\langle \cdot, \cdot \rangle$ the standard Euclidean inner product. We work with two parameter tuples
+\[
+	\theta_T = (E_T, W_{\mathrm{gate}}^T, W_{\mathrm{down}}^T) \;\in\; \mathbb{R}^{|V| \times d_T} \times \mathbb{R}^{d_{\mathrm{ffn}}^T \times d_T} \times \mathbb{R}^{d_{\mathrm{ffn}}^T \times d_T},
+\]
+\[
+	\theta_S = (E_S, W_{\mathrm{gate}}^S, W_{\mathrm{down}}^S) \;\in\; \mathbb{R}^{|V| \times d_S} \times \mathbb{R}^{d_{\mathrm{ffn}}^S \times d_S} \times \mathbb{R}^{d_{\mathrm{ffn}}^S \times d_S},
+\]
+representing two transformer language models that share a tokenizer (and hence vocabulary $V$) but may differ in residual-stream dimension $d_S \leq d_T$ and FFN feature count $d_{\mathrm{ffn}}^S, d_{\mathrm{ffn}}^T$. We refer to $\theta_T$ as the \emph{teacher} and $\theta_S$ as the \emph{student}, motivated by the distillation setting where the student is intended to be a compressed representation of the teacher.
+
+We adopt the anchoring, offset, and pair-partition definitions of the same-dimensional setting (Section~2 of the companion note), specialized to each parameter tuple. In particular:
+\begin{itemize}
+	\item $\sigma_\theta(f) = \argmax_{t \in V^{\mathrm{word}}} \cossim(E[t], g_f^\theta)$ is the source anchor.
+	\item $\tau_\theta(f) = \argmax_{t \in V} \langle E[t], w_f^\theta \rangle$ is the target anchor.
+	\item $\mathcal{O}(f; \theta) = \widehat{E[\tau_\theta(f)] - E[\sigma_\theta(f)]} \in S^{d-1}$ is the unit offset.
+	\item $\mu_f^\theta = \|E[\tau_\theta(f)] - E[\sigma_\theta(f)]\|$ is the unnormalized offset magnitude.
+	\item $\mathcal{P}_\theta$ is the pair partition: $f \sim_P f'$ iff $(\sigma_\theta(f), \tau_\theta(f)) = (\sigma_\theta(f'), \tau_\theta(f'))$.
+	\item $n_{[p]}$ is the multiplicity of pair class $[p]$.
+\end{itemize}
+
+\section{Cross-dimensional projection}
+\label{sec:projection}
+
+\begin{definition}[Cross-dimensional projection]
+	\label{def:projection}
+	A \emph{cross-dimensional projection} from $\mathbb{R}^{d_T}$ to $\mathbb{R}^{d_S}$ is a matrix $P \in \mathbb{R}^{d_S \times d_T}$ satisfying $P P^\top = I_{d_S}$. Equivalently, the rows of $P$ form an orthonormal set in $\mathbb{R}^{d_T}$, or $P^\top$ is a Stiefel matrix in $\mathbb{R}^{d_T \times d_S}$.
+\end{definition}
+
+\begin{definition}[Null space and orthogonal decomposition]
+	\label{def:nullspace}
+	The \emph{null space} of $P$ is $N(P) = \{v \in \mathbb{R}^{d_T} : Pv = 0\}$, with $\dim N(P) = d_T - d_S$. Every $v \in \mathbb{R}^{d_T}$ admits the unique orthogonal decomposition
+	\[
+		v = v_\parallel + v_\perp, \qquad v_\parallel \in N(P), \quad v_\perp \in N(P)^\perp,
+	\]
+	where the orthogonality is with respect to the standard Euclidean inner product on $\mathbb{R}^{d_T}$. We refer to $v_\parallel$ as the \emph{null-space component} and $v_\perp$ as the \emph{retained component}.
+\end{definition}
+
+\begin{remark}[Relation to same-dimensional case]
+	\label{rem:same-dim}
+	When $d_T = d_S$, $P$ is square and $PP^\top = I_{d_S}$ implies $P \in O(d)$. The null space is trivial and every vector is its own retained component. The cross-dimensional framework reduces to the orthogonal-equivalence framework of the companion note as a special case.
+\end{remark}
+
+\begin{remark}[Terminology note]
+	\label{rem:kernel}
+	We use ``null space'' rather than ``kernel'' throughout to avoid ambiguity with the kernel-methods sense of the term used in representation-similarity metrics such as CKA~\citep{kornblith_2019}.
+\end{remark}
+
+\begin{definition}[Cross-dimensional equivalence]
+	\label{def:cross-equiv}
+	Parameter tuples $\theta_T$ and $\theta_S$ are \emph{cross-dimensionally equivalent} via a cross-dimensional projection $P$ if
+	\[
+		E_T P^\top = E_S, \qquad W_{\mathrm{gate}}^T P^\top = W_{\mathrm{gate}}^S, \qquad W_{\mathrm{down}}^T P^\top = W_{\mathrm{down}}^S,
+	\]
+	with the right-multiplication convention that each row of $E_T$, $W_{\mathrm{gate}}^T$, $W_{\mathrm{down}}^T$ is independently transformed.
+\end{definition}
+
+\begin{remark}[Restrictiveness of exact cross-dimensional equivalence]
+	\label{rem:restrictive}
+	Definition~\ref{def:cross-equiv} requires every embedding row, gate vector, and down-projection vector of the teacher to lie in $N(P)^\perp$ exactly. This is restrictive: it forces the entire teacher representation to be confined to a $d_S$-dimensional subspace of $\mathbb{R}^{d_T}$. In practice no nontrivial teacher--student pair satisfies this exactly; the framework is set up this way so that exact statements can be proven and then weakened in two stages: (i) by working at the multiset level rather than pointwise (Section~\ref{sec:multiset}), and (ii) by quantifying the per-feature failure modes of the exactness hypothesis (Section~\ref{sec:atrisk}).
+\end{remark}
+
+\section{The high-multiplicity multiset}
+\label{sec:multiset}
+
+The exact pointwise cross-dimensional equivariance of anchoring, offsets, and clustering --- analogous to Theorem~3.3 of the same-dimensional case --- requires the strong hypothesis of Definition~\ref{def:cross-equiv}. We instead develop a coarser comparison object that does not require pointwise feature equivariance: the multiset of high-multiplicity pair classes.
+
+\begin{definition}[High-multiplicity pair-class multiset]
+	\label{def:H-multiset}
+	For a parameter tuple $\theta$, the \emph{high-multiplicity pair-class multiset} is
+	\[
+		\Hmult{\theta} = \big\{ ([p], n_{[p]}) : [p] \in \mathcal{P}_\theta, \; n_{[p]} \geq 2 \big\},
+	\]
+	viewed as a finite multiset of (token-pair, multiplicity) records on $(V \times V) \times \mathbb{N}_{\geq 2}$.
+\end{definition}
+
+\begin{remark}[Why high multiplicity]
+	\label{rem:why-high-mult}
+	Pair classes with multiplicity $n_{[p]} = 1$ correspond to single FFN features anchored on a unique source--target pair. These are idiosyncratic and highly sensitive to feature-level reorganization. Pair classes with $n_{[p]} \geq 2$ represent commitments by multiple FFN features to the same anchored relation, and are the structurally meaningful objects from the perspective of the content-coherence diagnostic of~\citep{cluster_size_confound}: a cluster contains a high-multiplicity pair class if and only if it contains repeated source--target pairs. The multiset $\Hmult{\theta}$ is the natural comparison object across teacher--student pairs because (i) it is invariant under feature-index relabeling, (ii) it is invariant under any deterministic clustering rule (by Proposition~2.2 of the companion note), and (iii) it directly captures the content-coherence signal.
+\end{remark}
+
+\begin{definition}[High-multiplicity discrepancy]
+	\label{def:discrepancy}
+	For parameter tuples $\theta_T$ and $\theta_S$, write $n_{[p]}^T$ and $n_{[p]}^S$ for the multiplicities of the same token-pair $[p] \in V \times V$ in $\mathcal{P}_{\theta_T}$ and $\mathcal{P}_{\theta_S}$ respectively (with $n_{[p]} = 0$ if no feature anchors on $[p]$). The \emph{high-multiplicity discrepancy} is
+	\[
+		\Delta_{\geq 2}(\theta_T, \theta_S) = \big| \{ [p] : n_{[p]}^T \geq 2, \, n_{[p]}^S < 2 \} \big| \;+\; \big| \{ [p] : n_{[p]}^S \geq 2, \, n_{[p]}^T < 2 \} \big|.
+	\]
+	This counts pair classes that are high-multiplicity in exactly one of $\theta_T, \theta_S$.
+\end{definition}
+
+\section{At-risk features and the weak-form theorem}
+\label{sec:atrisk}
+
+We now identify the per-feature failure mode of the cross-dimensional projection. The argument follows the structure of Lemma~4.4 in the companion note (anchoring stability under additive perturbation), with the perturbation magnitudes replaced by null-space components.
+
+\begin{lemma}[Cross-dimensional anchoring stability]
+	\label{lem:cross-anchoring}
+	Let $\theta_T$ and $\theta_S$ be cross-dimensionally equivalent via $P$ in the sense of Definition~\ref{def:cross-equiv}, except that the embedding rows and gate/down vectors are not assumed to lie in $N(P)^\perp$. Fix $f \in \mathcal{F}_T$, and let $\gamma_f^\sigma, \gamma_f^\tau$ denote the source and target anchoring margins computed in $\theta_T$ (Definition~4.6 of the companion note). Define
+	\[
+		\nu_f^\sigma \;=\; \frac{\|E_T[\sigma_{\theta_T}(f)]_\parallel\|}{\|E_T[\sigma_{\theta_T}(f)]\|} \;+\; \frac{\|g_{f,\parallel}^{\theta_T}\|}{\|g_f^{\theta_T}\|} \;+\; R_f^\sigma,
+	\]
+	\[
+		\nu_f^\tau \;=\; M_E \cdot \|w_{f,\parallel}^{\theta_T}\| \;+\; \|w_f^{\theta_T}\| \cdot \max_{t \in V} \|E_T[t]_\parallel\| \;+\; R_f^\tau,
+	\]
+	where $M_E = \max_{t \in V} \|E_T[t]\|$ and $R_f^\sigma, R_f^\tau$ collect the second-order contributions of orders $(\|E_T[\cdot]_\parallel\|/\|E_T[\cdot]\|)^2$ and $(\|g_{f,\parallel}^{\theta_T}\|/\|g_f^{\theta_T}\|)^2$ respectively. If
+	\[
+		\nu_f^\sigma \;<\; \frac{\gamma_f^\sigma}{2} \qquad \text{and} \qquad \nu_f^\tau \;<\; \frac{\gamma_f^\tau}{2},
+	\]
+	then $\sigma_{\theta_S}(f) = \sigma_{\theta_T}(f)$ and $\tau_{\theta_S}(f) = \tau_{\theta_T}(f)$.
+\end{lemma}
+
+\begin{proof}
+	[To be supplied. The proof structure mirrors Lemma~4.4 of the companion note: bound the cosine and inner-product changes when restricting from $\mathbb{R}^{d_T}$ to $N(P)^\perp$ via $P^\top$, then apply the half-margin argmax-preservation argument.]
+\end{proof}
+
+\begin{definition}[At-risk feature set]
+	\label{def:atrisk}
+	A teacher feature $f$ is \emph{at-risk} under cross-dimensional projection $P$ if
+	\[
+		\nu_f^\sigma \geq \frac{\gamma_f^\sigma}{2} \quad \text{or} \quad \nu_f^\tau \geq \frac{\gamma_f^\tau}{2}.
+	\]
+	The \emph{at-risk set} is
+	\[
+		\Frisk(P) = \{ f \in \mathcal{F}_T : f \text{ is at-risk under } P \}.
+	\]
+	By Lemma~\ref{lem:cross-anchoring}, every $f \in \mathcal{F}_T \setminus \Frisk(P)$ has its source and target anchoring preserved when passing to $\theta_S$.
+\end{definition}
+
+\begin{lemma}[Offset preservation off the at-risk set]
+	\label{lem:offset-preservation}
+	Let $\theta_T$ and $\theta_S$ be cross-dimensionally equivalent via $P$. For every $f \in \mathcal{F}_T \setminus \Frisk(P)$, the unnormalized teacher offset $\widetilde{\mathcal{O}}(f; \theta_T) = E_T[\tau_{\theta_T}(f)] - E_T[\sigma_{\theta_T}(f)]$ satisfies
+	\[
+		\mathcal{O}(f; \theta_S) \;=\; \frac{\widetilde{\mathcal{O}}(f; \theta_T) P^\top}{\big\|\widetilde{\mathcal{O}}(f; \theta_T) P^\top\big\|}.
+	\]
+	Furthermore, if $\widetilde{\mathcal{O}}(f; \theta_T) \in N(P)^\perp$, then $\big\|\widetilde{\mathcal{O}}(f; \theta_T) P^\top\big\| = \mu_f^{\theta_T}$ and the offset magnitude is preserved exactly.
+\end{lemma}
+
+\begin{proof}
+	[To be supplied. The first claim follows from Lemma~\ref{lem:cross-anchoring} applied to anchor preservation, combined with the linearity of $P^\top$. The second claim is the isometry property of $P^\top$ when restricted to $N(P)^\perp$.]
+\end{proof}
+
+\begin{definition}[At-risk concentration in a pair class]
+	\label{def:atrisk-concentration}
+	For a pair class $[p] \in \mathcal{P}_{\theta_T}$ and cross-dimensional projection $P$, the \emph{at-risk concentration} is
+	\[
+		\rho_{\mathrm{risk}}([p]; P) \;=\; \big| [p] \cap \Frisk(P) \big|.
+	\]
+	The pair class $[p]$ is \emph{survivable} under $P$ if $n_{[p]} - \rho_{\mathrm{risk}}([p]; P) \geq 2$, i.e., at least two of its features have anchoring preserved under projection.
+\end{definition}
+
+\begin{theorem}[Cross-dimensional weak-form invariance]
+	\label{thm:weak-form}
+	Let $\theta_T$ and $\theta_S$ be cross-dimensionally equivalent via cross-dimensional projection $P$ (Definition~\ref{def:cross-equiv}). Then the high-multiplicity discrepancy is bounded by
+	\[
+		\Delta_{\geq 2}(\theta_T, \theta_S) \;\leq\; \mathcal{T}(P) + \mathcal{S}(P),
+	\]
+	where
+	\begin{align*}
+		\mathcal{T}(P) & = \big| \{ [p] \in \mathcal{P}_{\theta_T} : n_{[p]} \geq 2, \; n_{[p]} - \rho_{\mathrm{risk}}([p]; P) < 2 \} \big|, \\
+		\mathcal{S}(P) & = \big| \{ [p'] \in \mathcal{P}_{\theta_S} : n_{[p']}^S \geq 2, \; [p'] \notin \mathcal{P}_{\theta_T} \} \big|.
+	\end{align*}
+	The first term ($\mathcal{T}$) bounds high-multiplicity teacher pair classes that may fail to survive projection due to too many of their features being at-risk. The second term ($\mathcal{S}$) accounts for high-multiplicity pair classes \emph{created} in the student through reshuffling of at-risk teacher features.
+\end{theorem}
+
+\begin{proof}
+	[To be supplied. Sketch: Lemma~\ref{lem:cross-anchoring} guarantees that features outside $\Frisk(P)$ keep their teacher anchoring in $\theta_S$. A teacher pair class $[p]$ with $n_{[p]} \geq 2$ remains high-multiplicity in $\theta_S$ if at least 2 of its features are not at-risk, i.e., $n_{[p]} - \rho_{\mathrm{risk}}([p]; P) \geq 2$. Pair classes failing this are the candidates for being lost; they are bounded by $\mathcal{T}(P)$. The symmetric contribution $\mathcal{S}(P)$ handles new high-multiplicity classes appearing in the student, which can only arise from reshuffled at-risk features, bounded by the count of student high-multiplicity classes not present in the teacher.]
+\end{proof}
+
+\begin{remark}[Distributional sensitivity]
+	\label{rem:distributional}
+	The bound of Theorem~\ref{thm:weak-form} depends on how the at-risk features distribute across pair classes, not merely on the total $|\Frisk(P)|$. If at-risk features cluster within a small number of pair classes, those classes may collapse below the high-multiplicity threshold, contributing to $\mathcal{T}(P)$. If at-risk features spread across many pair classes, each class loses a small fraction and most remain high-multiplicity. This is structurally analogous to the distinction between global and per-cluster flip fractions in the perturbative analysis of the companion note (Remark~4.12), and motivates a corresponding empirical check: the distribution of $\rho_{\mathrm{risk}}([p]; P) / n_{[p]}$ across high-multiplicity pair classes for a candidate $P$.
+\end{remark}
+
+\begin{remark}[Empirical applicability]
+	\label{rem:empirical}
+	For a real teacher--student pair $(\theta_T, \theta_S)$, no exact cross-dimensional projection $P$ relating them is given a priori. The empirical use of Theorem~\ref{thm:weak-form} requires first estimating the optimal $P$ --- e.g., via a Procrustes-style fit minimizing $\|\theta_T P^\top - \theta_S\|_F$ over Stiefel matrices $P^\top$ --- and then evaluating the bound's right-hand side under that $P$. The framework treats the exact-equivalence assumption of Definition~\ref{def:cross-equiv} as a base case; a perturbative version that accommodates a residual $\theta_T P^\top \neq \theta_S$ remains to be developed, paralleling the structure of Section~4 of the companion note.
+\end{remark}
+
+\section{Open directions}
+\label{sec:open}
+
+\begin{itemize}
+	\item \emph{Perturbative cross-dimensional invariance.} The current framework assumes exact cross-dimensional equivalence. A natural extension introduces a residual term $\Delta = \theta_S - \theta_T P^\top$ and quantifies the discrepancy bound in terms of both $\Frisk(P)$ and $\|\Delta\|$. The interaction between null-space load and additive perturbation should mirror Section~4 of the companion note.
+
+	\item \emph{Optimal cross-dimensional projection.} For a given teacher--student pair, the choice of $P$ minimizing $\Delta_{\geq 2}$ is not necessarily the Frobenius-Procrustes optimum, since the latter does not account for anchoring margins. A principled criterion for selecting $P$ in the empirical setting is open.
+
+	\item \emph{Distributional structure of $\Frisk(P)$.} Whether at-risk features concentrate in particular pair classes, or distribute uniformly, is empirically open and determines the tightness of Theorem~\ref{thm:weak-form}.
+
+	\item \emph{Connection to representation-manifold smoothness.} The linear cross-dimensional framework here is purely algebraic. Recent work treating LLM representations as smooth Riemannian submanifolds~\citep{mabrok_2026} suggests an alternative formulation in which $P$ is replaced by a Riemannian submersion between latent semantic manifolds, with information loss quantified by the metric vertical component. This is a natural future direction with substantially heavier mathematical apparatus.
+\end{itemize}
+
+\bibliographystyle{plainnat}
+\begin{thebibliography}{9}
+	\bibitem[Mabrok(2026)]{mabrok_2026}
+	Mohamed A. Mabrok.
+	\newblock Latent semantic manifolds in large language models.
+	\newblock {\em arXiv preprint arXiv:2603.22301}, 2026.
+
+	\bibitem[Kornblith et al.(2019)]{kornblith_2019}
+	Simon Kornblith, Mohammad Norouzi, Honglak Lee, and Geoffrey Hinton.
+	\newblock Similarity of neural network representations revisited.
+	\newblock In {\em ICML}, 2019.
+
+	\bibitem[Author(YYYY)]{cluster_size_confound}
+	[Author].
+	\newblock Cluster size, not relation rank: A reanalysis of weight-derived offset clustering.
+	\newblock [Manuscript], YYYY.
+\end{thebibliography}
+
+\end{document}
+
